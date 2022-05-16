@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.musicians_shop",
+      "sha256_cert_fingerprints": [
+        "73:CF:57:F2:25:DA:20:72:58:69:7E:21:68:A2:B9:63:AB:BC:A7:A4:9A:58:A2:36:11:50:AB:81:A9:FD:38:2A"
+      ]
+    }
+  }
+]
