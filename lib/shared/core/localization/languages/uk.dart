@@ -15,4 +15,13 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.author : 'Жеребцов Олександр',
   StringsKeys.usingFlutter : 'використовуючи Flutter',
   StringsKeys.version: 'версія',
+  StringsKeys.createAnAccount: 'Створити акаунт',
+  StringsKeys.signUp: 'Увійти',
+  StringsKeys.email: 'Пошта',
+  StringsKeys.password: 'Пароль',
+  StringsKeys.continueText: 'Далі',
+  StringsKeys.somethingWentWrong: 'Сталася помилка...',
+  StringsKeys.firstName: 'Ім’я',
+  StringsKeys.lastName: 'Прізвище',
+  StringsKeys.informationAboutYourself: 'Інформація про себе',
 };

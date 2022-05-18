@@ -10,8 +10,9 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     await delayedFunc(milliseconds: 1600);
-    navToMain();
+    goToStart();
   }
 
-  void navToMain() => Get.offAllNamed(AppRoutes.main);
+  void goToStart() => Get.offAllNamed(AppRoutes.start);
+  void goToMain() => Get.offAllNamed(AppRoutes.main);
 }

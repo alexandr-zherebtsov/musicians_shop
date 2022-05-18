@@ -53,6 +53,7 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     child: Text(
                       StringsKeys.author.tr,
                       style: Get.theme.textTheme.headline2,

@@ -15,4 +15,13 @@ const Map<String, String> en = <String, String>{
   StringsKeys.author : 'Alexandr Zherebtsov',
   StringsKeys.usingFlutter : 'using Flutter',
   StringsKeys.version: 'version',
+  StringsKeys.createAnAccount: 'Create an account',
+  StringsKeys.signUp: 'Sign up',
+  StringsKeys.email: 'Email',
+  StringsKeys.password: 'Password',
+  StringsKeys.continueText: 'Continue',
+  StringsKeys.somethingWentWrong: 'Something went wrong...',
+  StringsKeys.firstName: 'First name',
+  StringsKeys.lastName: 'Last name',
+  StringsKeys.informationAboutYourself: 'Information about yourself',
 };

@@ -13,4 +13,13 @@ class StringsKeys {
   static const String createdBy = 'createdBy';
   static const String author = 'author';
   static const String usingFlutter = 'usingFlutter';
+  static const String createAnAccount = 'createAnAccount';
+  static const String signUp = 'signUp';
+  static const String email = 'email';
+  static const String password = 'password';
+  static const String continueText = 'continueText';
+  static const String somethingWentWrong = 'somethingWentWrong';
+  static const String firstName = 'firstName';
+  static const String lastName = 'lastName';
+  static const String informationAboutYourself = 'InformationAboutYourself';
 }
