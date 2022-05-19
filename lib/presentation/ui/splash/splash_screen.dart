@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/splash/splash_controller.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
+import 'package:musicians_shop/shared/core/localization/keys.dart';
 
 class SplashScreen extends GetView<SplashController> {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class SplashScreen extends GetView<SplashController> {
                 bottom: 60.0,
               ),
               child: Text(
-                controller.title,
+                StringsKeys.musicianShop.tr,
                 style: Get.theme.textTheme.headline1,
                 textAlign: TextAlign.center,
               ),

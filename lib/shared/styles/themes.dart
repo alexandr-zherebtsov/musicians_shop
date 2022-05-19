@@ -61,6 +61,11 @@ class AppThemes {
         fontSize: 24,
         fontWeight: FontWeight.w400,
       ),
+      headline4: TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+      ),
       button: TextStyle(
         color: Colors.black,
         fontSize: 16,
@@ -133,7 +138,7 @@ class AppThemes {
       ),
       headline4: TextStyle(
         color: Colors.white,
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
       button: TextStyle(

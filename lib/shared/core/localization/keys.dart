@@ -22,4 +22,14 @@ class StringsKeys {
   static const String firstName = 'firstName';
   static const String lastName = 'lastName';
   static const String informationAboutYourself = 'InformationAboutYourself';
+  static const String signOut = 'signOut';
+  static const String edit = 'edit';
+  static const String deleteAccount = 'deleteAccount';
+  static const String confirmYourPassword = 'confirmYourPassword';
+  static const String cancel = 'cancel';
+  static const String done = 'done';
+  static const String phoneNumber = 'phoneNumber';
+  static const String city = 'city';
+  static const String restart = 'restart';
+  static const String aboutYourself = 'aboutYourself';
 }

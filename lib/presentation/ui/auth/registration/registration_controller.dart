@@ -1,9 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/data/repositories/auth/auth_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
+import 'package:musicians_shop/shared/constants/reg_exp.dart';
+import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class RegistrationController extends GetxController {
+  final AuthRepository _authRepository = Get.find<AuthRepository>();
+
   final TextEditingController emailTC = TextEditingController();
   final TextEditingController passwordTC = TextEditingController();
 
@@ -15,10 +21,25 @@ class RegistrationController extends GetxController {
   }
 
   void done() async {
-    screenLoader = true;
-    await delayedFunc();
-    goToUserData();
-    screenLoader = false;
+    if (validator()) {
+      screenLoader = true;
+      final User? res = await _authRepository.registerEmailPassword(
+        email: emailTC.text,
+        password: passwordTC.text,
+      );
+      screenLoader = false;
+      if (res != null) {
+        goToUserData();
+      } else {
+        showToast(StringsKeys.somethingWentWrong.tr);
+      }
+    } else {
+      showToast(StringsKeys.somethingWentWrong.tr);
+    }
+  }
+
+  bool validator() {
+    return AppRegExp.emailRegexp.hasMatch(clearAndTrim(emailTC.text)) && passwordTC.text.length > 3;
   }
 
   void unFocus() => Get.focusScope?.unfocus();

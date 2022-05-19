@@ -7,7 +7,7 @@ import 'package:musicians_shop/presentation/ui/main/components/main_screen_table
 import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart';
 import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/presentation/ui/posts/posts_screen.dart';
-import 'package:musicians_shop/presentation/ui/profile/profile_screen.dart';
+import 'package:musicians_shop/presentation/ui/profile/my_profile/my_profile_screen.dart';
 import 'package:musicians_shop/presentation/ui/statistic/statistic_screen.dart';
 import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 
@@ -23,12 +23,45 @@ class MainScreen extends StatelessWidget {
           onWillPop: controller.willPopScope,
           child: _MainScreen(
             controller: controller,
-            body: _buildBody(controller.screenType),
           ),
         );
       },
     );
   }
+}
+
+class _MainScreen extends GetResponsiveView<MainController> {
+  @override
+  final MainController controller;
+
+  _MainScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget desktop() => MainScreenDesktop(
+    controller: controller,
+    body: _buildBody(controller.screenType),
+  );
+
+  @override
+  Widget tablet() => MainScreenTablet(
+    controller: controller,
+    body: _buildBody(controller.screenType),
+  );
+
+  @override
+  Widget phone() => MainScreenMobile(
+    controller: controller,
+    body: _buildBody(controller.screenType),
+  );
+
+  @override
+  Widget builder() => MainScreenMobile(
+    controller: controller,
+    body: _buildBody(controller.screenType),
+  );
 
   Widget _buildBody(MainScreenEnums screenType) {
     switch (screenType) {
@@ -39,45 +72,11 @@ class MainScreen extends StatelessWidget {
       case MainScreenEnums.statistic:
         return const StatisticScreen();
       case MainScreenEnums.profile:
-        return const ProfileScreen();
+        return MyProfileScreen(
+          screen: screen,
+        );
       default:
         return const AppErrorWidget();
     }
   }
-}
-
-class _MainScreen extends GetResponsiveView<MainController> {
-  @override
-  final MainController controller;
-  final Widget body;
-
-  _MainScreen({
-    Key? key,
-    required this.controller,
-    required this.body,
-  }) : super(key: key);
-
-  @override
-  Widget desktop() => MainScreenDesktop(
-    controller: controller,
-    body: body,
-  );
-
-  @override
-  Widget tablet() => MainScreenTablet(
-    controller: controller,
-    body: body,
-  );
-
-  @override
-  Widget phone() => MainScreenMobile(
-    controller: controller,
-    body: body,
-  );
-
-  @override
-  Widget builder() => MainScreenMobile(
-    controller: controller,
-    body: body,
-  );
 }

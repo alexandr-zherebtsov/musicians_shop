@@ -1,4 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
+
 class AppValues {
+  /// Firebase Options
+  static const FirebaseOptions firebaseOptions = FirebaseOptions(
+    apiKey: 'AIzaSyDBhPNzsu450AraKSTxED4vv73I0teR4FU',
+    authDomain: 'g-shop-4fe02.firebaseapp.com',
+    projectId: 'g-shop-4fe02',
+    storageBucket: 'g-shop-4fe02.appspot.com',
+    messagingSenderId: '670066810894',
+    appId: '1:670066810894:web:90e98f3d393ac6b41fdc5f',
+  );
+
   /// Lang Code en
   static const String langCodeEN = 'en';
 
@@ -16,4 +28,7 @@ class AppValues {
 
   /// Hero tag 'heroMusicNoteOutlined'
   static const String heroMusicNoteOutlined = 'heroMusicNoteOutlined';
+
+  /// Collection users
+  static const String collectionUsers = 'users';
 }

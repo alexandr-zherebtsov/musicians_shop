@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/auth/registration/registration_controller.dart';
 import 'package:musicians_shop/presentation/ui/auth/widgets/auth_header.dart';
-import 'package:musicians_shop/presentation/ui/auth/widgets/auth_text_field.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
+import 'package:musicians_shop/shared/widgets/app_text_field.dart';
 
 class RegistrationScreen extends GetResponsiveView<RegistrationController> {
   RegistrationScreen({Key? key}) : super(key: key);
@@ -34,13 +34,13 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          AuthTextField(
+                          AppTextField(
                             controller: controller.emailTC,
                             hint: StringsKeys.email.tr,
                             keyboardType:TextInputType.emailAddress,
                             suffixIcon: Icons.mail,
                           ),
-                          AuthTextField(
+                          AppTextField(
                             controller: controller.passwordTC,
                             hint: StringsKeys.password.tr,
                             keyboardType:TextInputType.visiblePassword,

@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 
 class AppTextButton extends StatelessWidget {
   final String title;
-  final void Function() onTap;
+  final void Function()? onTap;
+  final Color? textColor;
 
   const AppTextButton({
     Key? key,
     required this.title,
     required this.onTap,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class AppTextButton extends StatelessWidget {
         title,
         style: TextStyle(
           fontSize: 18,
-          color: Get.theme.primaryColor,
+          color: textColor ?? Get.theme.primaryColor,
           fontWeight: FontWeight.w600,
         ),
       ),

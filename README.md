@@ -5,7 +5,6 @@
 1 - Android, min version 6.0 (API level 23)
 2 - iOS, target version 15.2
 3 - Web
-4 - Windows
 ```
 
 ### Architecture

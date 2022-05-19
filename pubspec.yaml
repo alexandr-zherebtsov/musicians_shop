@@ -17,9 +17,11 @@ dependencies:
   firebase_core: ^1.17.0
   firebase_auth: ^3.3.18
   cloud_firestore: ^3.1.15
+  flutterfire_cli: ^0.2.2+2
   firebase_storage: ^10.2.16
 
   # UI
+  fluttertoast: ^8.0.9
   cupertino_icons: ^1.0.4
 
   # Utils

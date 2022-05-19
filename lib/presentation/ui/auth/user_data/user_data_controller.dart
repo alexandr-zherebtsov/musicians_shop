@@ -1,11 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/data/repositories/user/user_repository.dart';
+import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
+import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class UserDataController extends GetxController {
-  final TextEditingController firstName = TextEditingController();
-  final TextEditingController lastName = TextEditingController();
+  final UserRepository _userRepository = Get.find<UserRepository>();
+
+  final TextEditingController firstNameTC = TextEditingController();
+  final TextEditingController lastNameTC = TextEditingController();
+  final TextEditingController phoneNumberTC = TextEditingController();
+  final TextEditingController cityTC = TextEditingController();
 
   bool _screenLoader = false;
   bool get screenLoader => _screenLoader;
@@ -15,10 +24,36 @@ class UserDataController extends GetxController {
   }
 
   void done() async {
-    screenLoader = true;
-    await delayedFunc();
-    goToMain();
-    screenLoader = false;
+    if (validator()) {
+      screenLoader = true;
+      UserModel? res = await _userRepository.createUser(setData());
+      if (res != null) {
+        goToMain();
+      } else {
+        showToast(StringsKeys.somethingWentWrong.tr);
+      }
+      screenLoader = false;
+    } else {
+      showToast(StringsKeys.somethingWentWrong.tr);
+    }
+  }
+
+  UserModel setData() {
+    return UserModel(
+      id: FirebaseAuth.instance.currentUser!.uid,
+      email: FirebaseAuth.instance.currentUser!.email,
+      name: firstNameTC.text.trim(),
+      surname: lastNameTC.text.trim(),
+      phoneNumber: '+' + phoneNumberTC.text,
+      city: cityTC.text.trim(),
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    );
+  }
+
+  bool validator() {
+    return firstNameTC.text.isNotEmpty && lastNameTC.text.isNotEmpty &&
+        phoneNumberTC.text.length > 7 && cityTC.text.isNotEmpty;
   }
 
   void unFocus() => Get.focusScope?.unfocus();

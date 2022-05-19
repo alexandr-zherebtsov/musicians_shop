@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 
-class AuthTextField extends StatelessWidget {
+class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
+  final String? prefix;
   final IconData? suffixIcon;
   final TextInputType keyboardType;
   final bool obscureText;
   final EdgeInsets padding;
+  final List<TextInputFormatter>? inputFormatters;
 
-  const AuthTextField({
+  const AppTextField({
     Key? key,
     required this.controller,
     required this.hint,
+    this.prefix,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.padding = const EdgeInsets.symmetric(horizontal: 22),
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -31,8 +36,12 @@ class AuthTextField extends StatelessWidget {
         autocorrect: false,
         obscureText: obscureText,
         autofocus: false,
+        inputFormatters: inputFormatters ?? [
+          LengthLimitingTextInputFormatter(100),
+        ],
         decoration: _textFieldStyle(
           hint: hint,
+          prefix: prefix,
           suffixIcon: suffixIcon,
         ),
       ),
@@ -41,6 +50,7 @@ class AuthTextField extends StatelessWidget {
 
   InputDecoration _textFieldStyle({
     required String hint,
+    required String? prefix,
     required IconData? suffixIcon,
     EdgeInsets contentPadding = const EdgeInsets.only(left: 12)
   }) {
@@ -52,6 +62,20 @@ class AuthTextField extends StatelessWidget {
       contentPadding: contentPadding,
       constraints: const BoxConstraints(
         maxHeight: 64,
+      ),
+      prefixIcon: prefix == null ? null : Padding(
+        padding: const EdgeInsets.only(
+          left: 12,
+          right: 2,
+        ),
+        child: Text(
+          prefix,
+          style: Get.theme.textTheme.subtitle1
+        ),
+      ),
+      prefixIconConstraints: const BoxConstraints(
+        maxHeight: 225,
+        minHeight: 22,
       ),
       suffixIcon: suffixIcon == null ? null : Icon(suffixIcon),
       border: _outlineInputBorder(),
