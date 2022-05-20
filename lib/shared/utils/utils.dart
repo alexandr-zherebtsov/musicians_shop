@@ -1,10 +1,13 @@
 import 'dart:io' show Platform;
+import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:mime/mime.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
+import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:musicians_shop/shared/styles/themes.dart';
 
 void showToast(String message, {bool red = false}) {
@@ -71,6 +74,77 @@ String formatPhone(String? phoneNumber) {
     }
   }
   return res;
+}
+
+String getFileUrl(FileTypeEnums type) {
+  return getFileFolder(type) + generateId(getFileTag(type));
+}
+
+String generateId(String tag) {
+  return tag + (1000 + math.Random().nextInt(100)).toString() + DateTime.now().toString().replaceAll(' ', '').replaceAll('+', '')
+      .replaceAll('-', '').replaceAll(':', '').replaceAll(',', '').replaceAll('.', '')
+      + (1000000000 + math.Random().nextInt(10000000)).toString();
+}
+
+String getFileTag(FileTypeEnums type) {
+  switch(type){
+    case FileTypeEnums.advertPhoto:
+      return 'AP';
+    case FileTypeEnums.userPhoto:
+      return 'UP';
+    default:
+      return '';
+  }
+}
+
+String getFileFolder(FileTypeEnums type) {
+  switch(type){
+    case FileTypeEnums.advertPhoto:
+      return 'adverts/';
+    case FileTypeEnums.userPhoto:
+      return 'users/';
+    default:
+      return '';
+  }
+}
+
+String getFileType({
+  required String fileName,
+  required FileTypeEnums type,
+}) {
+  switch(type){
+    case FileTypeEnums.advertPhoto:
+      return 'image/' + getFileFormatFromString(fileName);
+    case FileTypeEnums.userPhoto:
+      return 'image/' + getFileFormatFromString(fileName);
+    default:
+      return '';
+  }
+}
+
+String getFileFormatFromString(
+  String filename, {
+  bool dot = false,
+}) {
+  try {
+    return (dot ? '.' : '') + filename.split('.').last;
+  } catch (_) {
+    return '';
+  }
+}
+
+String getFileFormatFromFile({
+  required String path,
+  required String name,
+  bool dot = false,
+}) {
+  try {
+    return '.' + lookupMimeType(
+      path,
+    ).toString().split('/')[1];
+  } catch (_) {
+    return getFileFormatFromString(name);
+  }
 }
 
 Future<void> delayedFunc({int milliseconds = 1000}) async {

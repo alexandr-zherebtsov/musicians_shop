@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/auth/sign_up/sign_up_controller.dart';
 import 'package:musicians_shop/presentation/ui/auth/widgets/auth_header.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
@@ -28,9 +29,7 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                 Expanded(
                   child: Center(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: 600,
-                      ),
+                      constraints: AppStyles.constraints,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -60,9 +59,7 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                 ),
                 Center(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxWidth: 600,
-                    ),
+                    constraints: AppStyles.constraints,
                     child: Padding(
                       padding: screen.isPhone ? const EdgeInsets.only(
                         top: 6.0,

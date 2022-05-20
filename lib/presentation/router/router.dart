@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/bindings/about_binding.dart';
 import 'package:musicians_shop/presentation/bindings/create_binding.dart';
+import 'package:musicians_shop/presentation/bindings/edit_profile_binding.dart';
 import 'package:musicians_shop/presentation/bindings/main_binding.dart';
 import 'package:musicians_shop/presentation/bindings/registration_binding.dart';
 import 'package:musicians_shop/presentation/bindings/sign_up_binding.dart';
@@ -15,6 +16,7 @@ import 'package:musicians_shop/presentation/ui/auth/start/start_screen.dart';
 import 'package:musicians_shop/presentation/ui/auth/user_data/user_data_screen.dart';
 import 'package:musicians_shop/presentation/ui/create/create_screen.dart';
 import 'package:musicians_shop/presentation/ui/main/main_screen.dart';
+import 'package:musicians_shop/presentation/ui/profile/edit_profile/edit_profile_screen.dart';
 import 'package:musicians_shop/presentation/ui/splash/splash_screen.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
@@ -60,6 +62,12 @@ class AppRouter {
       name: AppRoutes.create,
       page: () => const CreateScreen(),
       binding: CreateBinding(),
+      transition: _transition(),
+    ),
+    GetPage(
+      name: AppRoutes.editProfile,
+      page: () => const EditProfileScreen(),
+      binding: EditProfileBinding(),
       transition: _transition(),
     ),
     GetPage(

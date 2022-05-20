@@ -8,5 +8,7 @@ abstract class UserRepository extends BaseRepository {
   Future<UserModel?> createUser(UserModel user);
 
   Future<bool> deleteUserData(String id);
+
+  Future<bool> editUserData(UserModel user);
 }
 

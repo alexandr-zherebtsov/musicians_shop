@@ -1,47 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/presentation/ui/auth/user_data/user_data_controller.dart';
-import 'package:musicians_shop/presentation/ui/auth/widgets/auth_header.dart';
+import 'package:musicians_shop/presentation/ui/profile/edit_profile/edit_profile_controller.dart';
 import 'package:musicians_shop/shared/constants/reg_exp.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
+import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
+import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
 
-class UserDataScreen extends GetResponsiveView<UserDataController> {
-  UserDataScreen({Key? key}) : super(key: key);
+class EditProfileScreen extends GetView<EditProfileController> {
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget builder() {
-    return GetBuilder<UserDataController>(
-      autoRemove: false,
-      builder: (_) {
-        return GestureDetector(
-          onTap: controller.unFocus,
-          child: Scaffold(
-            body: controller.screenLoader ? const AppProgress() : SafeArea(
-              child: Column(
-                children: [
-                  AuthHeader(
-                    title: StringsKeys.informationAboutYourself.tr,
-                    screen: screen,
-                    hideBack: true,
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: AppStyles.constraints,
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: controller.unFocus,
+      child: Scaffold(
+        appBar: AppBarWidget(
+          title: StringsKeys.editProfile.tr,
+        ),
+        body: GetBuilder<EditProfileController>(
+          autoRemove: false,
+          builder: (_) {
+            if (controller.screenLoader) {
+              return const AppProgress();
+            } else if (controller.screenError) {
+              return const AppErrorWidget();
+            } else {
+              return Center(
+                child: ConstrainedBox(
+                  constraints: AppStyles.constraints,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Stack(
+                      children: [
+                        SingleChildScrollView(
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AppTextField(
                                 controller: controller.firstNameTC,
                                 hint: StringsKeys.firstName.tr,
                                 padding: const EdgeInsets.only(
-                                  top: 8,
+                                  top: 30,
                                   left: 22,
                                   right: 22,
                                 ),
@@ -73,39 +78,30 @@ class UserDataScreen extends GetResponsiveView<UserDataController> {
                                   top: 30,
                                   left: 22,
                                   right: 22,
-                                  bottom: 6,
+                                  bottom: 80,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 16,
+                          child: AppButton(
+                            title: StringsKeys.save.tr,
+                            onTap: controller.save,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Center(
-                    child: ConstrainedBox(
-                      constraints: AppStyles.constraints,
-                      child: Padding(
-                        padding: screen.isPhone ? const EdgeInsets.only(
-                          top: 6.0,
-                          bottom: 8.0,
-                        ) : const EdgeInsets.only(
-                          top: 6.0,
-                          bottom: 22.0,
-                        ),
-                        child: AppButton(
-                          title: StringsKeys.continueText.tr,
-                          onTap: controller.done,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+                ),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }

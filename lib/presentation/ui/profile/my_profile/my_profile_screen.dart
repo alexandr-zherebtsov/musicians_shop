@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/profile/my_profile/my_profile_controller.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/profile_header.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/user_info_item.dart';
+import 'package:musicians_shop/presentation/ui/profile/widgets/user_photo_dialog.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
@@ -42,10 +43,14 @@ class MyProfileScreen extends GetView<MyProfileController> {
                       ProfileHeader(
                         screen: screen,
                         userIcon: controller.user?.photo,
-                        firstName: controller.user?.name,
-                        lastName: controller.user?.surname,
+                        firstName: controller.user?.firstName,
+                        lastName: controller.user?.lastName,
                         city: controller.user?.city,
-                        onTapIcon: controller.onTapIcon,
+                        onTapIcon: () => showAvatarDialog(
+                          isBottomSheet: screen.isPhone,
+                          change: controller.changeAvatar,
+                          delete: (controller.user?.photo?? '').isEmpty ? null : controller.deleteAvatar,
+                        ),
                         onTapEdit: controller.onTapEdit,
                       ),
                       UserInfoItem(
@@ -54,7 +59,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                       ),
                       UserInfoItem(
                         title: StringsKeys.phoneNumber.tr,
-                        data: formatPhone(controller.user?.phoneNumber),
+                        data: formatPhone(controller.user?.phone),
                       ),
                       UserInfoItem(
                         title: StringsKeys.aboutYourself.tr,

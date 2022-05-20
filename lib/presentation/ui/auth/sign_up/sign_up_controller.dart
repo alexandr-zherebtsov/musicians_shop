@@ -40,7 +40,7 @@ class SignUpController extends GetxController {
   }
 
   bool validator() {
-    return AppRegExp.emailRegexp.hasMatch(clearAndTrim(emailTC.text)) && passwordTC.text.length > 3;
+    return AppRegExp.emailRegExp.hasMatch(clearAndTrim(emailTC.text)) && passwordTC.text.length > 3;
   }
 
   void unFocus() => Get.focusScope?.unfocus();

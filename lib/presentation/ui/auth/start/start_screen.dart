@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/auth/start/start_controller.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
 
 class StartScreen extends GetView<StartController> {
@@ -47,9 +48,7 @@ class StartScreen extends GetView<StartController> {
               flex: 4,
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 600,
-                  ),
+                  constraints: AppStyles.constraints,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

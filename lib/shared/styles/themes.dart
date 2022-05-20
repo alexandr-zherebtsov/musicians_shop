@@ -4,6 +4,7 @@ import 'package:musicians_shop/shared/styles/colors.dart';
 
 class AppThemes {
   static final ThemeData light = ThemeData(
+    useMaterial3: true,
     primaryColor: Colors.pink,
     primarySwatch: Colors.pink,
     brightness: Brightness.light,
@@ -66,6 +67,11 @@ class AppThemes {
         fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
+      headline5: TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+      ),
       button: TextStyle(
         color: Colors.black,
         fontSize: 16,
@@ -80,6 +86,7 @@ class AppThemes {
     dividerColor: AppColors.mediumGray,
   );
   static final ThemeData dark = ThemeData(
+    useMaterial3: true,
     primaryColor: Colors.pink,
     primarySwatch: Colors.pink,
     brightness: Brightness.dark,
@@ -139,6 +146,11 @@ class AppThemes {
       headline4: TextStyle(
         color: Colors.white,
         fontSize: 20,
+        fontWeight: FontWeight.w400,
+      ),
+      headline5: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
         fontWeight: FontWeight.w400,
       ),
       button: TextStyle(

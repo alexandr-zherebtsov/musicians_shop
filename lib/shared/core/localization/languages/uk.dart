@@ -34,4 +34,9 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.city: 'Місто',
   StringsKeys.restart: 'Перезавантажити',
   StringsKeys.aboutYourself: 'Про себе',
+  StringsKeys.save: 'Зберегти',
+  StringsKeys.editProfile: 'Редагувати профіль',
+  StringsKeys.changeAvatar: 'Змінити світлину',
+  StringsKeys.newAvatar: 'Нова світлина',
+  StringsKeys.deleteAvatar: 'Видалити світлину',
 };

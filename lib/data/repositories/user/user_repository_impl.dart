@@ -20,4 +20,9 @@ class UserRepositoryImpl extends UserRepository {
   Future<bool> deleteUserData(String id) async {
     return await _remoteDataSource.deleteUserData(id);
   }
+
+  @override
+  Future<bool> editUserData(UserModel user) async {
+    return await _remoteDataSource.editUserData(user);
+  }
 }

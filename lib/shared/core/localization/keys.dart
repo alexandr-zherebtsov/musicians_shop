@@ -32,4 +32,9 @@ class StringsKeys {
   static const String city = 'city';
   static const String restart = 'restart';
   static const String aboutYourself = 'aboutYourself';
+  static const String save = 'save';
+  static const String editProfile = 'editProfile';
+  static const String changeAvatar = 'changeAvatar';
+  static const String newAvatar = 'newAvatar';
+  static const String deleteAvatar = 'deleteAvatar';
 }

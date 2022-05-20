@@ -34,4 +34,9 @@ const Map<String, String> en = <String, String>{
   StringsKeys.city: 'City',
   StringsKeys.restart: 'Restart',
   StringsKeys.aboutYourself: 'About yourself',
+  StringsKeys.save: 'Save',
+  StringsKeys.editProfile: 'Edit profile',
+  StringsKeys.changeAvatar: 'Change Avatar',
+  StringsKeys.newAvatar: 'New Avatar',
+  StringsKeys.deleteAvatar: 'Delete Avatar',
 };

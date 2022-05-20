@@ -36,7 +36,7 @@ class UserInfoItem extends StatelessWidget {
               ),
               child: Text(
                 data ?? '',
-                style: Get.theme.textTheme.headline4,
+                style: Get.theme.textTheme.headline5,
               ),
             ),
           ],

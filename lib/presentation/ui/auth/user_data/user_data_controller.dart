@@ -42,9 +42,9 @@ class UserDataController extends GetxController {
     return UserModel(
       id: FirebaseAuth.instance.currentUser!.uid,
       email: FirebaseAuth.instance.currentUser!.email,
-      name: firstNameTC.text.trim(),
-      surname: lastNameTC.text.trim(),
-      phoneNumber: '+' + phoneNumberTC.text,
+      firstName: firstNameTC.text.trim(),
+      lastName: lastNameTC.text.trim(),
+      phone: '+' + phoneNumberTC.text,
       city: cityTC.text.trim(),
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
@@ -53,7 +53,7 @@ class UserDataController extends GetxController {
 
   bool validator() {
     return firstNameTC.text.isNotEmpty && lastNameTC.text.isNotEmpty &&
-        phoneNumberTC.text.length > 7 && cityTC.text.isNotEmpty;
+        phoneNumberTC.text.length > 9 && cityTC.text.isNotEmpty;
   }
 
   void unFocus() => Get.focusScope?.unfocus();

@@ -1,0 +1,4 @@
+enum FileTypeEnums {
+  userPhoto,
+  advertPhoto,
+}
