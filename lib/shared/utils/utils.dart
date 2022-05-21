@@ -33,7 +33,7 @@ bool isNotMobile() {
   }
 }
 
-ThemeData getTheme() => Get.isPlatformDarkMode ? AppThemes.dark : AppThemes.dark;
+ThemeData getTheme() => Get.isPlatformDarkMode ? AppThemes.dark : AppThemes.light;
 
 String getLangCode() {
   switch (Get.deviceLocale?.languageCode?? AppValues.langCodeBasic) {
@@ -87,7 +87,7 @@ String generateId(String tag) {
 }
 
 String getFileTag(FileTypeEnums type) {
-  switch(type){
+  switch (type) {
     case FileTypeEnums.advertPhoto:
       return 'AP';
     case FileTypeEnums.userPhoto:
@@ -98,7 +98,7 @@ String getFileTag(FileTypeEnums type) {
 }
 
 String getFileFolder(FileTypeEnums type) {
-  switch(type){
+  switch (type) {
     case FileTypeEnums.advertPhoto:
       return 'adverts/';
     case FileTypeEnums.userPhoto:
@@ -112,7 +112,7 @@ String getFileType({
   required String fileName,
   required FileTypeEnums type,
 }) {
-  switch(type){
+  switch (type) {
     case FileTypeEnums.advertPhoto:
       return 'image/' + getFileFormatFromString(fileName);
     case FileTypeEnums.userPhoto:

@@ -31,4 +31,7 @@ class AppValues {
 
   /// Collection users
   static const String collectionUsers = 'users';
+
+  /// Collection adverts
+  static const String collectionAdverts = 'adverts';
 }

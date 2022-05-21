@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/splash/splash_controller.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/styles.dart';
 
 class SplashScreen extends GetView<SplashController> {
   const SplashScreen({Key? key}) : super(key: key);
@@ -34,10 +35,13 @@ class SplashScreen extends GetView<SplashController> {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(
-              width: 220,
-              child: LinearProgressIndicator(
-                minHeight: 8,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(AppStyles.clipRadius),
+              child: const SizedBox(
+                width: 220,
+                child: LinearProgressIndicator(
+                  minHeight: 8,
+                ),
               ),
             ),
           ],

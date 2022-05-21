@@ -7,5 +7,6 @@ class AppRoutes {
   static const String main = '/MainScreen';
   static const String create = '/CreateScreen';
   static const String editProfile = '/EditProfileScreen';
+  static const String advert = '/AdvertScreen';
   static const String about = '/AboutScreen';
 }

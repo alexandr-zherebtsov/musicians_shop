@@ -1,0 +1,114 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/presentation/ui/main/widgets/likes_widget.dart';
+import 'package:musicians_shop/presentation/ui/main/widgets/price_widget.dart';
+import 'package:musicians_shop/shared/styles/styles.dart';
+import 'package:musicians_shop/shared/widgets/app_network_image.dart';
+
+class AdvertCard extends StatelessWidget {
+  final ResponsiveScreen screen;
+  final AdvertModel advert;
+  final String uid;
+  final void Function() onTapCard;
+  final void Function() onTapLike;
+
+  const AdvertCard({
+    Key? key,
+    required this.screen,
+    required this.advert,
+    required this.uid,
+    required this.onTapCard,
+    required this.onTapLike,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 1.4,
+      clipBehavior: Clip.hardEdge,
+      margin: screen.isPhone ? const EdgeInsets.symmetric(
+        vertical: 6.0,
+        horizontal: 12.0,
+      ) : const EdgeInsets.symmetric(
+        vertical: 14.0,
+        horizontal: 28.0,
+      ),
+      child: InkWell(
+        onTap: onTapCard,
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 12.0,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(AppStyles.clipRadius),
+                      child: SizedBox(
+                        height: 140,
+                        width: 140,
+                        child: AppNetworkImage(
+                          url: advert.images?[0] ?? '',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 140,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            advert.headline ?? '',
+                            style: Get.theme.textTheme.headline4,
+                            softWrap: false,
+                            overflow: kIsWeb ? TextOverflow.ellipsis : TextOverflow.fade,
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                advert.description ?? '',
+                                style: Get.theme.textTheme.bodyText1,
+                                softWrap: true,
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LikesWidget(
+                      likes: advert.likes?.length ?? 0,
+                      liked: advert.likes?.contains(uid) ?? false,
+                      onTap: onTapLike,
+                    ),
+                    PriceWidget(
+                      price: advert.price,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

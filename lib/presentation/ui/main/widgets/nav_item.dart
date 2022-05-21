@@ -140,7 +140,7 @@ String _getTitle(MainScreenEnums screenType) {
     case MainScreenEnums.home:
       return StringsKeys.home.tr;
     case MainScreenEnums.posts:
-      return StringsKeys.posts.tr;
+      return StringsKeys.adverts.tr;
     case MainScreenEnums.create:
       return StringsKeys.create.tr;
     case MainScreenEnums.statistic:

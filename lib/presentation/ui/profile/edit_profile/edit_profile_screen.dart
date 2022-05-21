@@ -30,15 +30,15 @@ class EditProfileScreen extends GetView<EditProfileController> {
             } else if (controller.screenError) {
               return const AppErrorWidget();
             } else {
-              return Center(
-                child: ConstrainedBox(
-                  constraints: AppStyles.constraints,
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Stack(
-                      children: [
-                        SingleChildScrollView(
+              return SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: AppStyles.constraints,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -84,18 +84,23 @@ class EditProfileScreen extends GetView<EditProfileController> {
                             ],
                           ),
                         ),
-                        Positioned(
-                          left: 0,
-                          right: 0,
-                          bottom: 16,
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 16,
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: AppStyles.constraints,
                           child: AppButton(
                             title: StringsKeys.save.tr,
                             onTap: controller.save,
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               );
             }

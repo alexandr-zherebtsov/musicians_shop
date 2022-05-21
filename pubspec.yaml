@@ -22,6 +22,7 @@ dependencies:
 
   # UI
   fluttertoast: ^8.0.9
+  carousel_slider: ^4.1.1
   cupertino_icons: ^1.0.4
 
   # Utils

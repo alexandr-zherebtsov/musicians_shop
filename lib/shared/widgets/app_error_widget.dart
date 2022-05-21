@@ -4,10 +4,12 @@ import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/widgets/app_text_button.dart';
 
 class AppErrorWidget extends StatelessWidget {
+  final String title;
   final void Function()? refresh;
 
   const AppErrorWidget({
     Key? key,
+    this.title = StringsKeys.somethingWentWrong,
     this.refresh,
   }) : super(key: key);
 
@@ -22,7 +24,7 @@ class AppErrorWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                StringsKeys.somethingWentWrong.tr,
+                title.tr,
                 style: Get.theme.textTheme.bodyText1,
               ),
               Offstage(

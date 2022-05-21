@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 
@@ -32,4 +33,12 @@ abstract class RemoteDataSource {
   });
 
   Future<bool> deleteFile(String fileUrl);
+
+  Future<List<AdvertModel>> getAdverts();
+
+  Future<bool> editAdvert(AdvertModel advert);
+
+  Future<List<AdvertModel>> getMyAdverts(String uid);
+
+  Future<List<AdvertModel>> getLikedAdverts(String uid);
 }

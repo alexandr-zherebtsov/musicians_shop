@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 import 'package:musicians_shop/data/sources/remote_data_source.dart';
+import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
@@ -79,7 +80,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       return await _db.collection(
         AppValues.collectionUsers,
       ).doc(uid).get().then((DocumentSnapshot snapshot) {
-        Object? res = snapshot.data();
+        final Object? res = snapshot.data();
         if (res != null) {
           return UserModel.fromJson(res as Map<String, dynamic>);
         } else {
@@ -185,6 +186,67 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     } catch (e) {
       log(e.toString());
       return false;
+    }
+  }
+
+  @override
+  Future<List<AdvertModel>> getAdverts() async {
+    try {
+      final QuerySnapshot qs = await _db.collection(
+        AppValues.collectionAdverts,
+      ).orderBy('updatedAt').get();
+      final List<AdvertModel> res = (qs.docs).map((e) {
+        return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
+      }).toList();
+      return res;
+    } catch (e) {
+      log(e.toString());
+      return <AdvertModel>[];
+    }
+  }
+
+  @override
+  Future<bool> editAdvert(AdvertModel advert) async {
+    try {
+      await _db.collection(
+        AppValues.collectionAdverts,
+      ).doc(advert.id).update(advert.toJson());
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
+  Future<List<AdvertModel>> getMyAdverts(String uid) async {
+    try {
+      final QuerySnapshot qs = await _db.collection(
+        AppValues.collectionAdverts,
+      ).where('uid', isEqualTo: uid).orderBy('updatedAt').get();
+      final List<AdvertModel> res = (qs.docs).map((e) {
+        return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
+      }).toList();
+      return res;
+    } catch (e) {
+      log(e.toString());
+      return <AdvertModel>[];
+    }
+  }
+
+  @override
+  Future<List<AdvertModel>> getLikedAdverts(String uid) async {
+    try {
+      final QuerySnapshot qs = await _db.collection(
+        AppValues.collectionAdverts,
+      ).where('likes', arrayContains: uid).orderBy('updatedAt').get();
+      final List<AdvertModel> res = (qs.docs).map((e) {
+        return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
+      }).toList();
+      return res;
+    } catch (e) {
+      log(e.toString());
+      return <AdvertModel>[];
     }
   }
 }

@@ -12,6 +12,7 @@ class AppThemes {
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: AppColors.lightGray,
     bottomAppBarColor: Colors.white,
+    cardColor: Colors.white,
     appBarTheme: const AppBarTheme(
       elevation: 0,
       shadowColor: Colors.transparent,
@@ -82,6 +83,11 @@ class AppThemes {
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
+      bodyText2: TextStyle(
+        color: Colors.black,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+      ),
     ),
     dividerColor: AppColors.mediumGray,
   );
@@ -94,6 +100,7 @@ class AppThemes {
     scaffoldBackgroundColor: AppColors.mediumBlack,
     backgroundColor: Colors.black,
     bottomAppBarColor: AppColors.mediumBlack,
+    cardColor: AppColors.lightBlack,
     appBarTheme: const AppBarTheme(
       elevation: 0,
       shadowColor: Colors.transparent,
@@ -162,6 +169,11 @@ class AppThemes {
         color: Colors.white,
         fontSize: 16,
         fontWeight: FontWeight.w400,
+      ),
+      bodyText2: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
       ),
     ),
     dividerColor: AppColors.lightBlack,

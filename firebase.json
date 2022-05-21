@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "musicians-shop",
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -4,11 +4,13 @@ import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 
-class HomeController extends GetxController {
+class AdvertsController extends GetxController {
   final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
 
   final String uid = FirebaseAuth.instance.currentUser!.uid;
-  late List<AdvertModel> adverts;
+
+  List<AdvertModel> myAdverts = <AdvertModel>[];
+  List<AdvertModel> likedAdverts = <AdvertModel>[];
 
   bool _screenLoader = false;
   bool get screenLoader => _screenLoader;
@@ -28,12 +30,19 @@ class HomeController extends GetxController {
   void onInit() async {
     super.onInit();
     screenLoader = true;
-    await getAdverts();
+    await Future.wait([
+      getMyAdverts(),
+      getLikedAdverts(),
+    ]);
     screenLoader = false;
   }
 
-  Future<void> getAdverts() async {
-    adverts = await _advertsRepository.getAdverts();
+  Future<void> getMyAdverts() async {
+    myAdverts = await _advertsRepository.getMyAdverts(uid);
+  }
+
+  Future<void> getLikedAdverts() async {
+    likedAdverts = await _advertsRepository.getLikedAdverts(uid);
   }
 
   void goToAdvert(AdvertModel advert) async {

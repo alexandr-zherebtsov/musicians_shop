@@ -1,7 +1,7 @@
 class StringsKeys {
   static const String musicianShop = 'Musician Shop';
   static const String home = 'home';
-  static const String posts = 'posts';
+  static const String adverts = 'adverts';
   static const String create = 'create';
   static const String statistic = 'statistic';
   static const String profile = 'profile';
@@ -37,4 +37,6 @@ class StringsKeys {
   static const String changeAvatar = 'changeAvatar';
   static const String newAvatar = 'newAvatar';
   static const String deleteAvatar = 'deleteAvatar';
+  static const String thereAreNoAdverts = 'thereAreNoAdverts';
+  static const String advert = 'advert';
 }

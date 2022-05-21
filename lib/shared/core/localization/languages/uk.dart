@@ -3,7 +3,7 @@ import 'package:musicians_shop/shared/core/localization/keys.dart';
 const Map<String, String> uk = <String, String>{
   StringsKeys.musicianShop: 'Musician Shop',
   StringsKeys.home: 'Головна',
-  StringsKeys.posts: 'Пости',
+  StringsKeys.adverts: 'Оголошення',
   StringsKeys.create: 'Створити',
   StringsKeys.statistic: 'Статистика',
   StringsKeys.profile: 'Профіль',
@@ -39,4 +39,6 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.changeAvatar: 'Змінити світлину',
   StringsKeys.newAvatar: 'Нова світлина',
   StringsKeys.deleteAvatar: 'Видалити світлину',
+  StringsKeys.thereAreNoAdverts: 'Немає оголошень...',
+  StringsKeys.advert: 'Оголошення',
 };

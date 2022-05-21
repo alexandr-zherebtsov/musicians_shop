@@ -7,6 +7,8 @@ class AppNetworkImage extends StatelessWidget {
   final bool isPerson;
   final double personSize;
   final bool isProgress;
+  final double? width;
+  final double? height;
 
   const AppNetworkImage({
     Key? key,
@@ -14,6 +16,8 @@ class AppNetworkImage extends StatelessWidget {
     this.isPerson = false,
     this.personSize = 30,
     this.isProgress = true,
+    this.width,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -25,6 +29,8 @@ class AppNetworkImage extends StatelessWidget {
         personSize: personSize,
       ) : Image.network(
         url!,
+        width: width,
+        height: height,
         fit: BoxFit.cover,
         filterQuality: FilterQuality.none,
         loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress) {
