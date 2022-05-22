@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
+import 'package:musicians_shop/shared/utils/utils.dart';
 
 class PriceWidget extends StatelessWidget {
   final double? price;
@@ -26,7 +27,7 @@ class PriceWidget extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            '$price \$',
+            priceParser(price.toString()) + ' \$',
             style: Get.theme.textTheme.bodyText2?.copyWith(
               color: Colors.white,
             ),

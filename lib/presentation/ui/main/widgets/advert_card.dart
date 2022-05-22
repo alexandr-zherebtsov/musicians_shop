@@ -73,7 +73,8 @@ class AdvertCard extends StatelessWidget {
                             overflow: kIsWeb ? TextOverflow.ellipsis : TextOverflow.fade,
                           ),
                           Expanded(
-                            child: Center(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
                               child: Text(
                                 advert.description ?? '',
                                 style: Get.theme.textTheme.bodyText1,

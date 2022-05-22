@@ -55,15 +55,27 @@ class AdvertsController extends GetxController {
     }
   }
 
-  void likeAdvert(AdvertModel advert) async {
+  void likeAdvert({
+    required AdvertModel advert,
+    required bool my,
+  }) async {
     List<String> oldLikes = <String>[];
     oldLikes.addAll(advert.likes?? []);
     if (advert.likes == null) {
       advert.likes = [uid];
+      if (my) {
+        likedAdverts.add(advert);
+      }
     } else if (advert.likes!.contains(uid)) {
       advert.likes!.remove(uid);
+      if (my || advert.uid == uid) {
+        likedAdverts.removeWhere((e) => advert.id == e.id);
+      }
     } else {
       advert.likes!.add(uid);
+      if (my) {
+        likedAdverts.add(advert);
+      }
     }
     update();
     final bool res = await _advertsRepository.editAdvert(advert);

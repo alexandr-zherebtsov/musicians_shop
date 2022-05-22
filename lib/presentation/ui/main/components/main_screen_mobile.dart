@@ -37,6 +37,6 @@ class MainScreenMobile extends StatelessWidget {
     );
   }
 
-  static bool _divider(MainScreenEnums screenType) => screenType != MainScreenEnums.posts;
+  static bool _divider(MainScreenEnums screenType) => screenType != MainScreenEnums.adverts;
 }
 

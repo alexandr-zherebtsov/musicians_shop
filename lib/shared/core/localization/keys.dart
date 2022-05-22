@@ -39,4 +39,10 @@ class StringsKeys {
   static const String deleteAvatar = 'deleteAvatar';
   static const String thereAreNoAdverts = 'thereAreNoAdverts';
   static const String advert = 'advert';
+  static const String headline = 'headline';
+  static const String price = 'price';
+  static const String description = 'description';
+  static const String photos = 'photos';
+  static const String delete = 'delete';
+  static const String deleteYourAdvert = 'deleteYourAdvert';
 }

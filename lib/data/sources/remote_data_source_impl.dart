@@ -206,6 +206,19 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
+  Future<bool> createAdvert(AdvertModel advert) async {
+    try {
+      await _db.collection(
+        AppValues.collectionAdverts,
+      ).doc(advert.id).set(advert.toJson());
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
   Future<bool> editAdvert(AdvertModel advert) async {
     try {
       await _db.collection(
@@ -219,11 +232,27 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
+  Future<bool> deleteAdvert(String id) async {
+    try {
+      await _db.collection(
+        AppValues.collectionAdverts,
+      ).doc(id).delete();
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
   Future<List<AdvertModel>> getMyAdverts(String uid) async {
     try {
       final QuerySnapshot qs = await _db.collection(
         AppValues.collectionAdverts,
-      ).where('uid', isEqualTo: uid).orderBy('updatedAt').get();
+      ).where(
+        'uid',
+        isEqualTo: uid,
+      ).orderBy('updatedAt').get();
       final List<AdvertModel> res = (qs.docs).map((e) {
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
@@ -239,7 +268,10 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     try {
       final QuerySnapshot qs = await _db.collection(
         AppValues.collectionAdverts,
-      ).where('likes', arrayContains: uid).orderBy('updatedAt').get();
+      ).where(
+        'likes',
+        arrayContains: uid,
+      ).orderBy('updatedAt').get();
       final List<AdvertModel> res = (qs.docs).map((e) {
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();

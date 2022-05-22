@@ -41,4 +41,10 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.deleteAvatar: 'Видалити світлину',
   StringsKeys.thereAreNoAdverts: 'Немає оголошень...',
   StringsKeys.advert: 'Оголошення',
+  StringsKeys.headline: 'Заголовок',
+  StringsKeys.price: 'Ціна',
+  StringsKeys.description: 'Опис',
+  StringsKeys.photos: 'Світлини',
+  StringsKeys.delete: 'Видалили',
+  StringsKeys.deleteYourAdvert: 'Видалили Ваше оголошення',
 };

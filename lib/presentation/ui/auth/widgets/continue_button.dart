@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
 
 class AuthContinueButton extends StatelessWidget {
   final ResponsiveScreen screen;
+  final String title;
   final void Function() onTap;
 
   const AuthContinueButton({
     Key? key,
     required this.screen,
+    required this.title,
     required this.onTap,
   }) : super(key: key);
 
@@ -28,7 +29,7 @@ class AuthContinueButton extends StatelessWidget {
             bottom: 22.0,
           ),
           child: AppButton(
-            title: StringsKeys.continueText.tr,
+            title: title,
             onTap: onTap,
           ),
         ),

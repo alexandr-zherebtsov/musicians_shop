@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
@@ -12,9 +14,13 @@ import 'package:musicians_shop/shared/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: AppValues.firebaseOptions,
+    );
+    SystemNavigator.routeInformationUpdated(
+      location: AppRoutes.splash,
     );
   } else {
     await Firebase.initializeApp();

@@ -87,7 +87,7 @@ class NavSidebar extends StatelessWidget {
           ),
           NavItemDesktop(
             controller: controller,
-            screenType: MainScreenEnums.posts,
+            screenType: MainScreenEnums.adverts,
           ),
           NavItemDesktop(
             controller: controller,

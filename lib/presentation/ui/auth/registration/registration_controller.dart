@@ -43,5 +43,5 @@ class RegistrationController extends GetxController {
   }
 
   void unFocus() => Get.focusScope?.unfocus();
-  void goToUserData() => Get.offAllNamed(AppRoutes.userDataScreen);
+  void goToUserData() => Get.offAllNamed(AppRoutes.userData);
 }

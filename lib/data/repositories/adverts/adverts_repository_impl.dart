@@ -12,8 +12,18 @@ class AdvertsRepositoryImpl extends AdvertsRepository {
   }
 
   @override
+  Future<bool> createAdvert(AdvertModel advert) async {
+    return await _remoteDataSource.createAdvert(advert);
+  }
+
+  @override
   Future<bool> editAdvert(AdvertModel advert) async {
     return await _remoteDataSource.editAdvert(advert);
+  }
+
+  @override
+  Future<bool> deleteAdvert(String id) async {
+    return await _remoteDataSource.deleteAdvert(id);
   }
 
   @override

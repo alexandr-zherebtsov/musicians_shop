@@ -36,7 +36,11 @@ abstract class RemoteDataSource {
 
   Future<List<AdvertModel>> getAdverts();
 
+  Future<bool> createAdvert(AdvertModel advert);
+
   Future<bool> editAdvert(AdvertModel advert);
+
+  Future<bool> deleteAdvert(String id);
 
   Future<List<AdvertModel>> getMyAdverts(String uid);
 

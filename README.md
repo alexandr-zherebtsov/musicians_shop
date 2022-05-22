@@ -43,7 +43,6 @@ flutter-app/
 |- lib
 |- test
 |- web
-|- windows
 ```
 
 Here is the folder structure we have been using in this project
@@ -71,18 +70,33 @@ Now, lets dive into the lib folder which has the main code for the application.
 This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
 
 ```dart
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
+import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/core/localization/translations.dart';
-import 'package:musicians_shop/shared/styles/themes.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: AppValues.firebaseOptions,
+    );
+    SystemNavigator.routeInformationUpdated(
+      location: AppRoutes.splash,
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(const App());
 }
 
@@ -99,7 +113,7 @@ class App extends StatelessWidget {
       initialBinding: GlobalBinding(),
       translations: Translation(),
       locale: Locale(getLangCode()),
-      theme: AppThemes.dark,
+      theme: getTheme(),
       debugShowCheckedModeBanner: false,
     );
   }

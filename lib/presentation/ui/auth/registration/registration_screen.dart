@@ -61,6 +61,7 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                 ),
                 AuthContinueButton(
                   screen: screen,
+                  title: StringsKeys.continueText.tr,
                   onTap: controller.done,
                 ),
               ],

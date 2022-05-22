@@ -21,6 +21,18 @@ class AdvertScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBarWidget(
               title: StringsKeys.advert.tr,
+              actions: controller.uid != controller.advert.uid || controller.screenLoader || controller.screenError ? null : [
+                IconButton(
+                  tooltip: StringsKeys.edit.tr,
+                  icon: const Icon(Icons.edit),
+                  onPressed: controller.goToEdit,
+                ),
+                IconButton(
+                  tooltip: StringsKeys.delete.tr,
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: controller.delete,
+                ),
+              ],
             ),
             body: Builder(
               builder: (_) {

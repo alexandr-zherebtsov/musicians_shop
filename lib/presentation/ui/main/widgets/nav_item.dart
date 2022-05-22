@@ -122,7 +122,7 @@ IconData _getIcon({
   switch (screenType) {
     case MainScreenEnums.home:
       return screenType == controller.screenType ? Icons.home : Icons.home_outlined;
-    case MainScreenEnums.posts:
+    case MainScreenEnums.adverts:
       return screenType == controller.screenType ? Icons.sticky_note_2 : Icons.sticky_note_2_outlined;
     case MainScreenEnums.create:
       return Icons.add_circle_outline;
@@ -139,7 +139,7 @@ String _getTitle(MainScreenEnums screenType) {
   switch (screenType) {
     case MainScreenEnums.home:
       return StringsKeys.home.tr;
-    case MainScreenEnums.posts:
+    case MainScreenEnums.adverts:
       return StringsKeys.adverts.tr;
     case MainScreenEnums.create:
       return StringsKeys.create.tr;

@@ -41,4 +41,10 @@ const Map<String, String> en = <String, String>{
   StringsKeys.deleteAvatar: 'Delete Avatar',
   StringsKeys.thereAreNoAdverts: 'There are no adverts...',
   StringsKeys.advert: 'Advert',
+  StringsKeys.headline: 'Headline',
+  StringsKeys.price: 'Price',
+  StringsKeys.description: 'Description',
+  StringsKeys.photos: 'Photos',
+  StringsKeys.delete: 'Delete',
+  StringsKeys.deleteYourAdvert: 'Delete your advert',
 };

@@ -16,7 +16,7 @@ class SplashController extends GetxController {
       if (await checkUserData()) {
         goToMain();
       } else {
-        goToUserDataScreen();
+        goToUserData();
       }
     } else {
       goToStart();
@@ -28,7 +28,7 @@ class SplashController extends GetxController {
     return res != null;
   }
 
-  void goToUserDataScreen() => Get.offAllNamed(AppRoutes.userDataScreen);
+  void goToUserData() => Get.offAllNamed(AppRoutes.userData);
   void goToStart() => Get.offAllNamed(AppRoutes.start);
   void goToMain() => Get.offAllNamed(AppRoutes.main);
 }

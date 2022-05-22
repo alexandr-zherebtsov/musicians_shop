@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart';
 import 'package:musicians_shop/data/repositories/auth/auth_repository.dart';
 import 'package:musicians_shop/data/repositories/file/file_repository.dart';
 import 'package:musicians_shop/data/repositories/user/user_repository.dart';
+import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/password_dialog.dart';
@@ -19,8 +21,9 @@ class MyProfileController extends GetxController {
   final AuthRepository _authRepository = Get.find<AuthRepository>();
   final UserRepository _userRepository = Get.find<UserRepository>();
   final FileRepository _fileRepository = Get.find<FileRepository>();
+  final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
 
-  final ImagePicker picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   final TextEditingController passwordTC = TextEditingController();
   RxBool passwordLoader = false.obs;
 
@@ -63,7 +66,7 @@ class MyProfileController extends GetxController {
   void changeAvatar() async {
     Get.back();
     try {
-      XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         screenLoader = true;
         final String? imageUrl = await _fileRepository.uploadFile(
@@ -153,18 +156,67 @@ class MyProfileController extends GetxController {
       screenLoader = true;
       if (auth) {
         Get.back();
-        await Future.wait([
-          _userRepository.deleteUserData(user!.id!),
-          _authRepository.deleteUser(),
-        ]);
-        showToast(StringsKeys.done.tr);
-        logOut();
+        if (user?.id != null) {
+          await Future.wait([
+            _userRepository.deleteUserData(user!.id!),
+            refreshAdverts(),
+          ]);
+          await _authRepository.deleteUser();
+          logOut();
+          showToast(StringsKeys.done.tr);
+        } else {
+          screenError = true;
+          showToast(StringsKeys.somethingWentWrong.tr);
+        }
       } else {
         showToast(StringsKeys.somethingWentWrong.tr);
       }
       screenLoader = false;
     } else {
       showToast(StringsKeys.somethingWentWrong.tr);
+    }
+  }
+
+  Future<void> refreshAdverts() async {
+    final List<AdvertModel> allAdverts = await _advertsRepository.getAdverts();
+    List<AdvertModel> likedAdverts = <AdvertModel>[];
+    List<AdvertModel> myAdverts = <AdvertModel>[];
+    List<String> images = <String>[];
+
+    for (int i = 0; i < allAdverts.length; i ++) {
+      if (allAdverts[i].likes?.contains(user!.id!) ?? false) {
+        likedAdverts.add(allAdverts[i]);
+        allAdverts[i].likes?.remove(user!.id!);
+      }
+      if (allAdverts[i].uid == user!.id!) {
+        likedAdverts.remove(allAdverts[i]);
+        myAdverts.add(allAdverts[i]);
+        images.addAll(allAdverts[i].images ?? []);
+      }
+    }
+
+    await Future.wait([
+      removeLikes(likedAdverts),
+      deleteAdverts(myAdverts),
+      deleteImages(images),
+    ]);
+  }
+
+  Future<void> removeLikes(List<AdvertModel> likedAdverts) async {
+    for (int i = 0; i < likedAdverts.length; i ++) {
+      await _advertsRepository.editAdvert(likedAdverts[i]);
+    }
+  }
+
+  Future<void> deleteAdverts(List<AdvertModel> myAdverts) async {
+    for (int i = 0; i < myAdverts.length; i ++) {
+      await _advertsRepository.deleteAdvert(myAdverts[i].id!);
+    }
+  }
+
+  Future<void> deleteImages(List<String> images) async {
+    for (int i = 0; i < images.length; i ++) {
+      await _fileRepository.deleteFile(images[i]);
     }
   }
 

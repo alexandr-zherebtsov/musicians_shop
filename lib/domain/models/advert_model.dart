@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:musicians_shop/shared/utils/utils.dart';
 
 class AdvertModel {
   String? id;
@@ -27,7 +28,7 @@ class AdvertModel {
     id = json['id'];
     uid = json['uid'];
     headline = json['headline'];
-    price = json['price'];
+    price = doubleParser(json['price']);
     description = json['description'];
     images = json['images'] == null ? <String>[] : json['images'].cast<String>();
     createdAt = json['createdAt'];
@@ -41,6 +42,7 @@ class AdvertModel {
     data['uid'] = uid;
     data['headline'] = headline;
     data['price'] = price;
+    data['description'] = description;
     data['images'] = images;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;

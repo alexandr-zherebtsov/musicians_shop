@@ -1,12 +1,12 @@
 class AppRoutes {
   static const String splash = '/';
-  static const String start = '/StartScreen';
-  static const String registration = '/RegistrationScreen';
-  static const String signUp = '/SignUpScreen';
-  static const String userDataScreen = '/UserDataScreen';
-  static const String main = '/MainScreen';
-  static const String create = '/CreateScreen';
-  static const String editProfile = '/EditProfileScreen';
-  static const String advert = '/AdvertScreen';
-  static const String about = '/AboutScreen';
+  static const String start = '/start';
+  static const String registration = '/registration';
+  static const String signUp = '/sign-up';
+  static const String userData = '/user-data';
+  static const String main = '/main';
+  static const String create = '/create';
+  static const String editProfile = '/edit-profile';
+  static const String advert = '/advert';
+  static const String about = '/about';
 }

@@ -30,7 +30,7 @@ class NavBottomBar extends StatelessWidget {
               ),
               NavItemMobile(
                 controller: controller,
-                screenType: MainScreenEnums.posts,
+                screenType: MainScreenEnums.adverts,
               ),
               NavItemMobile(
                 controller: controller,

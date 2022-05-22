@@ -63,13 +63,16 @@ class PasswordAlertDialog extends StatelessWidget {
         ],
       ),
       actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsPadding: const EdgeInsets.only(
+        bottom: 10,
+      ),
       actions: [
         AppTextButton(
           title: StringsKeys.cancel.tr,
           onTap: () {
             passwordTC.clear();
             Get.back();
-          }
+          },
         ),
         AppTextButton(
           title: StringsKeys.continueText.tr,

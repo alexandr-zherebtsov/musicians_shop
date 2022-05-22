@@ -147,6 +147,25 @@ String getFileFormatFromFile({
   }
 }
 
+String priceParser(String price) {
+  try {
+    if (price.split('.')[1] == '0' || price.split('.')[1] == '00') {
+      return price.split('.')[0];
+    } else if (price.split('.')[1].length == 1) {
+      return price + '0';
+    } else {
+      return price;
+    }
+  } catch (_) {
+    return price;
+  }
+}
+
+double doubleParser(dynamic data) {
+  final double? doubleResult = double.tryParse(data.toString());
+  return doubleResult ?? 0.0;
+}
+
 Future<void> delayedFunc({int milliseconds = 1000}) async {
   await Future.delayed(Duration(milliseconds: milliseconds));
 }

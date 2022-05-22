@@ -24,7 +24,7 @@ class AppTextButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(Colors.transparent),
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(
-            vertical: 4.0,
+            vertical: 6.0,
             horizontal: 12.0,
           ),
         ),

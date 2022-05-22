@@ -69,7 +69,7 @@ class _MainScreen extends GetResponsiveView<MainController> {
         return HomeScreen(
           screen: screen,
         );
-      case MainScreenEnums.posts:
+      case MainScreenEnums.adverts:
         return AdvertsScreen(
           screen: screen,
         );

@@ -49,7 +49,7 @@ class AppRouter {
       transition: _transition(),
     ),
     GetPage(
-      name: AppRoutes.userDataScreen,
+      name: AppRoutes.userData,
       page: () => UserDataScreen(),
       binding: UserDataBinding(),
       transition: _transition(),
@@ -62,7 +62,7 @@ class AppRouter {
     ),
     GetPage(
       name: AppRoutes.create,
-      page: () => const CreateScreen(),
+      page: () => CreateScreen(),
       binding: CreateBinding(),
       transition: _transition(),
     ),

@@ -22,17 +22,17 @@
 <body>
   <img id="musicians-shop-web-preview" src="icons/App-logo.svg"/>
   <script type="text/javascript">
-    window.flutterWebRenderer = "canvaskit";
+    window.flutterWebRenderer = "html";
   </script>
-  <script>
-    var serviceWorkerVersion = null;
-    var scriptLoaded = false;
+  <script type="text/javascript">
+    let serviceWorkerVersion = null;
+    let scriptLoaded = false;
     function loadMainDartJs() {
       if (scriptLoaded) {
         return;
       }
       scriptLoaded = true;
-      var scriptTag = document.createElement('script');
+      let scriptTag = document.createElement('script');
       scriptTag.src = 'main.dart.js';
       scriptTag.type = 'application/javascript';
       document.body.append(scriptTag);
@@ -44,7 +44,7 @@
         // Wait for registration to finish before dropping the <script> tag.
         // Otherwise, the browser will load the script multiple times,
         // potentially different versions.
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+        let serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
         navigator.serviceWorker.register(serviceWorkerUrl)
           .then((reg) => {
             function waitForActivation(serviceWorker) {
@@ -86,6 +86,10 @@
     } else {
       // Service workers not supported. Just drop the <script> tag.
       loadMainDartJs();
+    }
+
+    window.onbeforeunload = function() {
+      return "reload";
     }
   </script>
 </body>

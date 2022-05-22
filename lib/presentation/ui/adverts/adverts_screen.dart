@@ -74,7 +74,10 @@ class _AdvertsScreenState extends State<AdvertsScreen> with TickerProviderStateM
                             advert: controller.myAdverts[i],
                             uid: controller.uid,
                             onTapCard: () => controller.goToAdvert(controller.myAdverts[i]),
-                            onTapLike: () => controller.likeAdvert(controller.myAdverts[i]),
+                            onTapLike: () => controller.likeAdvert(
+                              advert: controller.myAdverts[i],
+                              my: true,
+                            ),
                           );
                         },
                       ),
@@ -88,7 +91,10 @@ class _AdvertsScreenState extends State<AdvertsScreen> with TickerProviderStateM
                             advert: controller.likedAdverts[i],
                             uid: controller.uid,
                             onTapCard: () => controller.goToAdvert(controller.likedAdverts[i]),
-                            onTapLike: () => controller.likeAdvert(controller.likedAdverts[i]),
+                            onTapLike: () => controller.likeAdvert(
+                              advert: controller.likedAdverts[i],
+                              my: false,
+                            ),
                           );
                         },
                       ),

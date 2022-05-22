@@ -1,6 +1,6 @@
 enum MainScreenEnums {
   home,
-  posts,
+  adverts,
   create,
   statistic,
   profile,
