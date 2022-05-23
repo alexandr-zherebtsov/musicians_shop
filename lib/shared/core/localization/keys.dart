@@ -11,7 +11,7 @@ class StringsKeys {
   static const String liked = 'liked';
   static const String version = 'version';
   static const String createdBy = 'createdBy';
-  static const String author = 'author';
+  static const String appAuthor = 'appAuthor';
   static const String usingFlutter = 'usingFlutter';
   static const String createAnAccount = 'createAnAccount';
   static const String signUp = 'signUp';
@@ -45,4 +45,8 @@ class StringsKeys {
   static const String photos = 'photos';
   static const String delete = 'delete';
   static const String deleteYourAdvert = 'deleteYourAdvert';
+  static const String search = 'search';
+  static const String youReallyWantToSignOut = 'youReallyWantToSignOut';
+  static const String noSearchResults = 'noSearchResults';
+  static const String author = 'author';
 }

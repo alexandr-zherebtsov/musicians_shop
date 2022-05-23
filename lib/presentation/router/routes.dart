@@ -8,5 +8,6 @@ class AppRoutes {
   static const String create = '/create';
   static const String editProfile = '/edit-profile';
   static const String advert = '/advert';
+  static const String userProfile = '/user-profile';
   static const String about = '/about';
 }

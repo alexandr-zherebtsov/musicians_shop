@@ -6,23 +6,31 @@ import 'package:musicians_shop/shared/styles/styles.dart';
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
+  final int? maxLines;
   final String? prefix;
   final IconData? suffixIcon;
   final TextInputType keyboardType;
   final bool obscureText;
   final EdgeInsets padding;
+  final EdgeInsets contentPadding;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onChanged;
+  final void Function(String)? onSubmitted;
 
   const AppTextField({
     Key? key,
     required this.controller,
     required this.hint,
+    required this.maxLines,
     this.prefix,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.padding = const EdgeInsets.symmetric(horizontal: 22),
+    this.contentPadding = const EdgeInsets.only(left: 12),
     this.inputFormatters,
+    this.onChanged,
+    this.onSubmitted,
   }) : super(key: key);
 
   @override
@@ -30,6 +38,7 @@ class AppTextField extends StatelessWidget {
     return Padding(
       padding: padding,
       child: TextField(
+        maxLines: maxLines,
         controller: controller,
         keyboardType: keyboardType,
         cursorColor: Get.theme.primaryColor,
@@ -41,18 +50,23 @@ class AppTextField extends StatelessWidget {
         ],
         decoration: _textFieldStyle(
           hint: hint,
+          maxLines: maxLines,
           prefix: prefix,
           suffixIcon: suffixIcon,
+          contentPadding: contentPadding,
         ),
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
       ),
     );
   }
 
   InputDecoration _textFieldStyle({
     required String hint,
+    required int? maxLines,
     required String? prefix,
     required IconData? suffixIcon,
-    EdgeInsets contentPadding = const EdgeInsets.only(left: 12)
+    required EdgeInsets contentPadding,
   }) {
     return InputDecoration(
       hintText: hint,
@@ -60,9 +74,9 @@ class AppTextField extends StatelessWidget {
       hintMaxLines: 1,
       fillColor: Get.theme.backgroundColor,
       contentPadding: contentPadding,
-      constraints: const BoxConstraints(
+      constraints: maxLines == 1 ? const BoxConstraints(
         maxHeight: 64,
-      ),
+      ) : null,
       prefixIcon: prefix == null ? null : Padding(
         padding: const EdgeInsets.only(
           left: 12,

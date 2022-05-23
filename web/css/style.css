@@ -9,3 +9,7 @@
     max-width: 400px;
     position: absolute;
 }
+
+.flutter-loader {
+    display: none;
+}

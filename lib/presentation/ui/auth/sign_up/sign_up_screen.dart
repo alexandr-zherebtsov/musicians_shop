@@ -37,12 +37,15 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                             AppTextField(
                               controller: controller.emailTC,
                               hint: StringsKeys.email.tr,
+                              maxLines: 1,
                               suffixIcon: Icons.mail,
                               keyboardType:TextInputType.emailAddress,
+                              onSubmitted: (_) => controller.done(),
                             ),
                             AppTextField(
                               controller: controller.passwordTC,
                               hint: StringsKeys.password.tr,
+                              maxLines: 1,
                               suffixIcon: Icons.lock,
                               keyboardType:TextInputType.visiblePassword,
                               obscureText: true,
@@ -52,6 +55,7 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                                 right: 22,
                                 bottom: 10,
                               ),
+                              onSubmitted: (_) => controller.done(),
                             ),
                           ],
                         ),

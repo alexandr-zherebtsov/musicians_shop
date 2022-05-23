@@ -27,7 +27,7 @@ class AdvertsController extends GetxController {
   }
 
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     screenLoader = true;
     await Future.wait([

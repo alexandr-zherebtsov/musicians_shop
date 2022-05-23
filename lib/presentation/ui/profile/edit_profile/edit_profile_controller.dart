@@ -16,6 +16,7 @@ class EditProfileController extends GetxController {
   final TextEditingController cityTC = TextEditingController();
   final TextEditingController emailTC = TextEditingController();
   final TextEditingController phoneNumberTC = TextEditingController();
+  final TextEditingController aboutYourselfTC = TextEditingController();
 
   bool _screenLoader = false;
   bool get screenLoader => _screenLoader;
@@ -44,6 +45,7 @@ class EditProfileController extends GetxController {
       lastNameTC.text = user.lastName ?? '';
       phoneNumberTC.text = (user.phone ?? '').replaceAll('+', '');
       cityTC.text = user.city ?? '';
+      aboutYourselfTC.text = user.aboutYourself ?? '';
     } catch (e) {
       log(e.toString());
     }
@@ -68,7 +70,8 @@ class EditProfileController extends GetxController {
     user.firstName = firstNameTC.text.trim();
     user.lastName = lastNameTC.text.trim();
     user.phone = '+' + phoneNumberTC.text;
-    user.city = cityTC.text;
+    user.city = cityTC.text.trim();
+    user.aboutYourself = aboutYourselfTC.text.trim();
     user.updatedAt = Timestamp.now();
     return user;
   }

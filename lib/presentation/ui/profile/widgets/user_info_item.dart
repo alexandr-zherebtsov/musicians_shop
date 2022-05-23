@@ -34,7 +34,7 @@ class UserInfoItem extends StatelessWidget {
               padding: const EdgeInsets.only(
                 top: 6
               ),
-              child: Text(
+              child: SelectableText(
                 data ?? '',
                 style: Get.theme.textTheme.headline5,
               ),

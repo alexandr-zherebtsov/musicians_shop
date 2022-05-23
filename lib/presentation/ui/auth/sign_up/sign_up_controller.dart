@@ -24,12 +24,12 @@ class SignUpController extends GetxController {
   void done() async {
     if (validator()) {
       screenLoader = true;
-      await _authRepository.signInEmailPassword(
+      final bool res = await _authRepository.signInEmailPassword(
         email: clearAndTrim(emailTC.text),
         password: passwordTC.text,
       );
       screenLoader = false;
-      if (_firebaseAuth.currentUser != null) {
+      if (_firebaseAuth.currentUser != null && res) {
         goToMain();
       } else {
         showToast(StringsKeys.somethingWentWrong.tr);

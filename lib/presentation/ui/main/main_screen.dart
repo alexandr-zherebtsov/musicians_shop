@@ -19,10 +19,13 @@ class MainScreen extends StatelessWidget {
     return GetBuilder<MainController>(
       init: MainController(),
       builder: (MainController controller) {
-        return WillPopScope(
-          onWillPop: controller.willPopScope,
-          child: _MainScreen(
-            controller: controller,
+        return GestureDetector(
+          onTap: controller.unFocus,
+          child: WillPopScope(
+            onWillPop: controller.willPopScope,
+            child: _MainScreen(
+              controller: controller,
+            ),
           ),
         );
       },

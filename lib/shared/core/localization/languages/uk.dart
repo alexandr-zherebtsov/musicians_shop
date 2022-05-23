@@ -12,7 +12,7 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.my: 'Мої',
   StringsKeys.liked: 'Вподобані',
   StringsKeys.createdBy : 'створив',
-  StringsKeys.author : 'Жеребцов Олександр',
+  StringsKeys.appAuthor : 'Жеребцов Олександр',
   StringsKeys.usingFlutter : 'використовуючи Flutter',
   StringsKeys.version: 'версія',
   StringsKeys.createAnAccount: 'Створити акаунт',
@@ -47,4 +47,8 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.photos: 'Світлини',
   StringsKeys.delete: 'Видалили',
   StringsKeys.deleteYourAdvert: 'Видалили Ваше оголошення',
+  StringsKeys.search: 'Пошук',
+  StringsKeys.youReallyWantToSignOut: 'Ви дійсно хочете вийти?',
+  StringsKeys.noSearchResults: 'Немає результатів пошуку...',
+  StringsKeys.author: 'Автор',
 };

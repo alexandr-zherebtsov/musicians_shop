@@ -7,12 +7,15 @@ import 'package:musicians_shop/shared/utils/utils.dart';
 
 class SplashController extends GetxController {
   final UserRepository _userRepository = Get.find<UserRepository>();
+  late String? uid;
 
   @override
   void onInit() async {
     super.onInit();
+    uid = FirebaseAuth.instance.currentUser?.uid;
     await delayedFunc(milliseconds: 1600);
-    if (FirebaseAuth.instance.currentUser != null) {
+    uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
       if (await checkUserData()) {
         goToMain();
       } else {
@@ -24,7 +27,7 @@ class SplashController extends GetxController {
   }
 
   Future<bool> checkUserData() async {
-    UserModel? res = await _userRepository.getUser(FirebaseAuth.instance.currentUser!.uid);
+    final UserModel? res = await _userRepository.getUser(uid!);
     return res != null;
   }
 

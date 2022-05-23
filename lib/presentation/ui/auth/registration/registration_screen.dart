@@ -37,12 +37,15 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                             AppTextField(
                               controller: controller.emailTC,
                               hint: StringsKeys.email.tr,
+                              maxLines: 1,
                               keyboardType:TextInputType.emailAddress,
                               suffixIcon: Icons.mail,
+                              onSubmitted: (_) => controller.done(),
                             ),
                             AppTextField(
                               controller: controller.passwordTC,
                               hint: StringsKeys.password.tr,
+                              maxLines: 1,
                               keyboardType:TextInputType.visiblePassword,
                               suffixIcon: Icons.lock,
                               obscureText: true,
@@ -52,6 +55,7 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                                 right: 22,
                                 bottom: 10,
                               ),
+                              onSubmitted: (_) => controller.done(),
                             ),
                           ],
                         ),

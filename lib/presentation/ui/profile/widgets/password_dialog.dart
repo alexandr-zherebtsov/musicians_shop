@@ -53,10 +53,12 @@ class PasswordAlertDialog extends StatelessWidget {
               child: Obx(() => loader.value ? const AppProgress() : AppTextField(
                 controller: passwordTC,
                 hint: StringsKeys.password.tr,
+                maxLines: 1,
                 obscureText: true,
                 suffixIcon: Icons.lock,
                 keyboardType: TextInputType.visiblePassword,
                 padding: EdgeInsets.zero,
+                onSubmitted: (_) => confirmFunc(),
               )),
             ),
           ),

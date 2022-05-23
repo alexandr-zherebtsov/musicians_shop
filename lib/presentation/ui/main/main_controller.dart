@@ -45,6 +45,7 @@ class MainController extends GetxController {
   }
 
   void goToAbout() => Get.toNamed(AppRoutes.about);
+  void unFocus() => Get.focusScope?.unfocus();
 
   Future<bool> willPopScope() async {
     final bool res = screenType == MainScreenEnums.home;

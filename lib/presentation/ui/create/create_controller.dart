@@ -153,4 +153,6 @@ class CreateController extends GetxController {
     return headlineTC.text.isNotEmpty && priceTC.text.isNotEmpty && descriptionTC.text.isNotEmpty &&
         (acquisitionImages.isNotEmpty || selectedImages.isNotEmpty);
   }
+
+  void unFocus() => Get.focusScope?.unfocus();
 }

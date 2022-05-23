@@ -87,13 +87,13 @@ class ProfileHeader extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: screen.isDesktop ? const EdgeInsets.only(
-                top: 20.0,
-                left: 12.0,
-                right: 2.0,
+                top: 20,
+                left: 12,
+                right: 2,
               ) : const EdgeInsets.only(
-                top: 10.0,
-                left: 12.0,
-                right: 2.0,
+                top: 10,
+                left: 12,
+                right: 2,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -106,7 +106,7 @@ class ProfileHeader extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
+                      vertical: 8,
                     ),
                     child: Offstage(
                       offstage: (city ?? '').isEmpty,
@@ -115,7 +115,7 @@ class ProfileHeader extends StatelessWidget {
                         children: [
                           const Padding(
                             padding: EdgeInsets.only(
-                              top: 2,
+                              top: 4,
                               right: 2,
                             ),
                             child: Icon(

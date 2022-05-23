@@ -10,27 +10,37 @@
 ### Architecture
 Project using GetX for communication between layers
 
-## Getting Started
-
 ![](readme/architecture.png)
 
 ### Libraries & Tools
 
-- [Flutter Channel stable, 2.10.5](https://flutter.dev/)
+- [Flutter Channel stable, 2.10.5](https://flutter.dev)
 
 Core
 - [get](https://github.com/jonataslaw/getx)
 
+Firebase
+- [firebase_core](https://github.com/firebase/flutterfire/tree/master/packages/firebase_core/firebase_core)
+- [firebase_auth](https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth)
+- [cloud_firestore](https://pub.dev/packages/cloud_firestore)
+- [flutterfire_cli](https://pub.dev/packages/flutterfire_cli)
+- [firebase_storage](https://pub.dev/packages/firebase_storage)
+
 UI
+- [fluttertoast](https://pub.dev/packages/fluttertoast)
+- [carousel_slider](https://pub.dev/packages/carousel_slider)
 - [cupertino_icons](https://github.com/flutter/packages/tree/master/third_party/packages/cupertino_icons)
+
+Utils
+- [mime](https://pub.dev/packages/mime)
+- [url_strategy](https://pub.dev/packages/url_strategy)
+- [url_launcher](https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher)
+- [image_picker](https://pub.dev/packages/image_picker)
+- [package_info_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages)
 
 Dev Dependencies
 - [flutter_lints](https://github.com/flutter/packages/tree/main/packages/flutter_lints)
 - [flutter_launcher_icons_maker](https://github.com/gsmlg-dev/flutter_launcher_icons_maker)
-
-Utils
-- [url_launcher](https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher)
-- [package_info_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages)
 
 ### Directory Structure
 Here is the core folder structure which flutter provides.
@@ -73,7 +83,7 @@ This is the starting point of the application. All the application level configu
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show SystemNavigator;
 import 'package:get/get.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';

@@ -12,7 +12,7 @@ const Map<String, String> en = <String, String>{
   StringsKeys.my: 'My',
   StringsKeys.liked: 'Liked',
   StringsKeys.createdBy : 'created by',
-  StringsKeys.author : 'Alexandr Zherebtsov',
+  StringsKeys.appAuthor : 'Alexandr Zherebtsov',
   StringsKeys.usingFlutter : 'using Flutter',
   StringsKeys.version: 'version',
   StringsKeys.createAnAccount: 'Create an account',
@@ -47,4 +47,8 @@ const Map<String, String> en = <String, String>{
   StringsKeys.photos: 'Photos',
   StringsKeys.delete: 'Delete',
   StringsKeys.deleteYourAdvert: 'Delete your advert',
+  StringsKeys.search: 'Search',
+  StringsKeys.youReallyWantToSignOut: 'You really want to sign out?',
+  StringsKeys.noSearchResults: 'No search results...',
+  StringsKeys.author: 'Author',
 };

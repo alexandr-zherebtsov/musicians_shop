@@ -36,48 +36,52 @@ class MyProfileScreen extends GetView<MyProfileController> {
             height: double.infinity,
             child: Stack(
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProfileHeader(
-                        screen: screen,
-                        userIcon: controller.user?.photo,
-                        firstName: controller.user?.firstName,
-                        lastName: controller.user?.lastName,
-                        city: controller.user?.city,
-                        onTapIcon: () => showAvatarDialog(
-                          isBottomSheet: screen.isPhone,
-                          change: controller.changeAvatar,
-                          delete: (controller.user?.photo?? '').isEmpty ? null : controller.deleteAvatar,
+                RefreshIndicator(
+                  onRefresh: controller.onInit,
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ProfileHeader(
+                          screen: screen,
+                          userIcon: controller.user?.photo,
+                          firstName: controller.user?.firstName,
+                          lastName: controller.user?.lastName,
+                          city: controller.user?.city,
+                          onTapIcon: () => showAvatarDialog(
+                            isBottomSheet: screen.isPhone,
+                            change: controller.changeAvatar,
+                            delete: (controller.user?.photo?? '').isEmpty ? null : controller.deleteAvatar,
+                          ),
+                          onTapEdit: controller.onTapEdit,
                         ),
-                        onTapEdit: controller.onTapEdit,
-                      ),
-                      UserInfoItem(
-                        title: StringsKeys.email.tr,
-                        data: controller.user?.email,
-                      ),
-                      UserInfoItem(
-                        title: StringsKeys.phoneNumber.tr,
-                        data: formatPhone(controller.user?.phone),
-                      ),
-                      UserInfoItem(
-                        title: StringsKeys.aboutYourself.tr,
-                        data: formatPhone(controller.user?.aboutYourself),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 22,
-                          left: 12,
-                          bottom: 80,
+                        UserInfoItem(
+                          title: StringsKeys.email.tr,
+                          data: controller.user?.email,
                         ),
-                        child: AppTextButton(
-                          title: StringsKeys.deleteAccount.tr,
-                          textColor: Colors.redAccent,
-                          onTap: controller.onTapDeleteAccount,
+                        UserInfoItem(
+                          title: StringsKeys.phoneNumber.tr,
+                          data: formatPhone(controller.user?.phone),
                         ),
-                      ),
-                    ],
+                        UserInfoItem(
+                          title: StringsKeys.aboutYourself.tr,
+                          data: controller.user?.aboutYourself,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 22,
+                            left: 11,
+                            bottom: 80,
+                          ),
+                          child: AppTextButton(
+                            title: StringsKeys.deleteAccount.tr,
+                            textColor: Colors.redAccent,
+                            onTap: controller.onTapDeleteAccount,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(
@@ -86,7 +90,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                   bottom: 16,
                   child: AppButton(
                     title: StringsKeys.signOut.tr,
-                    onTap: controller.logOut,
+                    onTap: controller.onTapSignOut,
                   ),
                 ),
               ],

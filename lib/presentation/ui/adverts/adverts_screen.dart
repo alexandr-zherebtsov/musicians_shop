@@ -64,39 +64,45 @@ class _AdvertsScreenState extends State<AdvertsScreen> with TickerProviderStateM
                   child: TabBarView(
                     controller: tabController,
                     children: <Widget>[
-                      controller.myAdverts.isEmpty ? const AppErrorWidget(
-                        title: StringsKeys.thereAreNoAdverts,
-                      ) : ListView.builder(
-                        itemCount: controller.myAdverts.length,
-                        itemBuilder: (_, int i) {
-                          return AdvertCard(
-                            screen: widget.screen,
-                            advert: controller.myAdverts[i],
-                            uid: controller.uid,
-                            onTapCard: () => controller.goToAdvert(controller.myAdverts[i]),
-                            onTapLike: () => controller.likeAdvert(
+                      RefreshIndicator(
+                        onRefresh: controller.onInit,
+                        child: controller.myAdverts.isEmpty ? const AppErrorWidget(
+                          title: StringsKeys.thereAreNoAdverts,
+                        ) : ListView.builder(
+                          itemCount: controller.myAdverts.length,
+                          itemBuilder: (_, int i) {
+                            return AdvertCard(
+                              screen: widget.screen,
                               advert: controller.myAdverts[i],
-                              my: true,
-                            ),
-                          );
-                        },
+                              uid: controller.uid,
+                              onTapCard: () => controller.goToAdvert(controller.myAdverts[i]),
+                              onTapLike: () => controller.likeAdvert(
+                                advert: controller.myAdverts[i],
+                                my: true,
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                      controller.likedAdverts.isEmpty ? const AppErrorWidget(
-                        title: StringsKeys.thereAreNoAdverts,
-                      ) : ListView.builder(
-                        itemCount: controller.likedAdverts.length,
-                        itemBuilder: (_, int i) {
-                          return AdvertCard(
-                            screen: widget.screen,
-                            advert: controller.likedAdverts[i],
-                            uid: controller.uid,
-                            onTapCard: () => controller.goToAdvert(controller.likedAdverts[i]),
-                            onTapLike: () => controller.likeAdvert(
+                      RefreshIndicator(
+                        onRefresh: controller.onInit,
+                        child: controller.likedAdverts.isEmpty ? const AppErrorWidget(
+                          title: StringsKeys.thereAreNoAdverts,
+                        ) : ListView.builder(
+                          itemCount: controller.likedAdverts.length,
+                          itemBuilder: (_, int i) {
+                            return AdvertCard(
+                              screen: widget.screen,
                               advert: controller.likedAdverts[i],
-                              my: false,
-                            ),
-                          );
-                        },
+                              uid: controller.uid,
+                              onTapCard: () => controller.goToAdvert(controller.likedAdverts[i]),
+                              onTapLike: () => controller.likeAdvert(
+                                advert: controller.likedAdverts[i],
+                                my: false,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

@@ -16,6 +16,7 @@ import 'package:musicians_shop/presentation/ui/profile/widgets/password_dialog.d
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
+import 'package:musicians_shop/shared/widgets/app_dialog.dart';
 
 class MyProfileController extends GetxController {
   final AuthRepository _authRepository = Get.find<AuthRepository>();
@@ -44,7 +45,7 @@ class MyProfileController extends GetxController {
   }
 
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     screenLoader = true;
     await getUser();
@@ -217,6 +218,18 @@ class MyProfileController extends GetxController {
   Future<void> deleteImages(List<String> images) async {
     for (int i = 0; i < images.length; i ++) {
       await _fileRepository.deleteFile(images[i]);
+    }
+  }
+
+  void onTapSignOut() async {
+    final res = await showAppDialog(
+      title: StringsKeys.signOut.tr + '?',
+      subtitle: StringsKeys.youReallyWantToSignOut.tr,
+      first: StringsKeys.cancel.tr,
+      second: StringsKeys.signOut.tr,
+    );
+    if (res == true) {
+      logOut();
     }
   }
 

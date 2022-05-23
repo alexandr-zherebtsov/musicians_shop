@@ -82,6 +82,17 @@ class AdvertController extends GetxController {
     }
   }
 
+  void goAuthor() async {
+    if (advert.uid != null) {
+      Get.toNamed(
+        AppRoutes.userProfile,
+        arguments: advert.uid,
+      );
+    } else {
+      showToast(StringsKeys.somethingWentWrong.tr);
+    }
+  }
+
   bool advertDeleted = false;
   bool imagesDeleted = true;
 
