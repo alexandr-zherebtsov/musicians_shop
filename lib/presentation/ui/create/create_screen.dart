@@ -36,109 +36,111 @@ class CreateScreen extends GetResponsiveView<CreateController> {
               body: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: SingleChildScrollView(
-                          child: ConstrainedBox(
-                            constraints: AppStyles.constraints,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppTextField(
-                                    controller: controller.headlineTC,
-                                    hint: StringsKeys.headline.tr,
-                                    maxLines: 1,
-                                    onSubmitted: (_) => controller.save(),
-                                  ),
-                                  AppTextField(
-                                    controller: controller.priceTC,
-                                    hint: StringsKeys.price.tr,
-                                    maxLines: 1,
-                                    keyboardType: TextInputType.number,
-                                    padding: const EdgeInsets.only(
-                                      top: 30,
-                                      left: 22,
-                                      right: 22,
-                                      bottom: 30,
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: SingleChildScrollView(
+                            child: ConstrainedBox(
+                              constraints: AppStyles.constraints,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppTextField(
+                                      controller: controller.headlineTC,
+                                      hint: StringsKeys.headline.tr,
+                                      maxLines: 1,
+                                      onSubmitted: (_) => controller.save(),
                                     ),
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(20),
-                                      FilteringTextInputFormatter.allow(AppRegExp.priceRegExp),
-                                    ],
-                                    onSubmitted: (_) => controller.save(),
-                                  ),
-                                  AppTextField(
-                                    controller: controller.descriptionTC,
-                                    hint: StringsKeys.description.tr,
-                                    maxLines: null,
-                                    contentPadding: const EdgeInsets.all(12),
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(4000),
-                                    ],
-                                    onSubmitted: (_) => controller.save(),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 30,
-                                      left: 26,
-                                      bottom: 10
-                                    ),
-                                    child: Text(
-                                      StringsKeys.photos.tr,
-                                      style: Get.theme.textTheme.bodyText2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 22,
-                                    ),
-                                    child: Wrap(
-                                      children: [
-                                        ...controller.acquisitionImages.map((e) {
-                                          return CreateImageWidget(
-                                            image: e,
-                                            fileType: FileTypeEnums.network,
-                                            screen: screen,
-                                            remove: () => controller.removeAcquisition(e),
-                                          );
-                                        }).toList(),
-                                        ...controller.selectedImages.map((e) {
-                                          return CreateImageWidget(
-                                            image: e.path,
-                                            fileType: FileTypeEnums.file,
-                                            screen: screen,
-                                            remove: () => controller.removeSelected(e),
-                                          );
-                                        }).toList(),
-                                        Offstage(
-                                          offstage: (controller.acquisitionImages.length + controller.selectedImages.length) > 4,
-                                          child: CreateAddButton(
-                                            screen: screen,
-                                            onPressed: controller.addImage,
-                                          ),
-                                        ),
+                                    AppTextField(
+                                      controller: controller.priceTC,
+                                      hint: StringsKeys.price.tr,
+                                      maxLines: 1,
+                                      keyboardType: TextInputType.number,
+                                      padding: const EdgeInsets.only(
+                                        top: 30,
+                                        left: 22,
+                                        right: 22,
+                                        bottom: 30,
+                                      ),
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(20),
+                                        FilteringTextInputFormatter.allow(AppRegExp.priceRegExp),
                                       ],
+                                      onSubmitted: (_) => controller.save(),
                                     ),
-                                  ),
-                                ],
+                                    AppTextField(
+                                      controller: controller.descriptionTC,
+                                      hint: StringsKeys.description.tr,
+                                      maxLines: null,
+                                      contentPadding: const EdgeInsets.all(12),
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(4000),
+                                      ],
+                                      onSubmitted: (_) => controller.save(),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 30,
+                                        left: 26,
+                                        bottom: 10
+                                      ),
+                                      child: Text(
+                                        StringsKeys.photos.tr,
+                                        style: Get.theme.textTheme.bodyText2,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 22,
+                                      ),
+                                      child: Wrap(
+                                        children: [
+                                          ...controller.acquisitionImages.map((e) {
+                                            return CreateImageWidget(
+                                              image: e,
+                                              fileType: FileTypeEnums.network,
+                                              screen: screen,
+                                              remove: () => controller.removeAcquisition(e),
+                                            );
+                                          }).toList(),
+                                          ...controller.selectedImages.map((e) {
+                                            return CreateImageWidget(
+                                              image: e.path,
+                                              fileType: FileTypeEnums.file,
+                                              screen: screen,
+                                              remove: () => controller.removeSelected(e),
+                                            );
+                                          }).toList(),
+                                          Offstage(
+                                            offstage: (controller.acquisitionImages.length + controller.selectedImages.length) > 4,
+                                            child: CreateAddButton(
+                                              screen: screen,
+                                              onPressed: controller.addImage,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    AuthContinueButton(
-                      screen: screen,
-                      title: StringsKeys.save.tr,
-                      onTap: controller.save,
-                    ),
-                  ],
+                      AuthContinueButton(
+                        screen: screen,
+                        title: StringsKeys.save.tr,
+                        onTap: controller.save,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

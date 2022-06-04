@@ -21,8 +21,8 @@ class UserDataScreen extends GetResponsiveView<UserDataController> {
         return GestureDetector(
           onTap: controller.unFocus,
           child: Scaffold(
-            body: controller.screenLoader ? const AppProgress() : SafeArea(
-              child: Column(
+            body: SafeArea(
+              child: controller.screenLoader ? const AppProgress() : Column(
                 children: [
                   AuthHeader(
                     title: StringsKeys.informationAboutYourself.tr,

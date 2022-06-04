@@ -49,10 +49,9 @@ class AppDialog extends StatelessWidget {
         subtitle,
         style: Get.theme.textTheme.bodyText1,
       ),
+      buttonPadding: EdgeInsets.zero,
+      actionsPadding: EdgeInsets.zero,
       actionsAlignment: MainAxisAlignment.spaceEvenly,
-      actionsPadding: const EdgeInsets.only(
-        bottom: 10,
-      ),
       actions: [
         AppTextButton(
           title: first,

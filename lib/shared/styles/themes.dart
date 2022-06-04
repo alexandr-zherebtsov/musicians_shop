@@ -27,7 +27,10 @@ class AppThemes {
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
       backgroundColor: Colors.white,
-      systemOverlayStyle: SystemUiOverlayStyle.light,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+      ),
       titleTextStyle: TextStyle(
         color: Colors.black,
         fontSize: 22,
@@ -50,7 +53,6 @@ class AppThemes {
         color: Colors.black,
         fontWeight: FontWeight.w600,
       ),
-
       unselectedLabelStyle: TextStyle(
         fontSize: 15,
         color: Colors.black,
@@ -121,7 +123,10 @@ class AppThemes {
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
       backgroundColor: AppColors.mediumBlack,
-      systemOverlayStyle: SystemUiOverlayStyle.light,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontSize: 22,

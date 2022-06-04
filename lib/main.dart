@@ -8,24 +8,22 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
-import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/core/localization/translations.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     setPathUrlStrategy();
-    await Firebase.initializeApp(
-      options: AppValues.firebaseOptions,
-    );
     SystemNavigator.routeInformationUpdated(
       location: AppRoutes.splash,
     );
-  } else {
-    await Firebase.initializeApp();
   }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const App());
 }
 

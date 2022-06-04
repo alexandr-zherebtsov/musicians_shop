@@ -37,6 +37,13 @@
             {
               "client_id": "670066810894-fa99nj4gq9do6r248fb6ao3smf50lkqn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "670066810894-evt71gs7j4q4rjnqmcrsir42bjdk0ktp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.musiciansShop"
+              }
             }
           ]
         }
@@ -74,6 +81,13 @@
             {
               "client_id": "670066810894-fa99nj4gq9do6r248fb6ao3smf50lkqn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "670066810894-evt71gs7j4q4rjnqmcrsir42bjdk0ktp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.musiciansShop"
+              }
             }
           ]
         }
@@ -111,6 +125,13 @@
             {
               "client_id": "670066810894-fa99nj4gq9do6r248fb6ao3smf50lkqn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "670066810894-evt71gs7j4q4rjnqmcrsir42bjdk0ktp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.musiciansShop"
+              }
             }
           ]
         }
