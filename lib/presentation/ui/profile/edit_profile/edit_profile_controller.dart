@@ -69,7 +69,7 @@ class EditProfileController extends GetxController {
     UserModel user = Get.arguments as UserModel;
     user.firstName = firstNameTC.text.trim();
     user.lastName = lastNameTC.text.trim();
-    user.phone = '+' + phoneNumberTC.text;
+    user.phone = '+${phoneNumberTC.text}';
     user.city = cityTC.text.trim();
     user.aboutYourself = aboutYourselfTC.text.trim();
     user.updatedAt = Timestamp.now();

@@ -27,7 +27,7 @@ class PriceWidget extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            priceParser(price.toString()) + ' \$',
+            '${priceParser(price.toString())} \$',
             style: Get.theme.textTheme.bodyText2?.copyWith(
               color: Colors.white,
             ),

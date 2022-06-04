@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
-import 'package:musicians_shop/shared/styles/themes.dart';
 
 void showToast(String message, {bool red = false}) {
   Fluttertoast.showToast(
@@ -32,8 +31,6 @@ bool isNotMobile() {
     return true;
   }
 }
-
-ThemeData getTheme() => Get.isPlatformDarkMode ? AppThemes.dark : AppThemes.light;
 
 String getLangCode() {
   switch (Get.deviceLocale?.languageCode?? AppValues.langCodeBasic) {
@@ -62,15 +59,7 @@ String formatPhone(String? phoneNumber) {
   String res = '';
   if (phoneNumber != null) {
     if (phoneNumber.length > 9) {
-      res = phoneNumber.substring(0, 3) +
-          ' ' +
-          phoneNumber.substring(3, 6) +
-          ' ' +
-          phoneNumber.substring(6, 8) +
-          ' ' +
-          phoneNumber.substring(8, 10) +
-          ' ' +
-          phoneNumber.substring(10, phoneNumber.length);
+      res = '${phoneNumber.substring(0, 3)} ${phoneNumber.substring(3, 6)} ${phoneNumber.substring(6, 8)} ${phoneNumber.substring(8, 10)} ${phoneNumber.substring(10, phoneNumber.length)}';
     }
   }
   return res;
@@ -114,9 +103,9 @@ String getFileType({
 }) {
   switch (type) {
     case FileTypeEnums.advertPhoto:
-      return 'image/' + getFileFormatFromString(fileName);
+      return 'image/${getFileFormatFromString(fileName)}';
     case FileTypeEnums.userPhoto:
-      return 'image/' + getFileFormatFromString(fileName);
+      return 'image/${getFileFormatFromString(fileName)}';
     default:
       return '';
   }
@@ -139,9 +128,9 @@ String getFileFormatFromFile({
   bool dot = false,
 }) {
   try {
-    return '.' + lookupMimeType(
+    return '.${lookupMimeType(
       path,
-    ).toString().split('/')[1];
+    ).toString().split('/')[1]}';
   } catch (_) {
     return getFileFormatFromString(name);
   }
@@ -152,7 +141,7 @@ String priceParser(String price) {
     if (price.split('.')[1] == '0' || price.split('.')[1] == '00') {
       return price.split('.')[0];
     } else if (price.split('.')[1].length == 1) {
-      return price + '0';
+      return '${price}0';
     } else {
       return price;
     }

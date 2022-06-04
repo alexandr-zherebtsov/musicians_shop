@@ -98,8 +98,8 @@ class AdvertController extends GetxController {
 
   void delete() async {
     final res = await showAppDialog(
-      title: StringsKeys.delete.tr + '?',
-      subtitle: StringsKeys.deleteYourAdvert.tr + '?',
+      title: '${StringsKeys.delete.tr}?',
+      subtitle: '${StringsKeys.deleteYourAdvert.tr}?',
       first: StringsKeys.cancel.tr,
       second: StringsKeys.delete.tr,
     );

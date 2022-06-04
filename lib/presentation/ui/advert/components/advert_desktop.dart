@@ -46,8 +46,8 @@ class AdvertDesktop extends StatelessWidget {
                               duration: const Duration(milliseconds: 860),
                               transitionBuilder: (widget, animation) => ScaleTransition(
                                 scale: animation,
-                                child: widget,
                                 alignment: Alignment.bottomCenter,
+                                child: widget,
                               ),
                               child: AppNetworkImage(
                                 height: 540,

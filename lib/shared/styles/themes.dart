@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/colors.dart';
+import 'package:musicians_shop/shared/styles/styles.dart';
 
 class AppThemes {
+  static ThemeData getTheme() => Get.isPlatformDarkMode ? AppThemes.dark : AppThemes.light;
+
   static final ThemeData light = ThemeData(
     useMaterial3: true,
     primaryColor: Colors.pink,
     primarySwatch: Colors.pink,
     brightness: Brightness.light,
-    androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: AppColors.lightGray,
     bottomAppBarColor: Colors.white,
     cardColor: Colors.white,
+    cardTheme: CardTheme(
+      surfaceTintColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppStyles.clipRadius),
+      ),
+    ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
+      scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
       backgroundColor: Colors.white,
       systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -96,13 +106,19 @@ class AppThemes {
     primaryColor: Colors.pink,
     primarySwatch: Colors.pink,
     brightness: Brightness.dark,
-    androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
     scaffoldBackgroundColor: AppColors.mediumBlack,
     backgroundColor: Colors.black,
     bottomAppBarColor: AppColors.mediumBlack,
     cardColor: AppColors.lightBlack,
+    cardTheme: CardTheme(
+      surfaceTintColor: AppColors.lightBlack,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppStyles.clipRadius),
+      ),
+    ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
+      scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
       backgroundColor: AppColors.mediumBlack,
       systemOverlayStyle: SystemUiOverlayStyle.light,

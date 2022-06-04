@@ -223,7 +223,7 @@ class MyProfileController extends GetxController {
 
   void onTapSignOut() async {
     final res = await showAppDialog(
-      title: StringsKeys.signOut.tr + '?',
+      title: '${StringsKeys.signOut.tr}?',
       subtitle: StringsKeys.youReallyWantToSignOut.tr,
       first: StringsKeys.cancel.tr,
       second: StringsKeys.signOut.tr,

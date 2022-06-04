@@ -31,6 +31,7 @@ class CreateAddButton extends StatelessWidget {
               disabledElevation: 0.5,
               padding: EdgeInsets.zero,
               color: Get.theme.primaryColor,
+              onPressed: onPressed,
               child: const Center(
                 child: Icon(
                   Icons.add,
@@ -38,7 +39,6 @@ class CreateAddButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onPressed: onPressed,
             ),
           ),
         ),

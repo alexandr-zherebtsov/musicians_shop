@@ -2,8 +2,8 @@
 
 ### Platforms
 ```
-1 - Android, min version 6.0 (API level 23)
-2 - iOS, target version 15.2
+1 - Android
+2 - iOS
 3 - Web
 ```
 
@@ -14,7 +14,9 @@ Project using GetX for communication between layers
 
 ### Libraries & Tools
 
-- [Flutter Channel stable, 2.10.5](https://flutter.dev)
+- [Flutter 3.0.1 • channel stable](https://flutter.dev)
+- [Dart 2.17.1](https://dart.dev)
+- [DevTools 2.12.2](https://docs.flutter.dev/development/tools/devtools/overview)
 
 Core
 - [get](https://github.com/jonataslaw/getx)
@@ -22,20 +24,20 @@ Core
 Firebase
 - [firebase_core](https://github.com/firebase/flutterfire/tree/master/packages/firebase_core/firebase_core)
 - [firebase_auth](https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth)
-- [cloud_firestore](https://pub.dev/packages/cloud_firestore)
-- [flutterfire_cli](https://pub.dev/packages/flutterfire_cli)
-- [firebase_storage](https://pub.dev/packages/firebase_storage)
+- [cloud_firestore](https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore)
+- [flutterfire_cli](https://github.com/invertase/flutterfire_cli)
+- [firebase_storage](https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage)
 
 UI
-- [fluttertoast](https://pub.dev/packages/fluttertoast)
-- [carousel_slider](https://pub.dev/packages/carousel_slider)
+- [fluttertoast](https://github.com/PonnamKarthik/FlutterToast)
+- [carousel_slider](https://github.com/serenader2014/flutter_carousel_slider)
 - [cupertino_icons](https://github.com/flutter/packages/tree/master/third_party/packages/cupertino_icons)
 
 Utils
-- [mime](https://pub.dev/packages/mime)
-- [url_strategy](https://pub.dev/packages/url_strategy)
+- [mime](https://github.com/dart-lang/mime)
+- [url_strategy](https://github.com/simpleclub/url_strategy)
 - [url_launcher](https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher)
-- [image_picker](https://pub.dev/packages/image_picker)
+- [image_picker](https://github.com/flutter/plugins/tree/main/packages/image_picker/image_picker)
 - [package_info_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages)
 
 Dev Dependencies
@@ -96,8 +98,8 @@ import 'package:musicians_shop/shared/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
   if (kIsWeb) {
+    setPathUrlStrategy();
     await Firebase.initializeApp(
       options: AppValues.firebaseOptions,
     );

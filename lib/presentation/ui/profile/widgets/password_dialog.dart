@@ -26,7 +26,7 @@ class PasswordAlertDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppStyles.fieldRadius),
       ),
       title: Text(
-        StringsKeys.deleteAccount.tr + '?',
+        '${StringsKeys.deleteAccount.tr}?',
         style: Get.theme.textTheme.headline3,
       ),
       contentPadding: const EdgeInsets.only(

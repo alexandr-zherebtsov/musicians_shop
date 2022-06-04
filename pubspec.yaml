@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,19 +13,19 @@ dependencies:
     sdk: flutter
 
   # Core
-  get: 4.6.1
+  get: ^4.6.5
 
   # Firebase
-  firebase_core: ^1.17.0
-  firebase_auth: ^3.3.18
-  cloud_firestore: ^3.1.15
+  firebase_core: ^1.17.1
+  firebase_auth: ^3.3.19
+  cloud_firestore: ^3.1.17
   flutterfire_cli: ^0.2.2+2
-  firebase_storage: ^10.2.16
+  firebase_storage: ^10.2.17
 
   # UI
   fluttertoast: ^8.0.9
   carousel_slider: ^4.1.1
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.5
 
   # Utils
   mime: ^1.0.2
@@ -38,7 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
   flutter_launcher_icons_maker: ^0.10.2
 
 flutter_icons:

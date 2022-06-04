@@ -108,4 +108,3 @@ class AppTextField extends StatelessWidget {
     );
   }
 }
-

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
 import 'package:get/get.dart';
+import 'package:musicians_shop/shared/styles/themes.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
@@ -14,8 +15,8 @@ import 'package:musicians_shop/shared/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
   if (kIsWeb) {
+    setPathUrlStrategy();
     await Firebase.initializeApp(
       options: AppValues.firebaseOptions,
     );
@@ -41,7 +42,7 @@ class App extends StatelessWidget {
       initialBinding: GlobalBinding(),
       translations: Translation(),
       locale: Locale(getLangCode()),
-      theme: getTheme(),
+      theme: AppThemes.getTheme(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -24,6 +24,8 @@ class SmallIconButton extends StatelessWidget {
         disabledElevation: 0.0,
         highlightElevation: 0.0,
         padding: EdgeInsets.zero,
+        shape: const CircleBorder(),
+        onPressed: onPressed,
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: Icon(
@@ -31,8 +33,6 @@ class SmallIconButton extends StatelessWidget {
             size: 22.0,
           ),
         ),
-        shape: const CircleBorder(),
-        onPressed: onPressed,
       ),
     );
   }

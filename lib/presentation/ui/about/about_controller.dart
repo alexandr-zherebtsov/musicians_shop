@@ -18,7 +18,7 @@ class AboutController extends GetxController {
   void getVersion() async {
     try {
       packageInfo = await PackageInfo.fromPlatform();
-      version(StringsKeys.version.tr + ' ' + packageInfo.version);
+      version('${StringsKeys.version.tr} ${packageInfo.version}');
     } catch (e) {
       log(e.toString());
     }

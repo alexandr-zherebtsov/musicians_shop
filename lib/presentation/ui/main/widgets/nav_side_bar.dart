@@ -66,12 +66,12 @@ class NavSidebar extends StatelessWidget {
                             hoverColor: Colors.transparent,
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
+                            onTap: controller.goToAbout,
                             child: Icon(
                               Icons.info_outline,
                               color: Get.theme.primaryColor,
                               size: 12,
                             ),
-                            onTap: controller.goToAbout,
                           ),
                         ),
                       ],

@@ -44,7 +44,7 @@ class UserDataController extends GetxController {
       email: FirebaseAuth.instance.currentUser!.email,
       firstName: firstNameTC.text.trim(),
       lastName: lastNameTC.text.trim(),
-      phone: '+' + phoneNumberTC.text,
+      phone: '+${phoneNumberTC.text}',
       city: cityTC.text.trim(),
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
