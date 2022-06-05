@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class CreateImageWidget extends StatelessWidget {
   final FileTypeEnums fileType;
   final ResponsiveScreen screen;
   final void Function() remove;
+  final Uint8List? bytes;
 
   const CreateImageWidget({
     Key? key,
@@ -18,6 +20,7 @@ class CreateImageWidget extends StatelessWidget {
     required this.fileType,
     required this.screen,
     required this.remove,
+    this.bytes,
   }) : super(key: key);
 
   @override
@@ -34,8 +37,11 @@ class CreateImageWidget extends StatelessWidget {
             color: Colors.black.withOpacity(0.1),
             borderRadius: BorderRadius.circular(3.0),
           ),
-          child: fileType == FileTypeEnums.network || kIsWeb ? AppNetworkImage(
+          child: fileType == FileTypeEnums.network ? AppNetworkImage(
             url: image,
+          ) : kIsWeb && bytes != null ? Image.memory(
+            bytes!,
+            fit: BoxFit.cover,
           ) : Image.file(
             File(image),
             fit: BoxFit.cover,

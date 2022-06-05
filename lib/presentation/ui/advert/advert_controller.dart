@@ -89,7 +89,7 @@ class AdvertController extends GetxController {
         arguments: advert.uid,
       );
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -111,11 +111,11 @@ class AdvertController extends GetxController {
       ]);
       if (advertDeleted && imagesDeleted) {
         screenLoader = false;
-        showToast(StringsKeys.done.tr);
+        showAppNotification(StringsKeys.done.tr);
         willPopScope();
       } else {
         screenLoader = false;
-        showToast(StringsKeys.somethingWentWrong.tr);
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
         if (advertDeleted) {
           willPopScope();
         }

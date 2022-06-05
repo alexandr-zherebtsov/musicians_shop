@@ -1,24 +1,19 @@
 import 'dart:io' show Platform;
 import 'dart:math' as math;
 
+import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:path_provider/path_provider.dart';
 
-void showToast(String message, {bool red = false}) {
-  Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: kIsWeb ? ToastGravity.BOTTOM : ToastGravity.CENTER,
-    timeInSecForIosWeb: 2,
-    backgroundColor: red ? Colors.red.withOpacity(0.8) : Colors.black.withOpacity(0.8),
-    textColor: Colors.white,
-    fontSize: 16.0,
-    webBgColor: red ? '#D32F2FFF' : '#C2185BFF',
+void showAppNotification(String message) {
+  toast(
+    message,
+    duration: const Duration(milliseconds: 1400),
   );
 }
 
@@ -41,7 +36,7 @@ String getLangCode() {
   }
 }
 
-String getClearName(String? firstName, String? lastName, {comma = false}) {
+String getClearName(String? firstName, String? lastName, {bool comma = false}) {
   return (firstName ?? '') + (firstName == null ? '' : firstName.isEmpty ? ''
       : comma ? lastName == null ? '' : lastName.isEmpty ? '' : ', ' : ' ')
       + (lastName ?? '');
@@ -148,6 +143,21 @@ String priceParser(String price) {
   } catch (_) {
     return price;
   }
+}
+
+Future<String> findGalleryPath() async {
+  String? externalStorageDirPath;
+  if (Platform.isAndroid) {
+    try {
+      externalStorageDirPath = await AndroidPathProvider.downloadsPath;
+    } catch (e) {
+      final directory = await getExternalStorageDirectory();
+      externalStorageDirPath = directory?.path;
+    }
+  } else if (Platform.isIOS) {
+    externalStorageDirPath = (await getApplicationDocumentsDirectory()).absolute.path;
+  }
+  return externalStorageDirPath!;
 }
 
 double doubleParser(dynamic data) {

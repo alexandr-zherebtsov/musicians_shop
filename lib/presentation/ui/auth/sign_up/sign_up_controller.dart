@@ -32,10 +32,10 @@ class SignUpController extends GetxController {
       if (_firebaseAuth.currentUser != null && res) {
         goToMain();
       } else {
-        showToast(StringsKeys.somethingWentWrong.tr);
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 

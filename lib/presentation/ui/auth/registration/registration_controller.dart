@@ -31,10 +31,10 @@ class RegistrationController extends GetxController {
       if (res != null) {
         goToUserData();
       } else {
-        showToast(StringsKeys.somethingWentWrong.tr);
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 

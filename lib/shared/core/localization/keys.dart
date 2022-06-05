@@ -49,4 +49,5 @@ class StringsKeys {
   static const String youReallyWantToSignOut = 'youReallyWantToSignOut';
   static const String noSearchResults = 'noSearchResults';
   static const String author = 'author';
+  static const String notification = 'notification';
 }

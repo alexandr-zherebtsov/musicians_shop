@@ -55,13 +55,13 @@ class EditProfileController extends GetxController {
     if (validator()) {
       final bool res = await _userRepository.editUserData(setUserData());
       if (res) {
-        showToast(StringsKeys.done.tr);
+        showAppNotification(StringsKeys.done.tr);
         Get.back(result: true);
       } else {
-        showToast(StringsKeys.somethingWentWrong.tr);
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 

@@ -1,5 +1,5 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
@@ -28,7 +28,7 @@ abstract class RemoteDataSource {
   Future<bool> editUserData(UserModel user);
 
   Future<String?> uploadFile({
-    required XFile file,
+    required PlatformFile file,
     required FileTypeEnums type,
   });
 

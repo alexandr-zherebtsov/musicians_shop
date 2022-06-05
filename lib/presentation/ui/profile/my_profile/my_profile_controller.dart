@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart';
 import 'package:musicians_shop/data/repositories/auth/auth_repository.dart';
 import 'package:musicians_shop/data/repositories/file/file_repository.dart';
@@ -24,7 +24,6 @@ class MyProfileController extends GetxController {
   final FileRepository _fileRepository = Get.find<FileRepository>();
   final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
 
-  final ImagePicker _picker = ImagePicker();
   final TextEditingController passwordTC = TextEditingController();
   RxBool passwordLoader = false.obs;
 
@@ -67,11 +66,13 @@ class MyProfileController extends GetxController {
   void changeAvatar() async {
     Get.back();
     try {
-      XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      final FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
+        initialDirectory: isNotMobile() ? null : await findGalleryPath(),
+      );
       if (pickedFile != null) {
         screenLoader = true;
         final String? imageUrl = await _fileRepository.uploadFile(
-          file: pickedFile,
+          file: pickedFile.files[0],
           type: FileTypeEnums.userPhoto,
         );
         if (imageUrl != null) {
@@ -80,7 +81,7 @@ class MyProfileController extends GetxController {
             setNewUserPhoto(imageUrl),
           ]);
         } else {
-          showToast(StringsKeys.somethingWentWrong.tr);
+          showAppNotification(StringsKeys.somethingWentWrong.tr);
         }
       }
     } catch (e) {
@@ -110,9 +111,9 @@ class MyProfileController extends GetxController {
     final bool res = await _userRepository.editUserData(userEdited);
     if (res) {
       user = userEdited;
-      showToast(StringsKeys.done.tr);
+      showAppNotification(StringsKeys.done.tr);
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -164,17 +165,17 @@ class MyProfileController extends GetxController {
           ]);
           await _authRepository.deleteUser();
           logOut();
-          showToast(StringsKeys.done.tr);
+          showAppNotification(StringsKeys.done.tr);
         } else {
           screenError = true;
-          showToast(StringsKeys.somethingWentWrong.tr);
+          showAppNotification(StringsKeys.somethingWentWrong.tr);
         }
       } else {
-        showToast(StringsKeys.somethingWentWrong.tr);
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
       screenLoader = false;
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 

@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart';
 import 'package:musicians_shop/data/repositories/file/file_repository.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
@@ -19,7 +19,6 @@ class CreateController extends GetxController {
   final TextEditingController headlineTC = TextEditingController();
   final TextEditingController priceTC = TextEditingController();
   final TextEditingController descriptionTC = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
 
   AdvertModel? editableAdvert;
   AdvertModel? newAdvert;
@@ -27,7 +26,7 @@ class CreateController extends GetxController {
   AdvertModel? refreshResult;
 
   List<String> acquisitionImages = <String>[];
-  List<XFile> selectedImages = <XFile>[];
+  List<PlatformFile> selectedImages = <PlatformFile>[];
   List<String> deletedImages = <String>[];
   List<String> finalImages = <String>[];
 
@@ -56,9 +55,11 @@ class CreateController extends GetxController {
   }
 
   void addImage() async {
-    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    final FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
+      initialDirectory: isNotMobile() ? null : await findGalleryPath(),
+    );
     if (pickedFile != null) {
-      selectedImages.add(pickedFile);
+      selectedImages.add(pickedFile.files[0]);
       update();
     }
   }
@@ -69,7 +70,7 @@ class CreateController extends GetxController {
     update();
   }
 
-  void removeSelected(XFile e) {
+  void removeSelected(PlatformFile e) {
     selectedImages.remove(e);
     update();
   }
@@ -85,12 +86,12 @@ class CreateController extends GetxController {
         ]);
         editableAdvert == null ? await createAdvert() : await editAdvert();
       } catch (e) {
-        showToast(StringsKeys.somethingWentWrong.tr);
         log(e.toString());
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
       screenLoader = false;
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -128,10 +129,10 @@ class CreateController extends GetxController {
     );
     final bool res = await _advertsRepository.createAdvert(newAdvert!);
     if (res) {
-      showToast(StringsKeys.done.tr);
+      showAppNotification(StringsKeys.done.tr);
       Get.back(result: newAdvert);
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -142,10 +143,10 @@ class CreateController extends GetxController {
     editableAdvert!.images = finalImages;
     final bool res = await _advertsRepository.editAdvert(editableAdvert!);
     if (res) {
-      showToast(StringsKeys.done.tr);
+      showAppNotification(StringsKeys.done.tr);
       Get.back(result: editableAdvert);
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 

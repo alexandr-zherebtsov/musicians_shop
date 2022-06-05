@@ -51,4 +51,5 @@ const Map<String, String> en = <String, String>{
   StringsKeys.youReallyWantToSignOut: 'You really want to sign out?',
   StringsKeys.noSearchResults: 'No search results...',
   StringsKeys.author: 'Author',
+  StringsKeys.notification: 'Notification',
 };

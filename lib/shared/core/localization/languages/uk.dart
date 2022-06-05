@@ -51,4 +51,5 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.youReallyWantToSignOut: 'Ви дійсно хочете вийти?',
   StringsKeys.noSearchResults: 'Немає результатів пошуку...',
   StringsKeys.author: 'Автор',
+  StringsKeys.notification: 'Оповіщення',
 };

@@ -50,8 +50,8 @@ class AppDialog extends StatelessWidget {
         style: Get.theme.textTheme.bodyText1,
       ),
       buttonPadding: EdgeInsets.zero,
-      actionsPadding: EdgeInsets.zero,
-      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsPadding: const EdgeInsets.only(left: 18),
+      actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         AppTextButton(
           title: first,

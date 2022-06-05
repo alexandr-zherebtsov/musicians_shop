@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/themes.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
@@ -32,16 +33,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      navigatorKey: Get.key,
-      getPages: AppRouter.routes,
-      initialRoute: AppRoutes.splash,
-      title: StringsKeys.musicianShop.tr,
-      initialBinding: GlobalBinding(),
-      translations: Translation(),
-      locale: Locale(getLangCode()),
-      theme: AppThemes.getTheme(),
-      debugShowCheckedModeBanner: false,
+    return OverlaySupport.global(
+      child: GetMaterialApp(
+        navigatorKey: Get.key,
+        getPages: AppRouter.routes,
+        initialRoute: AppRoutes.splash,
+        title: StringsKeys.musicianShop.tr,
+        initialBinding: GlobalBinding(),
+        translations: Translation(),
+        locale: Locale(getLangCode()),
+        theme: AppThemes.getTheme(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

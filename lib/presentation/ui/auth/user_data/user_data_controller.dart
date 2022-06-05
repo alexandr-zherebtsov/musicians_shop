@@ -30,11 +30,11 @@ class UserDataController extends GetxController {
       if (res != null) {
         goToMain();
       } else {
-        showToast(StringsKeys.somethingWentWrong.tr);
+        showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
       screenLoader = false;
     } else {
-      showToast(StringsKeys.somethingWentWrong.tr);
+      showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 

@@ -2,10 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:image_picker/image_picker.dart';
 import 'package:musicians_shop/data/sources/remote_data_source.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
@@ -137,7 +137,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
 
   @override
   Future<String?> uploadFile({
-    required XFile file,
+    required PlatformFile file,
     required FileTypeEnums type,
   }) async {
     try {
@@ -148,7 +148,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
           dot: true,
         ));
         await ref.putData(
-          await file.readAsBytes(),
+          file.bytes!,
           SettableMetadata(
             contentType: getFileType(
               fileName: file.name,
@@ -164,11 +164,11 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       } else {
         final UploadTask ut = _fs.ref().child(
           getFileUrl(type) + getFileFormatFromFile(
-            path: file.path,
+            path: file.path!,
             name: file.name,
             dot: true,
           ),
-        ).putFile(File(file.path));
+        ).putFile(File(file.path!));
         final String imgUrl = await(await ut).ref.getDownloadURL();
         return imgUrl;
       }

@@ -1,11 +1,11 @@
 # Musicians Shop
 
 ### Platforms
-```
+
 1 - Android
 2 - iOS
-3 - Web
-```
+3 - macOS
+4 - Web [(web.app)](https://musicians-shop.web.app)
 
 ### Architecture
 Project using GetX for communication between layers
@@ -29,16 +29,18 @@ Firebase
 - [firebase_storage](https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage)
 
 UI
-- [fluttertoast](https://github.com/PonnamKarthik/FlutterToast)
+- [overlay_support](https://github.com/boyan01/overlay_support)
 - [carousel_slider](https://github.com/serenader2014/flutter_carousel_slider)
 - [cupertino_icons](https://github.com/flutter/packages/tree/master/third_party/packages/cupertino_icons)
 
 Utils
 - [mime](https://github.com/dart-lang/mime)
+- [file_picker](https://github.com/miguelpruivo/flutter_file_picker)
 - [url_strategy](https://github.com/simpleclub/url_strategy)
 - [url_launcher](https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher)
-- [image_picker](https://github.com/flutter/plugins/tree/main/packages/image_picker/image_picker)
+- [path_provider](https://github.com/flutter/plugins/tree/main/packages/path_provider/path_provider)
 - [package_info_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages)
+- [android_path_provider](https://github.com/mix1009/android_path_provider)
 
 Dev Dependencies
 - [flutter_lints](https://github.com/flutter/packages/tree/main/packages/flutter_lints)
@@ -53,6 +55,7 @@ flutter-app/
 |- build
 |- ios
 |- lib
+|- macos
 |- test
 |- web
 ```
@@ -71,11 +74,11 @@ lib/
 Now, lets dive into the lib folder which has the main code for the application.
 
 ```
-1- data - Contains the data layer of project, includes directories for local, network and shared pref/cache.
-2- domain - Contains abstraction and business logic of project, includes models, responses, request, etc.
-3- presentation - Contains all the ui of project, contains sub directory for each screen.
-4- shared - Contains the utilities/common functions, styles of application.
-5- main.dart - This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
+1 - data - Contains the data layer of project, includes directories for local, network and shared pref/cache.
+2 - domain - Contains abstraction and business logic of project, includes models, responses, request, etc.
+3 - presentation - Contains all the ui of project, contains sub directory for each screen.
+4 - shared - Contains the utilities/common functions, styles of application.
+5 - main.dart - This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
 ```
 
 ### Main
@@ -88,6 +91,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/themes.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
@@ -116,16 +120,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      navigatorKey: Get.key,
-      getPages: AppRouter.routes,
-      initialRoute: AppRoutes.splash,
-      title: StringsKeys.musicianShop.tr,
-      initialBinding: GlobalBinding(),
-      translations: Translation(),
-      locale: Locale(getLangCode()),
-      theme: AppThemes.getTheme(),
-      debugShowCheckedModeBanner: false,
+    return OverlaySupport.global(
+      child: GetMaterialApp(
+        navigatorKey: Get.key,
+        getPages: AppRouter.routes,
+        initialRoute: AppRoutes.splash,
+        title: StringsKeys.musicianShop.tr,
+        initialBinding: GlobalBinding(),
+        translations: Translation(),
+        locale: Locale(getLangCode()),
+        theme: AppThemes.getTheme(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

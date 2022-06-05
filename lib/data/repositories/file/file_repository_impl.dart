@@ -1,4 +1,4 @@
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:musicians_shop/data/repositories/file/file_repository.dart';
 import 'package:musicians_shop/data/sources/remote_data_source.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
@@ -9,7 +9,7 @@ class FileRepositoryImpl extends FileRepository {
 
   @override
   Future<String?> uploadFile({
-    required XFile file,
+    required PlatformFile file,
     required FileTypeEnums type,
   }) async {
     return await _remoteDataSource.uploadFile(

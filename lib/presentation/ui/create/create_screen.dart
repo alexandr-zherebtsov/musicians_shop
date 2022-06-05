@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -111,7 +112,8 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                           }).toList(),
                                           ...controller.selectedImages.map((e) {
                                             return CreateImageWidget(
-                                              image: e.path,
+                                              image: kIsWeb ? '' : e.path ?? '',
+                                              bytes: e.bytes,
                                               fileType: FileTypeEnums.file,
                                               screen: screen,
                                               remove: () => controller.removeSelected(e),
