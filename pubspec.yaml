@@ -9,8 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_web_plugins:
-    sdk: flutter
 
   # Core
   get: ^4.6.5
@@ -26,6 +24,7 @@ dependencies:
   overlay_support: ^2.0.1
   carousel_slider: ^4.1.1
   cupertino_icons: ^1.0.5
+  syncfusion_flutter_charts: ^20.1.59
 
   # Utils
   mime: ^1.0.2

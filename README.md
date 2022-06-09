@@ -2,10 +2,15 @@
 
 ### Platforms
 
+```
 1 - Android
 2 - iOS
 3 - macOS
-4 - Web [(web.app)](https://musicians-shop.web.app)
+4 - Web
+```
+
+### Flutter Web App
+[musicians-shop.web.app](https://musicians-shop.web.app)
 
 ### Architecture
 Project using GetX for communication between layers
@@ -32,6 +37,7 @@ UI
 - [overlay_support](https://github.com/boyan01/overlay_support)
 - [carousel_slider](https://github.com/serenader2014/flutter_carousel_slider)
 - [cupertino_icons](https://github.com/flutter/packages/tree/master/third_party/packages/cupertino_icons)
+- [syncfusion_flutter_charts](https://github.com/syncfusion/flutter-widgets)
 
 Utils
 - [mime](https://github.com/dart-lang/mime)
