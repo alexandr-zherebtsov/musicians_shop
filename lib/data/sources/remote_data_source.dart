@@ -1,6 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 
@@ -45,4 +47,12 @@ abstract class RemoteDataSource {
   Future<List<AdvertModel>> getMyAdverts(String uid);
 
   Future<List<AdvertModel>> getLikedAdverts(String uid);
+
+  Future<List<InstrumentTypeModel>> getInstrumentTypes();
+
+  Future<bool> createInstrumentType(InstrumentTypeModel type);
+
+  Future<List<BrandModel>> getBrands();
+
+  Future<bool> createBrand(BrandModel brand);
 }

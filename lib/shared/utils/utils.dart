@@ -5,6 +5,8 @@ import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
+import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -48,6 +50,32 @@ String clearAndTrim(String? value) {
   } else {
     return '';
   }
+}
+
+String getInstrumentTypesString(List<InstrumentTypeModel> brands) {
+  String res = '';
+  if (brands.isNotEmpty) {
+    for (int i = 0; i < brands.length; i++) {
+      if (brands[i].type != null) {
+        res = '$res${brands[i].type!.tr}, ';
+      }
+    }
+    res = replaceLast(res.trim());
+  }
+  return res;
+}
+
+String getBrandsString(List<BrandModel> brands) {
+  String res = '';
+  if (brands.isNotEmpty) {
+    for (int i = 0; i < brands.length; i++) {
+      if (brands[i].name != null) {
+        res = '$res${brands[i].name!}, ';
+      }
+    }
+    res = replaceLast(res.trim());
+  }
+  return res;
 }
 
 String formatPhone(String? phoneNumber) {
@@ -142,6 +170,26 @@ String priceParser(String price) {
     }
   } catch (_) {
     return price;
+  }
+}
+
+String replaceLast(String? string) {
+  if (string == null) {
+    return '';
+  } else {
+    return string.substring(0, string.length - 1);
+  }
+}
+
+String replaceAllSymbols(String? string) {
+  if (string == null) {
+    return '';
+  } else {
+    return string.replaceAll('+', '').replaceAll('!', '').replaceAll(')', '').replaceAll('[', '')
+        .replaceAll('*', '').replaceAll('"', '').replaceAll('=', '').replaceAll('/', '').replaceAll('\\', '').replaceAll(']', '')
+        .replaceAll('?', '').replaceAll('(', '').replaceAll('%', '').replaceAll('\'', '').replaceAll(':', '').replaceAll('{', '')
+        .replaceAll(' ', '').replaceAll('@', '').replaceAll('\$', '').replaceAll(';', '').replaceAll('}', '')
+        .replaceAll('<', '').replaceAll('>', '').replaceAll('|', '').replaceAll('.', '').replaceAll(',', '');
   }
 }
 

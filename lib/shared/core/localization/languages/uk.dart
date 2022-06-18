@@ -1,6 +1,8 @@
+import 'package:musicians_shop/shared/core/localization/instruments_keys.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 
 const Map<String, String> uk = <String, String>{
+  // app strings
   StringsKeys.musicianShop: 'Musician Shop',
   StringsKeys.home: 'Головна',
   StringsKeys.adverts: 'Оголошення',
@@ -52,4 +54,33 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.noSearchResults: 'Немає результатів пошуку...',
   StringsKeys.author: 'Автор',
   StringsKeys.notification: 'Оповіщення',
+  StringsKeys.typeOfMusicalInstrument: 'Тип музичного інструменту',
+  StringsKeys.type: 'Тип',
+  StringsKeys.brand: 'Бренд',
+  StringsKeys.favoriteInstruments: 'Улюблені інструменти',
+  StringsKeys.favoriteBrands: 'Улюблені бренди',
+  // instruments
+  InstrumentsKeys.other: 'Інше',
+  InstrumentsKeys.electricGuitar: 'Електрогітара',
+  InstrumentsKeys.classicalOrgan: 'Класичний орган',
+  InstrumentsKeys.electricOrgan: 'Електроорган',
+  InstrumentsKeys.grandPiano: 'Рояль',
+  InstrumentsKeys.digitalPiano: 'Цифрове піаніно',
+  InstrumentsKeys.keyboard: 'Клавіші',
+  InstrumentsKeys.synthesizer: 'Синтезатор',
+  InstrumentsKeys.accordion: 'Акордеон',
+  InstrumentsKeys.sampler: 'Семплер',
+  InstrumentsKeys.viola: 'Альт',
+  InstrumentsKeys.cello: 'Віолончель',
+  InstrumentsKeys.electricBass: 'Електробас',
+  InstrumentsKeys.doubleBass: 'Контрабас',
+  InstrumentsKeys.folkInstrument: 'Народний інструмент',
+  InstrumentsKeys.orchestralPercussion: 'Оркестрові ударні',
+  InstrumentsKeys.acousticGuitar: 'Акустична гітара',
+  InstrumentsKeys.acousticBass: 'Акустичний бас',
+  InstrumentsKeys.classicalGuitar: 'Класична гітара',
+  InstrumentsKeys.ukulele: 'Укулеле',
+  InstrumentsKeys.acousticDrums: 'Акустичні барабани',
+  InstrumentsKeys.electronicDrums: 'Електронні барабани',
+  InstrumentsKeys.percussion: 'Перкусія',
 };

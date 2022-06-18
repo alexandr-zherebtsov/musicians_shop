@@ -14,4 +14,3 @@ abstract class AdvertsRepository extends BaseRepository {
 
   Future<List<AdvertModel>> getLikedAdverts(String uid);
 }
-

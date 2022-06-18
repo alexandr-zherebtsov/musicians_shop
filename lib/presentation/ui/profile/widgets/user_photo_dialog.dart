@@ -44,10 +44,12 @@ void showAvatarBottomSheet({
 }) {
   Get.bottomSheet(
     SingleChildScrollView(
-      child: UserPhotoDialog(
-        change: change,
-        delete: delete,
-        dialog: false,
+      child: SafeArea(
+        child: UserPhotoDialog(
+          change: change,
+          delete: delete,
+          dialog: false,
+        ),
       ),
     ),
     shape: const RoundedRectangleBorder(

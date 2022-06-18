@@ -55,6 +55,14 @@ class UserProfileScreen extends GetResponsiveView<UserProfileController> {
                           title: StringsKeys.aboutYourself.tr,
                           data: controller.user?.aboutYourself,
                         ),
+                        UserInfoItem(
+                          title: StringsKeys.favoriteInstruments.tr,
+                          data: getInstrumentTypesString(controller.user?.favoriteInstruments ?? []),
+                        ),
+                        UserInfoItem(
+                          title: StringsKeys.favoriteBrands.tr,
+                          data: getBrandsString(controller.user?.favoriteBrands ?? []),
+                        ),
                       ],
                     ),
                   ),

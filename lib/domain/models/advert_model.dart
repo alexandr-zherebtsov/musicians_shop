@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class AdvertModel {
@@ -11,6 +13,10 @@ class AdvertModel {
   Timestamp? createdAt;
   Timestamp? updatedAt;
   List<String>? likes;
+  InstrumentTypeModel? type;
+  BrandModel? brand;
+  String? city;
+  double? userCount;
 
   AdvertModel({
     this.id,
@@ -22,6 +28,10 @@ class AdvertModel {
     this.createdAt,
     this.updatedAt,
     this.likes,
+    this.type,
+    this.brand,
+    this.city,
+    this.userCount,
   });
 
   AdvertModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +44,14 @@ class AdvertModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     likes = json['likes'] == null ? <String>[] : json['likes'].cast<String>();
+    type = json['type'] != null
+        ? InstrumentTypeModel.fromJson(json['type'])
+        : null;
+    brand = json['brand'] != null
+        ? BrandModel.fromJson(json['brand'])
+        : null;
+    city = json['city'];
+    userCount = doubleParser(json['userCount']);
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +65,14 @@ class AdvertModel {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['likes'] = likes;
+    if (type != null) {
+      data['type'] = type!.toJson();
+    }
+    if (brand != null) {
+      data['brand'] = brand!.toJson();
+    }
+    data['city'] = city;
+    data['userCount'] = 0.0;
     return data;
   }
 }

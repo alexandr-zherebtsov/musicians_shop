@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/likes_widget.dart';
-import 'package:musicians_shop/presentation/ui/main/widgets/price_widget.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
+import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_network_image.dart';
+import 'package:musicians_shop/shared/widgets/label_widget.dart';
 
 class AdvertCard extends StatelessWidget {
   final ResponsiveScreen screen;
@@ -100,8 +101,8 @@ class AdvertCard extends StatelessWidget {
                       liked: advert.likes?.contains(uid) ?? false,
                       onTap: onTapLike,
                     ),
-                    PriceWidget(
-                      price: advert.price,
+                    LabelWidget(
+                      label: '${priceParser(advert.price.toString())} \$',
                     ),
                   ],
                 ),

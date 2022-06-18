@@ -41,6 +41,7 @@ UI
 
 Utils
 - [mime](https://github.com/dart-lang/mime)
+- [logger](https://github.com/leisim/logger)
 - [file_picker](https://github.com/miguelpruivo/flutter_file_picker)
 - [url_strategy](https://github.com/simpleclub/url_strategy)
 - [url_launcher](https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher)

@@ -84,7 +84,7 @@ class AppTextField extends StatelessWidget {
         ),
         child: Text(
           prefix,
-          style: Get.theme.textTheme.subtitle1
+          style: Get.theme.textTheme.subtitle1,
         ),
       ),
       prefixIconConstraints: const BoxConstraints(

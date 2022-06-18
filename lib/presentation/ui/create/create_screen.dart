@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/presentation/ui/auth/widgets/continue_button.dart';
 import 'package:musicians_shop/presentation/ui/create/create_controller.dart';
 import 'package:musicians_shop/presentation/ui/create/widgets/create_add_button.dart';
@@ -11,8 +13,10 @@ import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
+import 'package:musicians_shop/shared/widgets/app_field_header.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
+import 'package:musicians_shop/shared/widgets/dropdown_widgets.dart';
 
 class CreateScreen extends GetResponsiveView<CreateController> {
   CreateScreen({Key? key}) : super(key: key);
@@ -58,22 +62,23 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                       maxLines: 1,
                                       onSubmitted: (_) => controller.save(),
                                     ),
+                                    const AppFieldHeader(
+                                      header: StringsKeys.price,
+                                    ),
                                     AppTextField(
                                       controller: controller.priceTC,
                                       hint: StringsKeys.price.tr,
                                       maxLines: 1,
+                                      prefix: '\$',
                                       keyboardType: TextInputType.number,
-                                      padding: const EdgeInsets.only(
-                                        top: 30,
-                                        left: 22,
-                                        right: 22,
-                                        bottom: 30,
-                                      ),
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(20),
                                         FilteringTextInputFormatter.allow(AppRegExp.priceRegExp),
                                       ],
                                       onSubmitted: (_) => controller.save(),
+                                    ),
+                                    const AppFieldHeader(
+                                      header: StringsKeys.description,
                                     ),
                                     AppTextField(
                                       controller: controller.descriptionTC,
@@ -85,16 +90,52 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                       ],
                                       onSubmitted: (_) => controller.save(),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 30,
-                                        left: 26,
-                                        bottom: 10
+                                    const AppFieldHeader(
+                                      header: StringsKeys.typeOfMusicalInstrument,
+                                    ),
+                                    DropDownFrame(
+                                      child: DropdownButton<InstrumentTypeModel>(
+                                        isExpanded: true,
+                                        value: controller.instrumentType,
+                                        onChanged: (InstrumentTypeModel? v) => controller.instrumentType = v,
+                                        underline: const Offstage(),
+                                        hint: const DropDownHint(
+                                          hint: StringsKeys.type,
+                                        ),
+                                        items: controller.instrumentTypes.map<DropdownMenuItem<InstrumentTypeModel>>((InstrumentTypeModel value) {
+                                          return DropdownMenuItem<InstrumentTypeModel>(
+                                            value: value,
+                                            child: DropDownItem(
+                                              name: value.type,
+                                            ),
+                                          );
+                                        }).toList(),
                                       ),
-                                      child: Text(
-                                        StringsKeys.photos.tr,
-                                        style: Get.theme.textTheme.bodyText2,
+                                    ),
+                                    const AppFieldHeader(
+                                      header: StringsKeys.brand,
+                                    ),
+                                    DropDownFrame(
+                                      child: DropdownButton<BrandModel>(
+                                        isExpanded: true,
+                                        value: controller.brand,
+                                        onChanged: (BrandModel? v) => controller.brand = v,
+                                        underline: const Offstage(),
+                                        hint: const DropDownHint(
+                                          hint: StringsKeys.brand,
+                                        ),
+                                        items: controller.brands.map<DropdownMenuItem<BrandModel>>((BrandModel value) {
+                                          return DropdownMenuItem<BrandModel>(
+                                            value: value,
+                                            child: DropDownItem(
+                                              name: value.name,
+                                            ),
+                                          );
+                                        }).toList(),
                                       ),
+                                    ),
+                                    const AppFieldHeader(
+                                      header: StringsKeys.photos,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(

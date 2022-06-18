@@ -28,7 +28,9 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: screen.isDesktop ? const EdgeInsets.all(22) : const EdgeInsets.only(
+      padding: screen.isDesktop ? const EdgeInsets.all(
+        22,
+      ) : const EdgeInsets.only(
         top: 22,
         left: 22,
         right: 4,
@@ -111,11 +113,11 @@ class ProfileHeader extends StatelessWidget {
                     child: Offstage(
                       offstage: (city ?? '').isEmpty,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Padding(
                             padding: EdgeInsets.only(
-                              top: 4,
+                              top: 2,
                               right: 2,
                             ),
                             child: Icon(

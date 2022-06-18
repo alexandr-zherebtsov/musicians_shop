@@ -22,4 +22,10 @@ class AppValues {
 
   /// Collection adverts
   static const String collectionAdverts = 'adverts';
+
+  /// Collection instrument types
+  static const String collectionInstrumentTypes = 'instrument_types';
+
+  /// Collection brands
+  static const String collectionBrands = 'brands';
 }

@@ -1,6 +1,8 @@
+import 'package:musicians_shop/shared/core/localization/instruments_keys.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 
 const Map<String, String> en = <String, String>{
+  // app strings
   StringsKeys.musicianShop: 'Musician Shop',
   StringsKeys.home: 'Home',
   StringsKeys.adverts: 'Adverts',
@@ -52,4 +54,33 @@ const Map<String, String> en = <String, String>{
   StringsKeys.noSearchResults: 'No search results...',
   StringsKeys.author: 'Author',
   StringsKeys.notification: 'Notification',
+  StringsKeys.typeOfMusicalInstrument: 'Type of musical instrument',
+  StringsKeys.type: 'Type',
+  StringsKeys.brand: 'Brand',
+  StringsKeys.favoriteInstruments: 'Favorite instruments',
+  StringsKeys.favoriteBrands: 'Favorite brands',
+  // instruments
+  InstrumentsKeys.other: 'Other',
+  InstrumentsKeys.electricGuitar: 'Electric guitar',
+  InstrumentsKeys.classicalOrgan: 'Classical organ',
+  InstrumentsKeys.electricOrgan: 'Electric organ',
+  InstrumentsKeys.grandPiano: 'Grand piano',
+  InstrumentsKeys.digitalPiano: 'Digital piano',
+  InstrumentsKeys.keyboard: 'Keyboard',
+  InstrumentsKeys.synthesizer: 'Synthesizer',
+  InstrumentsKeys.accordion: 'Accordion',
+  InstrumentsKeys.sampler: 'Sampler',
+  InstrumentsKeys.viola: 'Viola',
+  InstrumentsKeys.cello: 'Cello',
+  InstrumentsKeys.electricBass: 'Electric bass',
+  InstrumentsKeys.doubleBass: 'Double bass',
+  InstrumentsKeys.folkInstrument: 'Folk instrument',
+  InstrumentsKeys.orchestralPercussion: 'Orchestral percussion',
+  InstrumentsKeys.acousticGuitar: 'Acoustic guitar',
+  InstrumentsKeys.acousticBass: 'Acoustic bass',
+  InstrumentsKeys.classicalGuitar: 'Classical guitar',
+  InstrumentsKeys.ukulele: 'Ukulele',
+  InstrumentsKeys.acousticDrums: 'Acoustic drums',
+  InstrumentsKeys.electronicDrums: 'Electronic drums',
+  InstrumentsKeys.percussion: 'Percussion',
 };

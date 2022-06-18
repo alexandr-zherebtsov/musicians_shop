@@ -6,17 +6,28 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:logger/logger.dart';
 import 'package:musicians_shop/data/sources/remote_data_source.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class RemoteDataSourceImpl extends RemoteDataSource {
-  final FirebaseAuth _fa = FirebaseAuth.instance;
-  final FirebaseStorage _fs = FirebaseStorage.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final Logger _logger;
+  final FirebaseAuth _fa;
+  final FirebaseStorage _fs;
+  final FirebaseFirestore _db;
+
+  RemoteDataSourceImpl(
+    this._logger,
+    this._fa,
+    this._fs,
+    this._db,
+  );
 
   @override
   Future<bool> signInEmailPassword({
@@ -82,6 +93,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       ).doc(uid).get().then((DocumentSnapshot snapshot) {
         final Object? res = snapshot.data();
         if (res != null) {
+          _logger.d(res);
           return UserModel.fromJson(res as Map<String, dynamic>);
         } else {
           return null;
@@ -196,6 +208,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         AppValues.collectionAdverts,
       ).orderBy('updatedAt').get();
       final List<AdvertModel> res = (qs.docs).map((e) {
+        _logger.d(e.data());
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       return res;
@@ -254,6 +267,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         isEqualTo: uid,
       ).orderBy('updatedAt').get();
       final List<AdvertModel> res = (qs.docs).map((e) {
+        _logger.d(e.data());
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       return res;
@@ -273,12 +287,79 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         arrayContains: uid,
       ).orderBy('updatedAt').get();
       final List<AdvertModel> res = (qs.docs).map((e) {
+        _logger.d(e.data());
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       return res;
     } catch (e) {
       log(e.toString());
       return <AdvertModel>[];
+    }
+  }
+
+  @override
+  Future<List<InstrumentTypeModel>> getInstrumentTypes() async {
+    try {
+      final QuerySnapshot qs = await _db.collection(
+        AppValues.collectionInstrumentTypes,
+      ).orderBy('type').get();
+      final List<InstrumentTypeModel> res = (qs.docs).map((e) {
+        _logger.d(e.data());
+        return InstrumentTypeModel.fromJson(e.data() as Map<String, dynamic>);
+      }).toList();
+      final InstrumentTypeModel other = res.firstWhere((v) => v.id == '0');
+      res.removeWhere((v) => v.id == '0');
+      res.add(other);
+      return res;
+    } catch (e) {
+      log(e.toString());
+      return <InstrumentTypeModel>[];
+    }
+  }
+
+  @override
+  Future<bool> createInstrumentType(InstrumentTypeModel type) async {
+    try {
+      await _db.collection(
+        AppValues.collectionInstrumentTypes,
+      ).doc(type.id).set(type.toJson());
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
+  Future<List<BrandModel>> getBrands() async {
+    try {
+      final QuerySnapshot qs = await _db.collection(
+        AppValues.collectionBrands,
+      ).orderBy('name').get();
+      final List<BrandModel> res = (qs.docs).map((e) {
+        _logger.d(e.data());
+        return BrandModel.fromJson(e.data() as Map<String, dynamic>);
+      }).toList();
+      final BrandModel other = res.firstWhere((v) => v.id == '0');
+      res.removeWhere((v) => v.id == '0');
+      res.add(other);
+      return res;
+    } catch (e) {
+      log(e.toString());
+      return <BrandModel>[];
+    }
+  }
+
+  @override
+  Future<bool> createBrand(BrandModel brand) async {
+    try {
+      await _db.collection(
+        AppValues.collectionBrands,
+      ).doc(brand.id).set(brand.toJson());
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }

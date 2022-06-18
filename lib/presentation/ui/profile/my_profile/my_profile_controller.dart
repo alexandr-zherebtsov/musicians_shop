@@ -130,7 +130,6 @@ class MyProfileController extends GetxController {
   void onTapEdit() async {
     final res = await Get.toNamed(
       AppRoutes.editProfile,
-      arguments: user,
     );
     if (res == true) {
       onInit();
@@ -161,6 +160,7 @@ class MyProfileController extends GetxController {
         if (user?.id != null) {
           await Future.wait([
             _userRepository.deleteUserData(user!.id!),
+            deleteUserImage(),
             refreshAdverts(),
           ]);
           await _authRepository.deleteUser();

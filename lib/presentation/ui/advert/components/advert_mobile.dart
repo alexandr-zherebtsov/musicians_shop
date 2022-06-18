@@ -2,9 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/advert/advert_controller.dart';
+import 'package:musicians_shop/presentation/ui/advert/widgets/advert_labels.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/likes_widget.dart';
-import 'package:musicians_shop/presentation/ui/main/widgets/price_widget.dart';
+import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_network_image.dart';
+import 'package:musicians_shop/shared/widgets/label_widget.dart';
 
 class AdvertMobile extends StatelessWidget {
   final AdvertController controller;
@@ -20,74 +22,80 @@ class AdvertMobile extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            (controller.advert.images?? []).isEmpty ? const Offstage() : CarouselSlider(
-              items: controller.advert.images!.map((e) {
-                return SizedBox(
-                  width: Get.width,
-                  child: AppNetworkImage(
-                    url: e,
-                  ),
-                );
-              }).toList(),
-              options: CarouselOptions(
-                height: 400,
-                viewportFraction: 1,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                autoPlay: false,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              (controller.advert.images?? []).isEmpty ? const Offstage() : CarouselSlider(
+                items: controller.advert.images!.map((e) {
+                  return SizedBox(
+                    width: Get.width,
+                    child: AppNetworkImage(
+                      url: e,
+                    ),
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  height: 400,
+                  viewportFraction: 1,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  autoPlay: false,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 16,
-                left: 16,
-                right: 16,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 16,
+                  left: 16,
+                  right: 16,
+                ),
+                child: Text(
+                  controller.advert.headline?? '',
+                  style: Get.textTheme.headline3,
+                  softWrap: true,
+                ),
               ),
-              child: Text(
-                controller.advert.headline?? '',
-                style: Get.textTheme.headline3,
-                softWrap: true,
+              AdvertLabels(
+                brand: controller.advert.brand?.name,
+                type: controller.advert.type?.type?.tr,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 12,
-                left: 16,
-                right: 16,
-                bottom: 12,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 12,
+                  left: 16,
+                  right: 16,
+                  bottom: 12,
+                ),
+                child: Text(
+                  controller.advert.description?? '',
+                  style: Get.textTheme.bodyText1,
+                  softWrap: true,
+                ),
               ),
-              child: Text(
-                controller.advert.description?? '',
-                style: Get.textTheme.bodyText1,
-                softWrap: true,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LikesWidget(
+                      likes: controller.advert.likes?.length ?? 0,
+                      liked: controller.advert.likes?.contains(controller.uid) ?? false,
+                      onTap: controller.onTapLike,
+                    ),
+                    LabelWidget(
+                      label: '${priceParser(controller.advert.price.toString())} \$',
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8,
-                horizontal: 16,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  LikesWidget(
-                    likes: controller.advert.likes?.length ?? 0,
-                    liked: controller.advert.likes?.contains(controller.uid) ?? false,
-                    onTap: controller.onTapLike,
-                  ),
-                  PriceWidget(
-                    price: controller.advert.price,
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

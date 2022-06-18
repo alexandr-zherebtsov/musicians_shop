@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 
 class UserModel {
   String? id;
@@ -11,6 +13,8 @@ class UserModel {
   String? aboutYourself;
   Timestamp? createdAt;
   Timestamp? updatedAt;
+  List<InstrumentTypeModel>? favoriteInstruments;
+  List<BrandModel>? favoriteBrands;
 
   UserModel({
     this.id,
@@ -23,6 +27,8 @@ class UserModel {
     this.aboutYourself,
     this.createdAt,
     this.updatedAt,
+    this.favoriteInstruments,
+    this.favoriteBrands,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +42,18 @@ class UserModel {
     aboutYourself = json['aboutYourself'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    if (json['favoriteInstruments'] != null) {
+      favoriteInstruments = <InstrumentTypeModel>[];
+      json['favoriteInstruments'].forEach((v) {
+        favoriteInstruments!.add(InstrumentTypeModel.fromJson(v));
+      });
+    }
+    if (json['favoriteBrands'] != null) {
+      favoriteBrands = <BrandModel>[];
+      json['favoriteBrands'].forEach((v) {
+        favoriteBrands!.add(BrandModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +68,12 @@ class UserModel {
     data['aboutYourself'] = aboutYourself;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    if (favoriteInstruments != null) {
+      data['favoriteInstruments'] = favoriteInstruments!.map((v) => v.toJson()).toList();
+    }
+    if (favoriteBrands != null) {
+      data['favoriteBrands'] = favoriteBrands!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
