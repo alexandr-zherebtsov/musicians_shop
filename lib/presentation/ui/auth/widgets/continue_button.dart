@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
 
-class AuthContinueButton extends StatelessWidget {
+class MainContinueButton extends StatelessWidget {
   final ResponsiveScreen screen;
   final String title;
   final void Function() onTap;
 
-  const AuthContinueButton({
+  const MainContinueButton({
     Key? key,
     required this.screen,
     required this.title,

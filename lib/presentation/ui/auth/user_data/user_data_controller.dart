@@ -9,7 +9,8 @@ import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class UserDataController extends GetxController {
-  final UserRepository _userRepository = Get.find<UserRepository>();
+  final UserRepository _userRepository;
+  UserDataController(this._userRepository);
 
   final TextEditingController firstNameTC = TextEditingController();
   final TextEditingController lastNameTC = TextEditingController();
@@ -26,7 +27,7 @@ class UserDataController extends GetxController {
   void done() async {
     if (validator()) {
       screenLoader = true;
-      UserModel? res = await _userRepository.createUser(setData());
+      final UserModel? res = await _userRepository.createUser(setData());
       if (res != null) {
         goToMain();
       } else {

@@ -38,6 +38,42 @@ String getLangCode() {
   }
 }
 
+String getGraphDateLabel(DateTime? date) {
+  if (date != null) {
+    return '${getStringDate(date)}\n${getStringTime(date)}';
+  } else {
+    return '';
+  }
+}
+
+String getStringDate(DateTime? date) {
+  if (date != null) {
+    try {
+      return '${date.day}.${date.month}.${date.year}';
+    } catch (e) {
+      return '';
+    }
+  } else {
+    return '';
+  }
+}
+
+String getStringTime(DateTime? date) {
+  if (date != null) {
+    return '${date.hour}:${checkZeroInDate(date.minute.toString())}';
+  } else {
+    return '';
+  }
+}
+
+String checkZeroInDate(String value) {
+  if (value.length == 1) {
+    return '0$value';
+  } else {
+    return value;
+  }
+}
+
 String getClearName(String? firstName, String? lastName, {bool comma = false}) {
   return (firstName ?? '') + (firstName == null ? '' : firstName.isEmpty ? ''
       : comma ? lastName == null ? '' : lastName.isEmpty ? '' : ', ' : ' ')

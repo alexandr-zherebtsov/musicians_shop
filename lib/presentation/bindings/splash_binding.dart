@@ -7,6 +7,6 @@ class SplashBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<UserRepository>(() => UserRepositoryImpl(Get.find()));
-    Get.put(SplashController());
+    Get.put(SplashController(Get.find<UserRepository>()));
   }
 }

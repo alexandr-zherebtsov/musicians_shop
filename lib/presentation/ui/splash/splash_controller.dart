@@ -6,16 +6,18 @@ import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class SplashController extends GetxController {
-  final UserRepository _userRepository = Get.find<UserRepository>();
-  late String? uid;
+  final UserRepository _userRepository;
+  SplashController(this._userRepository);
+
+  late String? _uid;
 
   @override
   void onInit() async {
     super.onInit();
-    uid = FirebaseAuth.instance.currentUser?.uid;
+    _uid = FirebaseAuth.instance.currentUser?.uid;
     await delayedFunc(milliseconds: 1600);
-    uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != null) {
+    _uid = FirebaseAuth.instance.currentUser?.uid;
+    if (_uid != null) {
       if (await checkUserData()) {
         goToMain();
       } else {
@@ -27,7 +29,7 @@ class SplashController extends GetxController {
   }
 
   Future<bool> checkUserData() async {
-    final UserModel? res = await _userRepository.getUser(uid!);
+    final UserModel? res = await _userRepository.getUser(_uid!);
     return res != null;
   }
 

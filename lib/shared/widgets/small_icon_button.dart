@@ -4,12 +4,14 @@ class SmallIconButton extends StatelessWidget {
   final IconData icon;
   final void Function()? onPressed;
   final String message;
+  final Color? color;
 
   const SmallIconButton({
     Key? key,
     required this.icon,
     required this.onPressed,
     required this.message,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class SmallIconButton extends StatelessWidget {
           child: Icon(
             icon,
             size: 22.0,
+            color: color,
           ),
         ),
       ),

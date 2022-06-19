@@ -42,6 +42,7 @@ const Map<String, String> en = <String, String>{
   StringsKeys.newAvatar: 'New Avatar',
   StringsKeys.deleteAvatar: 'Delete Avatar',
   StringsKeys.thereAreNoAdverts: 'There are no adverts...',
+  StringsKeys.thereAreNoLikes: 'There are no likes...',
   StringsKeys.advert: 'Advert',
   StringsKeys.headline: 'Headline',
   StringsKeys.price: 'Price',
@@ -59,6 +60,8 @@ const Map<String, String> en = <String, String>{
   StringsKeys.brand: 'Brand',
   StringsKeys.favoriteInstruments: 'Favorite instruments',
   StringsKeys.favoriteBrands: 'Favorite brands',
+  StringsKeys.likes: 'Likes',
+  StringsKeys.recommendations: 'Recommendations',
   // instruments
   InstrumentsKeys.other: 'Other',
   InstrumentsKeys.electricGuitar: 'Electric guitar',

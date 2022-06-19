@@ -42,6 +42,7 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.newAvatar: 'Нова світлина',
   StringsKeys.deleteAvatar: 'Видалити світлину',
   StringsKeys.thereAreNoAdverts: 'Немає оголошень...',
+  StringsKeys.thereAreNoLikes: 'Немає лайків...',
   StringsKeys.advert: 'Оголошення',
   StringsKeys.headline: 'Заголовок',
   StringsKeys.price: 'Ціна',
@@ -59,6 +60,8 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.brand: 'Бренд',
   StringsKeys.favoriteInstruments: 'Улюблені інструменти',
   StringsKeys.favoriteBrands: 'Улюблені бренди',
+  StringsKeys.likes: 'Вподобання',
+  StringsKeys.recommendations: 'Рекомендації',
   // instruments
   InstrumentsKeys.other: 'Інше',
   InstrumentsKeys.electricGuitar: 'Електрогітара',

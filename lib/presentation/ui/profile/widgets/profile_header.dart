@@ -126,10 +126,9 @@ class ProfileHeader extends StatelessWidget {
                             ),
                           ),
                           Flexible(
-                            child: Text(
+                            child: SelectableText(
                               city ?? '',
                               style: Get.textTheme.bodyText1,
-                              softWrap: true,
                             ),
                           ),
                         ],

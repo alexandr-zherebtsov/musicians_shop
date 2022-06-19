@@ -90,6 +90,12 @@ class EditProfileController extends GetxController {
       aboutYourselfTC.text = user?.aboutYourself ?? '';
       favoriteInstruments = user?.favoriteInstruments ?? <InstrumentTypeModel>[];
       favoriteBrands = user?.favoriteBrands ?? <BrandModel>[];
+      for (InstrumentTypeModel v in favoriteInstruments) {
+        instrumentTypes.removeWhere((e) => e.id == v.id);
+      }
+      for (BrandModel v in favoriteBrands) {
+        brands.removeWhere((e) => e.id == v.id);
+      }
     } catch (e) {
       log(e.toString());
     }
@@ -98,6 +104,8 @@ class EditProfileController extends GetxController {
   void addFavoriteInstrumentType(InstrumentTypeModel? v) {
     if (v != null) {
       favoriteInstruments.add(v);
+      instrumentTypes.removeWhere((e) => e.id == v.id);
+      sortInstrumentTypes();
       update();
     }
   }
@@ -105,18 +113,54 @@ class EditProfileController extends GetxController {
   void addFavoriteBrand(BrandModel? v) {
     if (v != null) {
       favoriteBrands.add(v);
+      brands.removeWhere((e) => e.id == v.id);
+      sortBrands();
       update();
     }
   }
 
-  void deleteFavoriteInstrumentType(String? id) {
-    favoriteInstruments.removeWhere((v) => v.id == id);
-    update();
+  void deleteFavoriteInstrumentType(InstrumentTypeModel? v) {
+    if (v != null) {
+      favoriteInstruments.removeWhere((e) => e.id == v.id);
+      instrumentTypes.add(v);
+      sortInstrumentTypes();
+      update();
+    }
   }
 
-  void deleteFavoriteBrand(String? id) {
-    favoriteBrands.removeWhere((v) => v.id == id);
-    update();
+  void deleteFavoriteBrand(BrandModel? v) {
+    if (v != null) {
+      favoriteBrands.removeWhere((e) => e.id == v.id);
+      brands.add(v);
+      sortBrands();
+      update();
+    }
+  }
+
+  void sortInstrumentTypes() {
+    try {
+      instrumentTypes.sort((a, b) {
+        return a.type!.tr.toLowerCase().compareTo(b.type!.tr.toLowerCase());
+      });
+      final InstrumentTypeModel other = instrumentTypes.firstWhere((v) => v.id == '0');
+      instrumentTypes.removeWhere((v) => v.id == '0');
+      instrumentTypes.add(other);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void sortBrands() {
+    try {
+      brands.sort((a, b) {
+        return a.name!.toLowerCase().compareTo(b.name!.toLowerCase());
+      });
+      final BrandModel other = brands.firstWhere((v) => v.id == '0');
+      brands.removeWhere((v) => v.id == '0');
+      brands.add(other);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   void save() async {

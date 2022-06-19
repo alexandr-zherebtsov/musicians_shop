@@ -64,7 +64,7 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                       ),
                     ),
                   ),
-                  AuthContinueButton(
+                  MainContinueButton(
                     screen: screen,
                     title: StringsKeys.continueText.tr,
                     onTap: controller.done,

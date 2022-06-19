@@ -28,6 +28,7 @@ class SelectedFieldWidget extends StatelessWidget {
             DropDownFrame(
               margin: const EdgeInsets.only(
                 left: 22,
+                right: 4,
               ),
               child: Text(
                 title ?? '',

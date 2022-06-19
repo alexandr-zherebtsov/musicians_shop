@@ -112,7 +112,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                   ),
                                   ...controller.favoriteInstruments.map((e) => SelectedFieldWidget(
                                     title: e.type?.tr,
-                                    delete: () => controller.deleteFavoriteInstrumentType(e.id),
+                                    delete: () => controller.deleteFavoriteInstrumentType(e),
                                   )).toList(),
                                   DropDownFrame(
                                     child: DropdownButton<InstrumentTypeModel>(
@@ -137,7 +137,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                   ),
                                   ...controller.favoriteBrands.map((e) => SelectedFieldWidget(
                                     title: e.name,
-                                    delete: () => controller.deleteFavoriteBrand(e.id),
+                                    delete: () => controller.deleteFavoriteBrand(e),
                                   )).toList(),
                                   DropDownFrame(
                                     child: DropdownButton<BrandModel>(

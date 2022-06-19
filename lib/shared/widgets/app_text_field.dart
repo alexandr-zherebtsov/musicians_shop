@@ -79,6 +79,7 @@ class AppTextField extends StatelessWidget {
       ) : null,
       prefixIcon: prefix == null ? null : Padding(
         padding: const EdgeInsets.only(
+          top: 1,
           left: 12,
           right: 2,
         ),

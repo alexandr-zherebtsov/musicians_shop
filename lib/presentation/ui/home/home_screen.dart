@@ -28,8 +28,7 @@ class HomeScreen extends StatelessWidget {
           return const AppErrorWidget(
             title: StringsKeys.thereAreNoAdverts,
           );
-        }
-        else {
+        } else {
           return SizedBox(
             width: double.infinity,
             height: double.infinity,

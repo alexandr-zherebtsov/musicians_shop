@@ -42,145 +42,151 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                 width: double.infinity,
                 height: double.infinity,
                 child: SafeArea(
-                  child: Column(
+                  child: Stack(
                     children: [
-                      Expanded(
+                      SingleChildScrollView(
                         child: Center(
-                          child: SingleChildScrollView(
-                            child: ConstrainedBox(
-                              constraints: AppStyles.constraints,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppTextField(
-                                      controller: controller.headlineTC,
-                                      hint: StringsKeys.headline.tr,
-                                      maxLines: 1,
-                                      onSubmitted: (_) => controller.save(),
-                                    ),
-                                    const AppFieldHeader(
-                                      header: StringsKeys.price,
-                                    ),
-                                    AppTextField(
-                                      controller: controller.priceTC,
-                                      hint: StringsKeys.price.tr,
-                                      maxLines: 1,
-                                      prefix: '\$',
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(20),
-                                        FilteringTextInputFormatter.allow(AppRegExp.priceRegExp),
-                                      ],
-                                      onSubmitted: (_) => controller.save(),
-                                    ),
-                                    const AppFieldHeader(
-                                      header: StringsKeys.description,
-                                    ),
-                                    AppTextField(
-                                      controller: controller.descriptionTC,
-                                      hint: StringsKeys.description.tr,
-                                      maxLines: null,
-                                      contentPadding: const EdgeInsets.all(12),
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(4000),
-                                      ],
-                                      onSubmitted: (_) => controller.save(),
-                                    ),
-                                    const AppFieldHeader(
-                                      header: StringsKeys.typeOfMusicalInstrument,
-                                    ),
-                                    DropDownFrame(
-                                      child: DropdownButton<InstrumentTypeModel>(
-                                        isExpanded: true,
-                                        value: controller.instrumentType,
-                                        onChanged: (InstrumentTypeModel? v) => controller.instrumentType = v,
-                                        underline: const Offstage(),
-                                        hint: const DropDownHint(
-                                          hint: StringsKeys.type,
-                                        ),
-                                        items: controller.instrumentTypes.map<DropdownMenuItem<InstrumentTypeModel>>((InstrumentTypeModel value) {
-                                          return DropdownMenuItem<InstrumentTypeModel>(
-                                            value: value,
-                                            child: DropDownItem(
-                                              name: value.type,
-                                            ),
-                                          );
-                                        }).toList(),
+                          child: ConstrainedBox(
+                            constraints: AppStyles.constraints,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 98,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const AppFieldHeader(
+                                    header: StringsKeys.headline,
+                                  ),
+                                  AppTextField(
+                                    controller: controller.headlineTC,
+                                    hint: StringsKeys.headline.tr,
+                                    maxLines: 1,
+                                    onSubmitted: (_) => controller.save(),
+                                  ),
+                                  const AppFieldHeader(
+                                    header: StringsKeys.price,
+                                  ),
+                                  AppTextField(
+                                    controller: controller.priceTC,
+                                    hint: StringsKeys.price.tr,
+                                    maxLines: 1,
+                                    prefix: '\$',
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(20),
+                                      FilteringTextInputFormatter.allow(AppRegExp.priceRegExp),
+                                    ],
+                                    onSubmitted: (_) => controller.save(),
+                                  ),
+                                  const AppFieldHeader(
+                                    header: StringsKeys.description,
+                                  ),
+                                  AppTextField(
+                                    controller: controller.descriptionTC,
+                                    hint: StringsKeys.description.tr,
+                                    maxLines: null,
+                                    contentPadding: const EdgeInsets.all(12),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(4000),
+                                    ],
+                                    onSubmitted: (_) => controller.save(),
+                                  ),
+                                  const AppFieldHeader(
+                                    header: StringsKeys.typeOfMusicalInstrument,
+                                  ),
+                                  DropDownFrame(
+                                    child: DropdownButton<InstrumentTypeModel>(
+                                      isExpanded: true,
+                                      value: controller.instrumentType,
+                                      onChanged: (InstrumentTypeModel? v) => controller.instrumentType = v,
+                                      underline: const Offstage(),
+                                      hint: const DropDownHint(
+                                        hint: StringsKeys.type,
                                       ),
-                                    ),
-                                    const AppFieldHeader(
-                                      header: StringsKeys.brand,
-                                    ),
-                                    DropDownFrame(
-                                      child: DropdownButton<BrandModel>(
-                                        isExpanded: true,
-                                        value: controller.brand,
-                                        onChanged: (BrandModel? v) => controller.brand = v,
-                                        underline: const Offstage(),
-                                        hint: const DropDownHint(
-                                          hint: StringsKeys.brand,
-                                        ),
-                                        items: controller.brands.map<DropdownMenuItem<BrandModel>>((BrandModel value) {
-                                          return DropdownMenuItem<BrandModel>(
-                                            value: value,
-                                            child: DropDownItem(
-                                              name: value.name,
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                    const AppFieldHeader(
-                                      header: StringsKeys.photos,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 22,
-                                      ),
-                                      child: Wrap(
-                                        children: [
-                                          ...controller.acquisitionImages.map((e) {
-                                            return CreateImageWidget(
-                                              image: e,
-                                              fileType: FileTypeEnums.network,
-                                              screen: screen,
-                                              remove: () => controller.removeAcquisition(e),
-                                            );
-                                          }).toList(),
-                                          ...controller.selectedImages.map((e) {
-                                            return CreateImageWidget(
-                                              image: kIsWeb ? '' : e.path ?? '',
-                                              bytes: e.bytes,
-                                              fileType: FileTypeEnums.file,
-                                              screen: screen,
-                                              remove: () => controller.removeSelected(e),
-                                            );
-                                          }).toList(),
-                                          Offstage(
-                                            offstage: (controller.acquisitionImages.length + controller.selectedImages.length) > 4,
-                                            child: CreateAddButton(
-                                              screen: screen,
-                                              onPressed: controller.addImage,
-                                            ),
+                                      items: controller.instrumentTypes.map<DropdownMenuItem<InstrumentTypeModel>>((InstrumentTypeModel value) {
+                                        return DropdownMenuItem<InstrumentTypeModel>(
+                                          value: value,
+                                          child: DropDownItem(
+                                            name: value.type,
                                           ),
-                                        ],
-                                      ),
+                                        );
+                                      }).toList(),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  const AppFieldHeader(
+                                    header: StringsKeys.brand,
+                                  ),
+                                  DropDownFrame(
+                                    child: DropdownButton<BrandModel>(
+                                      isExpanded: true,
+                                      value: controller.brand,
+                                      onChanged: (BrandModel? v) => controller.brand = v,
+                                      underline: const Offstage(),
+                                      hint: const DropDownHint(
+                                        hint: StringsKeys.brand,
+                                      ),
+                                      items: controller.brands.map<DropdownMenuItem<BrandModel>>((BrandModel value) {
+                                        return DropdownMenuItem<BrandModel>(
+                                          value: value,
+                                          child: DropDownItem(
+                                            name: value.name,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  const AppFieldHeader(
+                                    header: StringsKeys.photos,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 22,
+                                    ),
+                                    child: Wrap(
+                                      children: [
+                                        ...controller.acquisitionImages.map((e) {
+                                          return CreateImageWidget(
+                                            image: e,
+                                            fileType: FileTypeEnums.network,
+                                            screen: screen,
+                                            remove: () => controller.removeAcquisition(e),
+                                          );
+                                        }).toList(),
+                                        ...controller.selectedImages.map((e) {
+                                          return CreateImageWidget(
+                                            image: kIsWeb ? '' : e.path ?? '',
+                                            bytes: e.bytes,
+                                            fileType: FileTypeEnums.file,
+                                            screen: screen,
+                                            remove: () => controller.removeSelected(e),
+                                          );
+                                        }).toList(),
+                                        Offstage(
+                                          offstage: (controller.acquisitionImages.length + controller.selectedImages.length) > 4,
+                                          child: CreateAddButton(
+                                            screen: screen,
+                                            onPressed: controller.addImage,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
                       ),
-                      AuthContinueButton(
-                        screen: screen,
-                        title: StringsKeys.save.tr,
-                        onTap: controller.save,
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: MainContinueButton(
+                          screen: screen,
+                          title: StringsKeys.save.tr,
+                          onTap: controller.save,
+                        ),
                       ),
                     ],
                   ),

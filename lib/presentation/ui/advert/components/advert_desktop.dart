@@ -74,13 +74,14 @@ class AdvertDesktop extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                controller.advert.headline?? '',
+                                controller.advert.headline ?? '',
                                 style: Get.textTheme.headline3,
                                 softWrap: true,
                               ),
                               AdvertLabels(
                                 brand: controller.advert.brand?.name,
                                 type: controller.advert.type?.type?.tr,
+                                padding: EdgeInsets.zero,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -88,7 +89,7 @@ class AdvertDesktop extends StatelessWidget {
                                   bottom: 12,
                                 ),
                                 child: Text(
-                                  controller.advert.description?? '',
+                                  controller.advert.description ?? '',
                                   style: Get.textTheme.bodyText1,
                                   softWrap: true,
                                 ),

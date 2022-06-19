@@ -27,7 +27,8 @@ class AppButton extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: ElevatedButton(
             style: ButtonStyle(
-              elevation: MaterialStateProperty.all<double>(0.4),
+              elevation: MaterialStateProperty.all<double>(0.6),
+              shadowColor: MaterialStateProperty.all<Color>(Colors.black),
               backgroundColor: MaterialStateProperty.all<Color>(Get.theme.primaryColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(

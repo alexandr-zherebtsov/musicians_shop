@@ -35,11 +35,15 @@ class AuthHeader extends StatelessWidget {
           ),
           Padding(
             padding: screen.isPhone ? const EdgeInsets.only(
-              left: 22,
               top: 10,
-            ) : const EdgeInsets.only(
               left: 22,
+              right: 22,
+              bottom: 2,
+            ) : const EdgeInsets.only(
               top: 20,
+              left: 22,
+              right: 22,
+              bottom: 4,
             ),
             child: screen.isPhone ? _buildTitle() : Center(
               child: _buildTitle(),

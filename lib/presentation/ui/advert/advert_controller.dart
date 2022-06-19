@@ -11,8 +11,13 @@ import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_dialog.dart';
 
 class AdvertController extends GetxController {
-  final FileRepository _fileRepository = Get.find<FileRepository>();
-  final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
+  final FileRepository _fileRepository;
+  final AdvertsRepository _advertsRepository;
+
+  AdvertController(
+    this._fileRepository,
+    this._advertsRepository,
+  );
 
   bool _screenLoader = false;
   bool get screenLoader => _screenLoader;

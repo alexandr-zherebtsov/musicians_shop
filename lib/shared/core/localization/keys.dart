@@ -39,6 +39,7 @@ class StringsKeys {
   static const String newAvatar = 'newAvatar';
   static const String deleteAvatar = 'deleteAvatar';
   static const String thereAreNoAdverts = 'thereAreNoAdverts';
+  static const String thereAreNoLikes = 'thereAreNoLikes';
   static const String advert = 'advert';
   static const String headline = 'headline';
   static const String price = 'price';
@@ -56,4 +57,6 @@ class StringsKeys {
   static const String brand = 'brand';
   static const String favoriteInstruments = 'favoriteInstruments';
   static const String favoriteBrands = 'favoriteBrands';
+  static const String likes = 'likes';
+  static const String recommendations = 'recommendations';
 }
