@@ -21,6 +21,7 @@ const Map<String, String> en = <String, String>{
   StringsKeys.signUp: 'Sign up',
   StringsKeys.email: 'Email',
   StringsKeys.password: 'Password',
+  StringsKeys.repeatPassword: 'Repeat password',
   StringsKeys.continueText: 'Continue',
   StringsKeys.somethingWentWrong: 'Something went wrong...',
   StringsKeys.firstName: 'First name',

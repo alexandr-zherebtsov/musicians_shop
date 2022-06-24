@@ -21,6 +21,8 @@ abstract class RemoteDataSource {
 
   Future<bool> deleteUser();
 
+  Future<User?> getFirebaseUser();
+
   Future<UserModel?> getUser(String uid);
 
   Future<UserModel?> createUser(UserModel user);
@@ -55,4 +57,6 @@ abstract class RemoteDataSource {
   Future<List<BrandModel>> getBrands();
 
   Future<bool> createBrand(BrandModel brand);
+
+  Future<bool> initializePN();
 }

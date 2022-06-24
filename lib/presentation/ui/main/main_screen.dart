@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/data/repositories/push_notification/push_notification_repository.dart';
 import 'package:musicians_shop/presentation/ui/home/home_screen.dart';
 import 'package:musicians_shop/presentation/ui/main/components/main_screen_desktop.dart';
 import 'package:musicians_shop/presentation/ui/main/components/main_screen_mobile.dart';
@@ -17,7 +18,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MainController>(
-      init: MainController(),
+      init: MainController(Get.find<PushNotificationRepository>()),
       builder: (MainController controller) {
         return GestureDetector(
           onTap: controller.unFocus,

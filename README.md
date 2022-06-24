@@ -19,8 +19,8 @@ Project using GetX for communication between layers
 
 ### Libraries & Tools
 
-- [Flutter 3.0.1 • channel stable](https://flutter.dev)
-- [Dart 2.17.1](https://dart.dev)
+- [Flutter 3.0.3 • channel stable](https://flutter.dev)
+- [Dart 2.17.5](https://dart.dev)
 - [DevTools 2.12.2](https://docs.flutter.dev/development/tools/devtools/overview)
 
 Core
@@ -32,6 +32,9 @@ Firebase
 - [cloud_firestore](https://github.com/firebase/flutterfire/tree/master/packages/cloud_firestore/cloud_firestore)
 - [flutterfire_cli](https://github.com/invertase/flutterfire_cli)
 - [firebase_storage](https://github.com/firebase/flutterfire/tree/master/packages/firebase_storage/firebase_storage)
+- [firebase_messaging](https://github.com/firebase/flutterfire/tree/master/packages/firebase_messaging/firebase_messaging)
+- [firebase_analytics](https://github.com/firebase/flutterfire/tree/master/packages/firebase_analytics/firebase_analytics)
+- [firebase_crashlytics](https://github.com/firebase/flutterfire/tree/master/packages/firebase_crashlytics/firebase_crashlytics)
 
 UI
 - [overlay_support](https://github.com/boyan01/overlay_support)
@@ -48,6 +51,7 @@ Utils
 - [path_provider](https://github.com/flutter/plugins/tree/main/packages/path_provider/path_provider)
 - [package_info_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages)
 - [android_path_provider](https://github.com/mix1009/android_path_provider)
+- [flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
 
 Dev Dependencies
 - [flutter_lints](https://github.com/flutter/packages/tree/main/packages/flutter_lints)
@@ -93,6 +97,8 @@ This is the starting point of the application. All the application level configu
 
 ```dart
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
@@ -110,16 +116,33 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await _initializeFirebase();
   if (kIsWeb) {
     setPathUrlStrategy();
     SystemNavigator.routeInformationUpdated(
       location: AppRoutes.splash,
     );
+  } else {
+    await _initializeCrashlytics();
   }
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  runApp(const App());
+}
+
+Future<void> _initializeFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const App());
+}
+
+Future<void> _initializeCrashlytics() async {
+  final FirebaseCrashlytics fc = FirebaseCrashlytics.instance;
+  await fc.setCrashlyticsCollectionEnabled(true);
+  FlutterError.onError = fc.recordFlutterError;
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await _initializeFirebase();
 }
 
 class App extends StatelessWidget {

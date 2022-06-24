@@ -12,6 +12,7 @@ class RegistrationController extends GetxController {
 
   final TextEditingController emailTC = TextEditingController();
   final TextEditingController passwordTC = TextEditingController();
+  final TextEditingController repeatPasswordTC = TextEditingController();
 
   bool _screenLoader = false;
   bool get screenLoader => _screenLoader;
@@ -39,7 +40,8 @@ class RegistrationController extends GetxController {
   }
 
   bool validator() {
-    return AppRegExp.emailRegExp.hasMatch(clearAndTrim(emailTC.text)) && passwordTC.text.length > 3;
+    return AppRegExp.emailRegExp.hasMatch(clearAndTrim(emailTC.text))
+        && passwordTC.text.length > 3 && passwordTC.text == repeatPasswordTC.text;
   }
 
   void unFocus() => Get.focusScope?.unfocus();

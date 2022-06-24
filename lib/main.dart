@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
@@ -16,16 +18,33 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await _initializeFirebase();
   if (kIsWeb) {
     setPathUrlStrategy();
     SystemNavigator.routeInformationUpdated(
       location: AppRoutes.splash,
     );
+  } else {
+    await _initializeCrashlytics();
   }
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  runApp(const App());
+}
+
+Future<void> _initializeFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const App());
+}
+
+Future<void> _initializeCrashlytics() async {
+  final FirebaseCrashlytics fc = FirebaseCrashlytics.instance;
+  await fc.setCrashlyticsCollectionEnabled(true);
+  FlutterError.onError = fc.recordFlutterError;
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await _initializeFirebase();
 }
 
 class App extends StatelessWidget {

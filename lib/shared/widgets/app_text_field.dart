@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -78,7 +79,12 @@ class AppTextField extends StatelessWidget {
         maxHeight: 64,
       ) : null,
       prefixIcon: prefix == null ? null : Padding(
-        padding: const EdgeInsets.only(
+        padding: kIsWeb ? const EdgeInsets.only(
+          top: 1,
+          left: 12,
+          right: 2,
+          bottom: 3,
+        ) : const EdgeInsets.only(
           top: 1,
           left: 12,
           right: 2,

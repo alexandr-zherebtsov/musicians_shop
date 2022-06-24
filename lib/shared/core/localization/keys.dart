@@ -18,6 +18,7 @@ class StringsKeys {
   static const String signUp = 'signUp';
   static const String email = 'email';
   static const String password = 'password';
+  static const String repeatPassword = 'repeatPassword';
   static const String continueText = 'continueText';
   static const String somethingWentWrong = 'somethingWentWrong';
   static const String firstName = 'firstName';

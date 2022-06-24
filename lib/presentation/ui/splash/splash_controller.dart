@@ -9,15 +9,13 @@ class SplashController extends GetxController {
   final UserRepository _userRepository;
   SplashController(this._userRepository);
 
-  late String? _uid;
+  String? _uid;
 
   @override
   void onInit() async {
     super.onInit();
-    _uid = FirebaseAuth.instance.currentUser?.uid;
     await delayedFunc(milliseconds: 1600);
-    _uid = FirebaseAuth.instance.currentUser?.uid;
-    if (_uid != null) {
+    if (await checkFirebaseUser()) {
       if (await checkUserData()) {
         goToMain();
       } else {
@@ -28,8 +26,20 @@ class SplashController extends GetxController {
     }
   }
 
+  Future<bool> checkFirebaseUser() async {
+    User? res;
+    if (FirebaseAuth.instance.currentUser?.uid != null) {
+      res = await _userRepository.getFirebaseUser();
+      _uid = res?.uid;
+    }
+    return res != null;
+  }
+
   Future<bool> checkUserData() async {
-    final UserModel? res = await _userRepository.getUser(_uid!);
+    UserModel? res;
+    if (_uid != null) {
+      res = await _userRepository.getUser(_uid!);
+    }
     return res != null;
   }
 

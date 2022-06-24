@@ -160,6 +160,16 @@ class HomeController extends GetxController {
       if ((adverts[v].likes?? []).isNotEmpty) {
         count += adverts[v].likes!.length * 0.01;
       }
+      if ((adverts[v].images?? []).isNotEmpty) {
+        count += adverts[v].images!.length * 0.01;
+      }
+      if ((adverts[v].description?? '').isNotEmpty) {
+        if (adverts[v].description!.length >= 1000) {
+          count += 1.5;
+        } else {
+          count += 0.5;
+        }
+      }
       adverts[v].userCount = count;
     }
     adverts.sort((b, a) {

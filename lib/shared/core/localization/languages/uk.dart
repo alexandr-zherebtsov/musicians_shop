@@ -21,6 +21,7 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.signUp: 'Увійти',
   StringsKeys.email: 'Пошта',
   StringsKeys.password: 'Пароль',
+  StringsKeys.repeatPassword: 'Підтвердіть пароль',
   StringsKeys.continueText: 'Далі',
   StringsKeys.somethingWentWrong: 'Сталася помилка...',
   StringsKeys.firstName: 'Ім’я',

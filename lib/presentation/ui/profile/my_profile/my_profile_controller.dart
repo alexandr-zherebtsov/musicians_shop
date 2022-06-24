@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart';
@@ -19,10 +20,19 @@ import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_dialog.dart';
 
 class MyProfileController extends GetxController {
-  final AuthRepository _authRepository = Get.find<AuthRepository>();
-  final UserRepository _userRepository = Get.find<UserRepository>();
-  final FileRepository _fileRepository = Get.find<FileRepository>();
-  final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
+  final AuthRepository _authRepository;
+  final UserRepository _userRepository;
+  final FileRepository _fileRepository;
+  final AdvertsRepository _advertsRepository;
+  final FirebaseMessaging _fms;
+
+  MyProfileController(
+    this._authRepository,
+    this._userRepository,
+    this._fileRepository,
+    this._advertsRepository,
+    this._fms,
+  );
 
   final TextEditingController passwordTC = TextEditingController();
   RxBool passwordLoader = false.obs;
@@ -235,7 +245,13 @@ class MyProfileController extends GetxController {
   }
 
   void logOut() async {
-    await _authRepository.logOut();
+    await Future.wait([
+      _appSignOut(),
+      _fmSignOut(),
+    ]);
     Get.offAllNamed(AppRoutes.start);
   }
+
+  Future<void> _appSignOut() async => await _authRepository.logOut();
+  Future<void> _fmSignOut() async => await _fms.deleteToken();
 }

@@ -34,15 +34,13 @@ class AdvertDesktop extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 6,
-                        child: (controller.advert.images?? []).isEmpty ? const Offstage() : Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 4,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(AppStyles.clipRadius),
-                            child: SizedBox(
-                              height: 540,
+                        child: Column(
+                          children: [
+                            (controller.advert.images?? []).isEmpty ? const Offstage() : Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 4,
+                              ),
                               child: AnimatedSwitcher(
                                 switchOutCurve: Curves.fastLinearToSlowEaseIn,
                                 switchInCurve: Curves.fastLinearToSlowEaseIn,
@@ -52,15 +50,52 @@ class AdvertDesktop extends StatelessWidget {
                                   alignment: Alignment.bottomCenter,
                                   child: widget,
                                 ),
-                                child: AppNetworkImage(
-                                  height: 540,
-                                  width: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(AppStyles.clipRadius),
                                   key: ValueKey<String>(controller.advert.images![controller.selectedImage]),
-                                  url: controller.advert.images![controller.selectedImage],
+                                  child: AppNetworkImage(
+                                    height: 540,
+                                    width: double.infinity,
+                                    url: controller.advert.images![controller.selectedImage],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                            (controller.advert.images?? []).isEmpty ? const Offstage() : SizedBox(
+                              height: 110,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.advert.images!.length,
+                                itemBuilder: (_, int i) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                    ),
+                                    child: InkWell(
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () => controller.selectedImage = i,
+                                      child: Center(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(AppStyles.clipRadius),
+                                          child: AnimatedContainer(
+                                            duration: const Duration(milliseconds: 160),
+                                            width: controller.selectedImage == i ? 110 : 100,
+                                            height: controller.selectedImage == i ? 110 : 100,
+                                            child: AppNetworkImage(
+                                              url: controller.advert.images![i],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Expanded(
@@ -95,7 +130,7 @@ class AdvertDesktop extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
+                                padding: const EdgeInsets.only(top: 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -115,40 +150,6 @@ class AdvertDesktop extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                  (controller.advert.images?? []).isEmpty ? const Offstage() :  SizedBox(
-                    height: 110,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.advert.images!.length,
-                      itemBuilder: (_, int i) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                          ),
-                          child: InkWell(
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () => controller.selectedImage = i,
-                            child: Center(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(AppStyles.clipRadius),
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 160),
-                                  width: controller.selectedImage == i ? 110 : 100,
-                                  height: controller.selectedImage == i ? 110 : 100,
-                                  child: AppNetworkImage(
-                                    url: controller.advert.images![i],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),

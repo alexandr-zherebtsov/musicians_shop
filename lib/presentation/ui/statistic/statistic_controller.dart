@@ -94,6 +94,16 @@ class StatisticController extends GetxController {
       if ((statisticAdverts[v].likes?? []).isNotEmpty) {
         count += statisticAdverts[v].likes!.length * 0.01;
       }
+      if ((statisticAdverts[v].images?? []).isNotEmpty) {
+        count += statisticAdverts[v].images!.length * 0.01;
+      }
+      if ((statisticAdverts[v].description?? '').isNotEmpty) {
+        if (statisticAdverts[v].description!.length >= 1000) {
+          count += 1.5;
+        } else {
+          count += 0.5;
+        }
+      }
       statisticAdverts[v].userCount = count;
     }
   }

@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:logger/logger.dart';
@@ -14,6 +17,7 @@ import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
+import 'package:musicians_shop/shared/utils/notifications.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -21,12 +25,18 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   final FirebaseAuth _fa;
   final FirebaseStorage _fs;
   final FirebaseFirestore _db;
+  final FirebaseMessaging _fms;
+  final FirebaseAnalytics _fan;
+  final FirebaseCrashlytics _fcr;
 
   RemoteDataSourceImpl(
     this._logger,
     this._fa,
     this._fs,
     this._db,
+    this._fms,
+    this._fan,
+    this._fcr,
   );
 
   @override
@@ -36,13 +46,17 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }) async {
     try {
      await _fa.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+       email: email,
+       password: password,
+     );
      return true;
     }
-    catch (e) {
-      log(e.toString());
+    catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'signInEmailPassword',
+      );
       return false;
     }
   }
@@ -57,31 +71,73 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         email: email,
         password: password,
       );
+      await _fan.logEvent(
+        name: 'register_with_email_and_password',
+        parameters: {
+          'uid': res.user?.uid,
+          'email': res.user?.email,
+        },
+      );
       return res.user;
-    }
-    catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'registerEmailPassword',
+      );
       return null;
     }
   }
 
   @override
-  Future<void> logOut() async {
+  Future<bool> logOut() async {
     try {
       await _fa.signOut();
-    } catch (e) {
-      log(e.toString());
+      return true;
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'logOut',
+      );
+      return false;
     }
   }
 
   @override
   Future<bool> deleteUser() async {
     try {
+      await _fan.logEvent(
+        name: 'delete_user',
+        parameters: {
+          'uid': _fa.currentUser?.uid,
+          'email': _fa.currentUser?.email,
+        },
+      );
       await _fa.currentUser!.delete();
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'deleteUser',
+      );
       return false;
+    }
+  }
+
+  @override
+  Future<User?> getFirebaseUser() async {
+    try {
+      await _fa.currentUser!.reload();
+      return _fa.currentUser;
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getFirebaseUser',
+      );
+      return null;
     }
   }
 
@@ -99,8 +155,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
           return null;
         }
       });
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getUser',
+      );
       return null;
     }
   }
@@ -115,8 +175,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
           return await getUser(user.id!);
         },
       );
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'createUser',
+      );
       return null;
     }
   }
@@ -128,8 +192,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         AppValues.collectionUsers,
       ).doc(id).delete();
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'deleteUserData',
+      );
       return false;
     }
   }
@@ -141,8 +209,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         AppValues.collectionUsers,
       ).doc(user.id).update(user.toJson());
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'editUserData',
+      );
       return false;
     }
   }
@@ -184,8 +256,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         final String imgUrl = await(await ut).ref.getDownloadURL();
         return imgUrl;
       }
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'uploadFile',
+      );
       return null;
     }
   }
@@ -195,8 +271,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     try {
       await _fs.refFromURL(fileUrl).delete();
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'deleteFile',
+      );
       return false;
     }
   }
@@ -212,8 +292,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       return res;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getAdverts',
+      );
       return <AdvertModel>[];
     }
   }
@@ -224,9 +308,22 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       await _db.collection(
         AppValues.collectionAdverts,
       ).doc(advert.id).set(advert.toJson());
+      await _fan.logEvent(
+        name: 'create_advert',
+        parameters: {
+          'id': advert.id,
+          'uid': advert.uid,
+          'headline': advert.headline,
+          'type': advert.type?.type,
+        },
+      );
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'createAdvert',
+      );
       return false;
     }
   }
@@ -238,8 +335,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         AppValues.collectionAdverts,
       ).doc(advert.id).update(advert.toJson());
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'editAdvert',
+      );
       return false;
     }
   }
@@ -250,9 +351,19 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       await _db.collection(
         AppValues.collectionAdverts,
       ).doc(id).delete();
+      await _fan.logEvent(
+        name: 'delete_advert',
+        parameters: {
+          'id': id,
+        },
+      );
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'deleteAdvert',
+      );
       return false;
     }
   }
@@ -271,8 +382,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       return res;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getMyAdverts',
+      );
       return <AdvertModel>[];
     }
   }
@@ -291,8 +406,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         return AdvertModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       return res;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getLikedAdverts',
+      );
       return <AdvertModel>[];
     }
   }
@@ -311,8 +430,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       res.removeWhere((v) => v.id == '0');
       res.add(other);
       return res;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getInstrumentTypes',
+      );
       return <InstrumentTypeModel>[];
     }
   }
@@ -324,8 +447,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         AppValues.collectionInstrumentTypes,
       ).doc(type.id).set(type.toJson());
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'createInstrumentType',
+      );
       return false;
     }
   }
@@ -344,8 +471,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       res.removeWhere((v) => v.id == '0');
       res.add(other);
       return res;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'getBrands',
+      );
       return <BrandModel>[];
     }
   }
@@ -357,9 +488,74 @@ class RemoteDataSourceImpl extends RemoteDataSource {
         AppValues.collectionBrands,
       ).doc(brand.id).set(brand.toJson());
       return true;
-    } catch (e) {
-      log(e.toString());
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'createBrand',
+      );
       return false;
+    }
+  }
+
+  @override
+  Future<bool> initializePN() async {
+    try {
+      await _fms.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+      await _fms.setForegroundNotificationPresentationOptions(
+        badge: true,
+        sound: true,
+        alert: true,
+      );
+      final String? token = await _fms.getToken();
+      _logger.d({'FM Token': token});
+      FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
+        log('onBackgroundMessage');
+        AppNotifications.showPush(message);
+      });
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        log('onMessage');
+        AppNotifications.showPush(message);
+      });
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        log('onMessageOpenedApp');
+        AppNotifications.showPush(message);
+      });
+      return true;
+    } catch (e, s) {
+      await _onError(
+        error: e,
+        stackTrace: s,
+        name: 'initializePN',
+      );
+      return false;
+    }
+  }
+
+  Future<void> _onError({
+    required Object error,
+    required StackTrace stackTrace,
+    required String name,
+  }) async {
+    log(
+      error.toString(),
+      name: 'error: $name',
+      stackTrace: stackTrace,
+    );
+    if (!kIsWeb) {
+      await _fcr.recordError(
+        name,
+        stackTrace,
+        reason: name,
+      );
     }
   }
 }
