@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/auth/start/start_controller.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_button.dart';
 
@@ -25,7 +26,7 @@ class StartScreen extends GetView<StartController> {
                     Hero(
                       tag: AppValues.heroMusicNoteOutlined,
                       child: Icon(
-                        Icons.music_note_outlined,
+                        AppIcons.musicNote,
                         color: Get.theme.primaryColor,
                         size: 160,
                       ),
@@ -35,7 +36,7 @@ class StartScreen extends GetView<StartController> {
                         top: 30.0,
                       ),
                       child: Text(
-                        StringsKeys.musicianShop.tr,
+                        StringsKeys.musiciansShop.tr,
                         style: Get.theme.textTheme.headline1,
                         textAlign: TextAlign.center,
                       ),

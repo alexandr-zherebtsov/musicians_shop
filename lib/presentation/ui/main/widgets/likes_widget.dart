@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 
 class LikesWidget extends StatelessWidget {
   final int likes;
@@ -29,7 +30,7 @@ class LikesWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              liked ? Icons.favorite : Icons.favorite_outline,
+              liked ? AppIcons.favoriteFilled : AppIcons.favorite,
               color: Get.theme.primaryColor,
               size: 24,
             ),

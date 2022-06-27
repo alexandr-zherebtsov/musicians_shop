@@ -14,6 +14,7 @@ class SplashController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    _uid = FirebaseAuth.instance.currentUser?.uid;
     await delayedFunc(milliseconds: 1600);
     if (await checkFirebaseUser()) {
       if (await checkUserData()) {
@@ -28,9 +29,9 @@ class SplashController extends GetxController {
 
   Future<bool> checkFirebaseUser() async {
     User? res;
-    if (FirebaseAuth.instance.currentUser?.uid != null) {
+    _uid = FirebaseAuth.instance.currentUser?.uid;
+    if (_uid != null) {
       res = await _userRepository.getFirebaseUser();
-      _uid = res?.uid;
     }
     return res != null;
   }

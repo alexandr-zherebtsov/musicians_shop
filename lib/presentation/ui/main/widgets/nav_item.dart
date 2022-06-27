@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart';
 import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 
 class NavItemMobile extends StatelessWidget {
   final MainController controller;
@@ -104,7 +105,7 @@ class NavItemDesktop extends StatelessWidget {
     required MainController controller,
     required MainScreenEnums screenType,
   }) {
-    return screenType == controller.screenType ? 36 : 34;
+    return screenType == controller.screenType ? 34 : 32;
   }
 }
 
@@ -121,17 +122,17 @@ IconData _getIcon({
 }) {
   switch (screenType) {
     case MainScreenEnums.home:
-      return screenType == controller.screenType ? Icons.home : Icons.home_outlined;
+      return screenType == controller.screenType ? AppIcons.homeFilled : AppIcons.home;
     case MainScreenEnums.adverts:
-      return screenType == controller.screenType ? Icons.sticky_note_2 : Icons.sticky_note_2_outlined;
+      return screenType == controller.screenType ? AppIcons.notesFilled : AppIcons.notes;
     case MainScreenEnums.create:
-      return Icons.add_circle_outline;
+      return AppIcons.add;
     case MainScreenEnums.statistic:
-      return screenType == controller.screenType ? Icons.poll_rounded : Icons.poll_outlined;
+      return screenType == controller.screenType ? AppIcons.graphFilled : AppIcons.graph;
     case MainScreenEnums.profile:
-      return screenType == controller.screenType ? Icons.person : Icons.person_outline;
+      return screenType == controller.screenType ? AppIcons.personFilled : AppIcons.person;
     default:
-      return Icons.circle;
+      return AppIcons.circle;
   }
 }
 

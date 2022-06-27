@@ -4,6 +4,7 @@ import 'package:musicians_shop/presentation/ui/advert/advert_controller.dart';
 import 'package:musicians_shop/presentation/ui/advert/components/advert_desktop.dart';
 import 'package:musicians_shop/presentation/ui/advert/components/advert_mobile.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
@@ -21,21 +22,22 @@ class AdvertScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBarWidget(
               title: StringsKeys.advert.tr,
+              back: Get.back,
               actions: controller.screenLoader || controller.screenError ? null : controller.uid != controller.advert.uid ? [
                 IconButton(
                   tooltip: StringsKeys.author.tr,
-                  icon: const Icon(Icons.person),
+                  icon: Icon(AppIcons.personFilled),
                   onPressed: controller.goAuthor,
                 ),
               ] : [
                 IconButton(
                   tooltip: StringsKeys.edit.tr,
-                  icon: const Icon(Icons.edit),
+                  icon: Icon(AppIcons.edit),
                   onPressed: controller.goToEdit,
                 ),
                 IconButton(
                   tooltip: StringsKeys.delete.tr,
-                  icon: const Icon(Icons.delete),
+                  icon: Icon(AppIcons.deleteFilled),
                   onPressed: controller.delete,
                 ),
               ],

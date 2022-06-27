@@ -7,10 +7,16 @@ import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
+import 'package:musicians_shop/shared/widgets/app_tab_bar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StatisticScreen extends StatelessWidget {
-  const StatisticScreen({Key? key}) : super(key: key);
+  final ResponsiveScreen screen;
+
+  const StatisticScreen({
+    Key? key,
+    required this.screen,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,7 @@ class StatisticScreen extends StatelessWidget {
           return const AppErrorWidget();
         } else {
           return _StatisticScreen(
+            screen: screen,
             controller: controller,
           );
         }
@@ -32,10 +39,12 @@ class StatisticScreen extends StatelessWidget {
 }
 
 class _StatisticScreen extends StatefulWidget {
+  final ResponsiveScreen screen;
   final StatisticController controller;
 
   const _StatisticScreen({
     Key? key,
+    required this.screen,
     required this.controller,
   }) : super(key: key);
 
@@ -66,16 +75,10 @@ class _StatisticScreenState extends State<_StatisticScreen> with TickerProviderS
       height: double.infinity,
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 45,
-            width: double.infinity,
-            child: Center(
-              child: TabBar(
-                tabs: tabs,
-                controller: tabController,
-                indicatorSize: TabBarIndicatorSize.label,
-              ),
-            ),
+          AppTabBar(
+            screen: widget.screen,
+            tabs: tabs,
+            tabController: tabController,
           ),
           Expanded(
             child: TabBarView(

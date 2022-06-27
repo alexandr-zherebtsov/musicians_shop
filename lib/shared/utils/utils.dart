@@ -2,7 +2,7 @@ import 'dart:io' show Platform;
 import 'dart:math' as math;
 
 import 'package:android_path_provider/android_path_provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:musicians_shop/domain/models/brand_model.dart';
@@ -27,6 +27,10 @@ bool isNotMobile() {
   } else {
     return true;
   }
+}
+
+bool isApple() {
+ return Get.theme.platform == TargetPlatform.macOS || Get.theme.platform == TargetPlatform.iOS;
 }
 
 String getLangCode() {

@@ -17,6 +17,7 @@ class UserProfileScreen extends GetResponsiveView<UserProfileController> {
     return Scaffold(
       appBar: AppBarWidget(
         title: StringsKeys.profile.tr,
+        back: Get.back,
       ),
       body: GetBuilder<UserProfileController>(
         autoRemove: false,

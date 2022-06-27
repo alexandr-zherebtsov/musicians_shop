@@ -4,6 +4,7 @@ import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart
 import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/nav_bottom_bar.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
 
 class MainScreenMobile extends StatelessWidget {
@@ -20,13 +21,11 @@ class MainScreenMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        title: StringsKeys.musicianShop.tr,
+        title: StringsKeys.musiciansShop.tr,
         actions: <IconButton>[
           IconButton(
             tooltip: StringsKeys.about.tr,
-            icon: const Icon(
-              Icons.info_outline,
-            ),
+            icon: Icon(AppIcons.info),
             onPressed: controller.goToAbout,
           )
         ],

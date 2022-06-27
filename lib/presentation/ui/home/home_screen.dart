@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/home/home_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/advert_card.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   maxLines: 1,
                   hint: StringsKeys.search.tr,
                   controller: controller.searchTC,
-                  suffixIcon: Icons.search,
+                  suffixIcon: AppIcons.search,
                   padding: screen.isPhone ? const EdgeInsets.only(
                     top: 6.0,
                     left: 12.0,

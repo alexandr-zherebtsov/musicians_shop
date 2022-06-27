@@ -4,6 +4,7 @@ import 'package:musicians_shop/presentation/ui/auth/registration/registration_co
 import 'package:musicians_shop/presentation/ui/auth/widgets/auth_header.dart';
 import 'package:musicians_shop/presentation/ui/auth/widgets/continue_button.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
@@ -40,7 +41,7 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                                 hint: StringsKeys.email.tr,
                                 maxLines: 1,
                                 keyboardType:TextInputType.emailAddress,
-                                suffixIcon: Icons.mail,
+                                suffixIcon: AppIcons.mail,
                                 onSubmitted: (_) => controller.done(),
                               ),
                               AppTextField(
@@ -48,7 +49,7 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                                 hint: StringsKeys.password.tr,
                                 maxLines: 1,
                                 keyboardType:TextInputType.visiblePassword,
-                                suffixIcon: Icons.lock,
+                                suffixIcon: AppIcons.lock,
                                 obscureText: true,
                                 padding: const EdgeInsets.only(
                                   top: 30,
@@ -63,7 +64,7 @@ class RegistrationScreen extends GetResponsiveView<RegistrationController> {
                                 hint: StringsKeys.repeatPassword.tr,
                                 maxLines: 1,
                                 keyboardType:TextInputType.visiblePassword,
-                                suffixIcon: Icons.lock,
+                                suffixIcon: AppIcons.lock,
                                 obscureText: true,
                                 padding: const EdgeInsets.only(
                                   left: 22,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/dropdown_widgets.dart';
 import 'package:musicians_shop/shared/widgets/small_icon_button.dart';
 
@@ -36,7 +37,7 @@ class SelectedFieldWidget extends StatelessWidget {
               ),
             ),
             SmallIconButton(
-              icon: Icons.delete_outline,
+              icon: AppIcons.delete,
               message: StringsKeys.delete.tr,
               onPressed: delete,
             ),

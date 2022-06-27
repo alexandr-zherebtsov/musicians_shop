@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:musicians_shop/shared/widgets/app_back_button.dart';
 import 'package:musicians_shop/shared/widgets/divider_widget.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final String title;
+  final void Function()? back;
   final List<IconButton>? actions;
   final bool bottomDivider;
 
   const AppBarWidget({
     Key? key,
     required this.title,
+    this.back,
     this.actions,
     this.bottomDivider = true,
   }) : super(key: key);
@@ -25,6 +28,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      automaticallyImplyLeading: false,
+      leading: widget.back == null ? null : AppBackButton(
+        back: widget.back,
+      ),
       title: Text(widget.title),
       actions: widget.actions,
       bottom: widget.bottomDivider ? const PreferredSize(

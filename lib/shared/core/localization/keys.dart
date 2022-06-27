@@ -1,6 +1,6 @@
 /// App strings
 class StringsKeys {
-  static const String musicianShop = 'Musician Shop';
+  static const String musiciansShop = 'Musicians Shop';
   static const String home = 'home';
   static const String adverts = 'adverts';
   static const String create = 'create';
@@ -60,4 +60,5 @@ class StringsKeys {
   static const String favoriteBrands = 'favoriteBrands';
   static const String likes = 'likes';
   static const String recommendations = 'recommendations';
+  static const String back = 'back';
 }

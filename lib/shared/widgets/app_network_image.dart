@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 
 class AppNetworkImage extends StatelessWidget {
@@ -65,10 +66,10 @@ class AppMediaError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: isPerson ? Icon(
-        Icons.person,
+        AppIcons.person,
         size: personSize,
-      ) : const Icon(
-        Icons.error_outline,
+      ) : Icon(
+        AppIcons.error,
       ),
     );
   }

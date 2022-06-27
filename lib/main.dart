@@ -57,7 +57,7 @@ class App extends StatelessWidget {
         navigatorKey: Get.key,
         getPages: AppRouter.routes,
         initialRoute: AppRoutes.splash,
-        title: StringsKeys.musicianShop.tr,
+        title: StringsKeys.musiciansShop.tr,
         initialBinding: GlobalBinding(),
         translations: Translation(),
         locale: Locale(getLangCode()),

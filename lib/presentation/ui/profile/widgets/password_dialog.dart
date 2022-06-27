@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_button.dart';
@@ -55,7 +56,7 @@ class PasswordAlertDialog extends StatelessWidget {
                 hint: StringsKeys.password.tr,
                 maxLines: 1,
                 obscureText: true,
-                suffixIcon: Icons.lock,
+                suffixIcon: AppIcons.lock,
                 keyboardType: TextInputType.visiblePassword,
                 padding: EdgeInsets.zero,
                 onSubmitted: (_) => confirmFunc(),

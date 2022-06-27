@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 import 'package:musicians_shop/shared/widgets/app_network_image.dart';
 import 'package:musicians_shop/shared/widgets/small_icon_button.dart';
@@ -72,9 +73,9 @@ class ProfileHeader extends StatelessWidget {
                           color: Get.theme.primaryColor,
                           shape: BoxShape.circle,
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Icon(
-                            Icons.add,
+                            AppIcons.plus,
                             size: 30,
                             color: Colors.white,
                           ),
@@ -115,13 +116,13 @@ class ProfileHeader extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
+                          Padding(
+                            padding: const EdgeInsets.only(
                               top: 2,
                               right: 2,
                             ),
                             child: Icon(
-                              Icons.location_on,
+                              AppIcons.location,
                               size: 14,
                             ),
                           ),
@@ -142,7 +143,7 @@ class ProfileHeader extends StatelessWidget {
           Offstage(
             offstage: onTapEdit == null,
             child: SmallIconButton(
-              icon: Icons.edit,
+              icon: AppIcons.edit,
               message: StringsKeys.edit.tr,
               onPressed: onTapEdit,
             ),

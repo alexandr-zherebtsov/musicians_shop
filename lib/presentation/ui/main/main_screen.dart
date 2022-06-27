@@ -78,7 +78,9 @@ class _MainScreen extends GetResponsiveView<MainController> {
           screen: screen,
         );
       case MainScreenEnums.statistic:
-        return const StatisticScreen();
+        return StatisticScreen(
+          screen: screen,
+        );
       case MainScreenEnums.profile:
         return MyProfileScreen(
           screen: screen,

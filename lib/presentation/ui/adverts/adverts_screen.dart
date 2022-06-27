@@ -5,6 +5,7 @@ import 'package:musicians_shop/presentation/ui/main/widgets/advert_card.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
 import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
+import 'package:musicians_shop/shared/widgets/app_tab_bar.dart';
 
 class AdvertsScreen extends StatefulWidget {
   final ResponsiveScreen screen;
@@ -53,10 +54,10 @@ class _AdvertsScreenState extends State<AdvertsScreen> with TickerProviderStateM
                   height: 45,
                   width: double.infinity,
                   child: Center(
-                    child: TabBar(
+                    child: AppTabBar(
+                      screen: widget.screen,
                       tabs: tabs,
-                      controller: tabController,
-                      indicatorSize: TabBarIndicatorSize.label,
+                      tabController: tabController,
                     ),
                   ),
                 ),

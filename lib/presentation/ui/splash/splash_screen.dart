@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/splash/splash_controller.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 
 class SplashScreen extends GetView<SplashController> {
@@ -19,7 +20,7 @@ class SplashScreen extends GetView<SplashController> {
             Hero(
               tag: AppValues.heroMusicNoteOutlined,
               child: Icon(
-                Icons.music_note_outlined,
+                AppIcons.musicNote,
                 color: Get.theme.primaryColor,
                 size: 160,
               ),
@@ -30,7 +31,7 @@ class SplashScreen extends GetView<SplashController> {
                 bottom: 60.0,
               ),
               child: Text(
-                StringsKeys.musicianShop.tr,
+                StringsKeys.musiciansShop.tr,
                 style: Get.theme.textTheme.headline1,
                 textAlign: TextAlign.center,
               ),

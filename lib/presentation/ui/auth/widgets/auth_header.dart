@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/shared/widgets/app_back_button.dart';
 
 class AuthHeader extends StatelessWidget {
   final String title;
@@ -30,7 +31,9 @@ class AuthHeader extends StatelessWidget {
                 top: 12,
                 left: 8,
               ),
-              child: const BackButton(),
+              child: AppBackButton(
+                back: Get.back,
+              ),
             ),
           ),
           Padding(

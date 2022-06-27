@@ -16,6 +16,7 @@ import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_field_header.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
+import 'package:musicians_shop/shared/widgets/dropdown_icon.dart';
 import 'package:musicians_shop/shared/widgets/dropdown_widgets.dart';
 
 class CreateScreen extends GetResponsiveView<CreateController> {
@@ -37,6 +38,7 @@ class CreateScreen extends GetResponsiveView<CreateController> {
             child: Scaffold(
               appBar: AppBarWidget(
                 title: controller.editableAdvert == null ? StringsKeys.create.tr : StringsKeys.edit.tr,
+                back: Get.back,
               ),
               body: SizedBox(
                 width: double.infinity,
@@ -104,6 +106,7 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                       hint: const DropDownHint(
                                         hint: StringsKeys.type,
                                       ),
+                                      icon: const DropDownIcon(),
                                       items: controller.instrumentTypes.map<DropdownMenuItem<InstrumentTypeModel>>((InstrumentTypeModel value) {
                                         return DropdownMenuItem<InstrumentTypeModel>(
                                           value: value,
@@ -126,6 +129,7 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                       hint: const DropDownHint(
                                         hint: StringsKeys.brand,
                                       ),
+                                      icon: const DropDownIcon(),
                                       items: controller.brands.map<DropdownMenuItem<BrandModel>>((BrandModel value) {
                                         return DropdownMenuItem<BrandModel>(
                                           value: value,

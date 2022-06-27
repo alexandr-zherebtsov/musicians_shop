@@ -4,6 +4,7 @@ import 'package:musicians_shop/presentation/ui/auth/sign_up/sign_up_controller.d
 import 'package:musicians_shop/presentation/ui/auth/widgets/auth_header.dart';
 import 'package:musicians_shop/presentation/ui/auth/widgets/continue_button.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
@@ -39,7 +40,7 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                                 controller: controller.emailTC,
                                 hint: StringsKeys.email.tr,
                                 maxLines: 1,
-                                suffixIcon: Icons.mail,
+                                suffixIcon: AppIcons.mail,
                                 keyboardType:TextInputType.emailAddress,
                                 onSubmitted: (_) => controller.done(),
                               ),
@@ -47,7 +48,7 @@ class SignUpScreen extends GetResponsiveView<SignUpController> {
                                 controller: controller.passwordTC,
                                 hint: StringsKeys.password.tr,
                                 maxLines: 1,
-                                suffixIcon: Icons.lock,
+                                suffixIcon: AppIcons.lock,
                                 keyboardType:TextInputType.visiblePassword,
                                 obscureText: true,
                                 padding: const EdgeInsets.only(

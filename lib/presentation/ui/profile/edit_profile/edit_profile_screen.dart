@@ -14,6 +14,7 @@ import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
 import 'package:musicians_shop/shared/widgets/app_field_header.dart';
 import 'package:musicians_shop/shared/widgets/app_progress.dart';
 import 'package:musicians_shop/shared/widgets/app_text_field.dart';
+import 'package:musicians_shop/shared/widgets/dropdown_icon.dart';
 import 'package:musicians_shop/shared/widgets/dropdown_widgets.dart';
 
 class EditProfileScreen extends GetView<EditProfileController> {
@@ -26,6 +27,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
       child: Scaffold(
         appBar: AppBarWidget(
           title: StringsKeys.editProfile.tr,
+          back: Get.back,
         ),
         body: GetBuilder<EditProfileController>(
           autoRemove: false,
@@ -122,6 +124,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                       hint: const DropDownHint(
                                         hint: StringsKeys.type,
                                       ),
+                                      icon: const DropDownIcon(),
                                       items: controller.instrumentTypes.map<DropdownMenuItem<InstrumentTypeModel>>((InstrumentTypeModel value) {
                                         return DropdownMenuItem<InstrumentTypeModel>(
                                           value: value,
@@ -147,6 +150,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                       hint: const DropDownHint(
                                         hint: StringsKeys.brand,
                                       ),
+                                      icon: const DropDownIcon(),
                                       items: controller.brands.map<DropdownMenuItem<BrandModel>>((BrandModel value) {
                                         return DropdownMenuItem<BrandModel>(
                                           value: value,

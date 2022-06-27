@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/about/about_controller.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
 
 class AboutScreen extends GetResponsiveView<AboutController> {
@@ -13,6 +14,7 @@ class AboutScreen extends GetResponsiveView<AboutController> {
     return Scaffold(
       appBar: AppBarWidget(
         title: StringsKeys.about.tr,
+        back: Get.back,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -29,7 +31,7 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 30.0),
                     child: Text(
-                      StringsKeys.musicianShop.tr,
+                      StringsKeys.musiciansShop.tr,
                       style: Get.theme.textTheme.headline1,
                       textAlign: TextAlign.center,
                     ),
@@ -37,7 +39,7 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                   Hero(
                     tag: AppValues.heroMusicNoteOutlined,
                     child: Icon(
-                      Icons.music_note_outlined,
+                      AppIcons.musicNote,
                       color: Get.theme.primaryColor,
                       size: 160,
                     ),

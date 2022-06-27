@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/widgets/divider_widget.dart';
 
@@ -100,8 +101,8 @@ class UserPhotoDialog extends StatelessWidget {
             color: Colors.transparent,
             child: ListTile(
               onTap: change,
-              leading: const Icon(
-                Icons.add_a_photo_outlined,
+              leading: Icon(
+                AppIcons.addPhoto,
                 size: 20,
               ),
               title: Text(
@@ -116,8 +117,8 @@ class UserPhotoDialog extends StatelessWidget {
               color: Colors.transparent,
               child: ListTile(
                 onTap: delete,
-                leading: const Icon(
-                  Icons.delete_outline,
+                leading: Icon(
+                  AppIcons.delete,
                   size: 22,
                 ),
                 title: Text(

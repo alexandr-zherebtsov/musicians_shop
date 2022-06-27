@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 
 class CreateAddButton extends StatelessWidget {
   final ResponsiveScreen screen;
@@ -32,9 +33,9 @@ class CreateAddButton extends StatelessWidget {
               padding: EdgeInsets.zero,
               color: Get.theme.primaryColor,
               onPressed: onPressed,
-              child: const Center(
+              child: Center(
                 child: Icon(
-                  Icons.add,
+                  AppIcons.plus,
                   size: 50,
                   color: Colors.white,
                 ),

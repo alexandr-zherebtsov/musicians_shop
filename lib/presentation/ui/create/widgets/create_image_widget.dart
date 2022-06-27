@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/widgets/app_network_image.dart';
 
 class CreateImageWidget extends StatelessWidget {
@@ -63,9 +64,9 @@ class CreateImageWidget extends StatelessWidget {
                 color: Colors.redAccent,
                 borderRadius: BorderRadius.circular(18.0),
               ),
-              child: const Center(
+              child: Center(
                 child: Icon(
-                  Icons.clear,
+                  AppIcons.clear,
                   color: Colors.white,
                   size: 16,
                 ),

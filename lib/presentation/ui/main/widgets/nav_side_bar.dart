@@ -5,6 +5,7 @@ import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/nav_item.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 
 class NavSidebar extends StatelessWidget {
@@ -43,7 +44,7 @@ class NavSidebar extends StatelessWidget {
                       child: Hero(
                         tag: AppValues.heroMusicNoteOutlined,
                         child: Icon(
-                          Icons.music_note_outlined,
+                          AppIcons.musicNote,
                           color: Get.theme.primaryColor,
                           size: 42,
                         ),
@@ -55,7 +56,7 @@ class NavSidebar extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: Text(
-                            StringsKeys.musicianShop.tr,
+                            StringsKeys.musiciansShop.tr,
                             style: Get.theme.textTheme.headline3,
                           ),
                         ),
@@ -68,7 +69,7 @@ class NavSidebar extends StatelessWidget {
                             highlightColor: Colors.transparent,
                             onTap: controller.goToAbout,
                             child: Icon(
-                              Icons.info_outline,
+                              AppIcons.info,
                               color: Get.theme.primaryColor,
                               size: 12,
                             ),
