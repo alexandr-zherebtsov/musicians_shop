@@ -1,12 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/repositories/user/user_repository.dart';
-import 'package:musicians_shop/data/repositories/user/user_repository_impl.dart';
+import 'package:logger/logger.dart';
+import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote_repositories/user_repository.dart';
+import 'package:musicians_shop/domain/repositories/user_repository_impl.dart';
 import 'package:musicians_shop/presentation/ui/profile/user_profile/user_profile_controller.dart';
 
 class UserProfileBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<UserProfileController>(() => UserProfileController());
-    Get.lazyPut<UserRepository>(() => UserRepositoryImpl(Get.find()), fenix: true);
+    Get.lazyPut<UserRepository>(
+      () => UserRepositoryImpl(
+        Get.find<Logger>(),
+        FirebaseAuth.instance,
+        FirebaseFirestore.instance,
+        Get.find<HandleErrorsRepository>(),
+      ),
+      fenix: true,
+    );
+    Get.lazyPut<UserProfileController>(
+      () => UserProfileController(),
+    );
   }
 }

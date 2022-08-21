@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/repositories/push_notification/push_notification_repository.dart';
+import 'package:musicians_shop/data/remote_repositories/push_notification_repository.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/presentation/ui/adverts/adverts_controller.dart';

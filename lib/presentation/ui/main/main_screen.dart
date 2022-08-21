@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/repositories/push_notification/push_notification_repository.dart';
+import 'package:musicians_shop/data/remote_repositories/push_notification_repository.dart';
 import 'package:musicians_shop/presentation/ui/home/home_screen.dart';
 import 'package:musicians_shop/presentation/ui/main/components/main_screen_desktop.dart';
 import 'package:musicians_shop/presentation/ui/main/components/main_screen_mobile.dart';

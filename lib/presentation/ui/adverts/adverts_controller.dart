@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart';
+import 'package:musicians_shop/data/remote_repositories/adverts_repository.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 

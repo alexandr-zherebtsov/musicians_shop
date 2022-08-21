@@ -5,7 +5,7 @@ import 'package:musicians_shop/shared/styles/colors.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 
 class AppThemes {
-  static ThemeData getTheme() => Get.isPlatformDarkMode ? AppThemes.dark : AppThemes.light;
+  static ThemeData getTheme() => Get.isPlatformDarkMode ? dark : light;
 
   static final ThemeData light = ThemeData(
     useMaterial3: true,

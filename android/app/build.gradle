@@ -65,5 +65,5 @@ flutter {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.0.1')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.firebase:firebase-messaging:23.0.5'
+    implementation 'com.google.firebase:firebase-messaging:23.0.7'
 }

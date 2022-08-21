@@ -1,39 +1,64 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/repositories/adverts/adverts_repository.dart';
-import 'package:musicians_shop/data/repositories/adverts/adverts_repository_impl.dart';
-import 'package:musicians_shop/data/repositories/brands/brands_repository.dart';
-import 'package:musicians_shop/data/repositories/brands/brands_repository_impl.dart';
-import 'package:musicians_shop/data/repositories/file/file_repository.dart';
-import 'package:musicians_shop/data/repositories/file/file_repository_impl.dart';
-import 'package:musicians_shop/data/repositories/instrument_types/instrument_types_repository.dart';
-import 'package:musicians_shop/data/repositories/instrument_types/instrument_types_repository_impl.dart';
-import 'package:musicians_shop/data/repositories/user/user_repository.dart';
-import 'package:musicians_shop/data/repositories/user/user_repository_impl.dart';
-import 'package:musicians_shop/data/sources/remote_data_source.dart';
+import 'package:logger/logger.dart';
+import 'package:musicians_shop/data/remote_repositories/adverts_repository.dart';
+import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
+import 'package:musicians_shop/domain/repositories/adverts_repository_impl.dart';
+import 'package:musicians_shop/data/remote_repositories/brands_repository.dart';
+import 'package:musicians_shop/domain/repositories/brands_repository_impl.dart';
+import 'package:musicians_shop/data/remote_repositories/file_repository.dart';
+import 'package:musicians_shop/domain/repositories/file_repository_impl.dart';
+import 'package:musicians_shop/data/remote_repositories/instrument_types_repository.dart';
+import 'package:musicians_shop/domain/repositories/instrument_types_repository_impl.dart';
+import 'package:musicians_shop/data/remote_repositories/user_repository.dart';
+import 'package:musicians_shop/domain/repositories/user_repository_impl.dart';
 import 'package:musicians_shop/presentation/ui/create/create_controller.dart';
 
 class CreateBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<FileRepository>(
-      () => FileRepositoryImpl(Get.find<RemoteDataSource>()),
+      () => FileRepositoryImpl(
+        FirebaseStorage.instance,
+        Get.find<HandleErrorsRepository>(),
+      ),
       fenix: true,
     );
     Get.lazyPut<UserRepository>(
-      () => UserRepositoryImpl(Get.find<RemoteDataSource>()),
+      () => UserRepositoryImpl(
+        Get.find<Logger>(),
+        FirebaseAuth.instance,
+        FirebaseFirestore.instance,
+        Get.find<HandleErrorsRepository>(),
+      ),
       fenix: true,
     );
     Get.lazyPut<AdvertsRepository>(
-      () => AdvertsRepositoryImpl(Get.find<RemoteDataSource>()),
+      () => AdvertsRepositoryImpl(
+        Get.find<Logger>(),
+        FirebaseFirestore.instance,
+        FirebaseAnalytics.instance,
+        Get.find<HandleErrorsRepository>(),
+      ),
       fenix: true,
     );
     Get.lazyPut<InstrumentTypesRepository>(
-      () => InstrumentTypesRepositoryImpl(Get.find<RemoteDataSource>()),
+      () => InstrumentTypesRepositoryImpl(
+        Get.find<Logger>(),
+        FirebaseFirestore.instance,
+        Get.find<HandleErrorsRepository>(),
+      ),
       fenix: true,
     );
     Get.lazyPut<BrandsRepository>(
-      () => BrandsRepositoryImpl(Get.find<RemoteDataSource>()),
+      () => BrandsRepositoryImpl(
+        Get.find<Logger>(),
+        FirebaseFirestore.instance,
+        Get.find<HandleErrorsRepository>(),
+      ),
       fenix: true,
     );
     Get.lazyPut<CreateController>(
