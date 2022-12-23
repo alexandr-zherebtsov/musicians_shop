@@ -28,4 +28,13 @@ class AppValues {
 
   /// Collection brands
   static const String collectionBrands = 'brands';
+
+  /// Android notification channel id
+  static const String androidNotificationChannelId = 'high_importance_channel';
+
+  /// Android notification channel name
+  static const String androidNotificationChannelName = 'High Importance Notifications';
+
+  /// Android notification icon
+  static const String androidNotificationIcon = 'ic_notification';
 }

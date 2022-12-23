@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote_repositories/user_repository.dart';
+import 'package:musicians_shop/data/remote/user_repository.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 
 class UserProfileController extends GetxController {

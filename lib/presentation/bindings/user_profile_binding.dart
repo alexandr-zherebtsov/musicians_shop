@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
-import 'package:musicians_shop/data/remote_repositories/user_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote/user_repository.dart';
 import 'package:musicians_shop/domain/repositories/user_repository_impl.dart';
 import 'package:musicians_shop/presentation/ui/profile/user_profile/user_profile_controller.dart';
 

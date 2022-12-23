@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
-import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
-import 'package:musicians_shop/data/remote_repositories/instrument_types_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote/instrument_types_repository.dart';
 import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 

@@ -19,9 +19,9 @@ Project using GetX for communication between layers
 
 ### Libraries & Tools
 
-- [Flutter 3.0.5 • channel stable](https://flutter.dev)
-- [Dart 2.17.6](https://dart.dev)
-- [DevTools 2.12.2](https://docs.flutter.dev/development/tools/devtools/overview)
+- [Flutter 3.3.2 • channel stable](https://flutter.dev)
+- [Dart 2.18.1](https://dart.dev)
+- [DevTools 2.15.0](https://docs.flutter.dev/development/tools/devtools/overview)
 
 Core
 - [get](https://github.com/jonataslaw/getx)

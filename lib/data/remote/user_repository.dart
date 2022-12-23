@@ -14,4 +14,3 @@ abstract class UserRepository extends BaseRepository {
 
   Future<bool> editUserData(UserModel user);
 }
-

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
 
 class HandleErrorsRepositoryImpl extends HandleErrorsRepository {
   final FirebaseCrashlytics _fcr;

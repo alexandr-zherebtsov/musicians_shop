@@ -3,10 +3,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:musicians_shop/data/remote_repositories/adverts_repository.dart';
-import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote/adverts_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
 import 'package:musicians_shop/domain/repositories/adverts_repository_impl.dart';
-import 'package:musicians_shop/data/remote_repositories/file_repository.dart';
+import 'package:musicians_shop/data/remote/file_repository.dart';
 import 'package:musicians_shop/domain/repositories/file_repository_impl.dart';
 import 'package:musicians_shop/presentation/ui/advert/advert_controller.dart';
 

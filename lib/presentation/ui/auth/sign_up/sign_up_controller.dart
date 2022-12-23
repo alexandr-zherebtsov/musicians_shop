@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote_repositories/auth_repository.dart';
+import 'package:musicians_shop/data/remote/auth_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/shared/constants/reg_exp.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';

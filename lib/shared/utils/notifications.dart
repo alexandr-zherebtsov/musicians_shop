@@ -2,57 +2,73 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class AppNotifications {
-  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
-  static const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
+  static const DarwinInitializationSettings initializationSettingsApple =
+      DarwinInitializationSettings(
     requestSoundPermission: true,
     requestBadgePermission: false,
     requestAlertPermission: true,
   );
 
-  static const MacOSInitializationSettings initializationSettingsMacOS = MacOSInitializationSettings(
-    requestAlertPermission: false,
-    requestBadgePermission: false,
-    requestSoundPermission: false,
+  static const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings(
+    AppValues.androidNotificationIcon,
   );
 
-  static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings(
-    'mipmap/ic_launcher',
-  );
-
-  static const InitializationSettings initializationSettings = InitializationSettings(
+  static const InitializationSettings initializationSettings =
+      InitializationSettings(
     android: initializationSettingsAndroid,
-    iOS: initializationSettingsIOS,
-    macOS: initializationSettingsMacOS,
+    iOS: initializationSettingsApple,
+    macOS: initializationSettingsApple,
   );
 
   static const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
+    AppValues.androidNotificationChannelId, // id
+    AppValues.androidNotificationChannelName, // title
     importance: Importance.max,
     playSound: true,
   );
 
-  static init() {
+  static Future<void> init() async {
     if (!kIsWeb) {
       flutterLocalNotificationsPlugin.initialize(
         initializationSettings,
-        onSelectNotification: (_) => flutterLocalNotificationsPlugin.cancelAll(),
+        onDidReceiveNotificationResponse: _onDidReceiveNotificationResponse,
+        onDidReceiveBackgroundNotificationResponse:
+            _onDidReceiveBackgroundNotificationResponse,
       );
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
     }
   }
 
-  static showPush(RemoteMessage message) {
-    final RemoteNotification? notification = message.notification;
-    if (notification != null) {
-      if (!kIsWeb) {
+  static void _onDidReceiveNotificationResponse(
+    final NotificationResponse notification,
+  ) {
+    //
+  }
+
+  static void _onDidReceiveBackgroundNotificationResponse(
+    final NotificationResponse notification,
+  ) {
+    //
+  }
+
+  static showPush(final RemoteMessage? message) {
+    if (message?.notification != null) {
+      if (defaultTargetPlatform == TargetPlatform.android) {
         flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
+          message!.notification.hashCode,
+          message.notification?.title ?? '',
+          message.notification?.body ?? '',
           NotificationDetails(
             android: AndroidNotificationDetails(
               channel.id,
@@ -60,19 +76,17 @@ class AppNotifications {
               color: Colors.black,
               playSound: true,
               importance: Importance.max,
-              icon: '@mipmap/ic_launcher',
             ),
-            iOS: const IOSNotificationDetails(
+            iOS: const DarwinNotificationDetails(
               presentAlert: true,
               presentSound: true,
             ),
           ),
-          payload: 'Default_Sound',
         );
-      } else {
+      } else if (kIsWeb) {
         showSimpleNotification(
           Text(
-            notification.body ?? '',
+            message?.notification?.body ?? '',
             style: const TextStyle(
               color: Colors.black,
             ),

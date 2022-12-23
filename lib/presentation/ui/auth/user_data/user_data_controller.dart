@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote_repositories/user_repository.dart';
+import 'package:musicians_shop/data/remote/user_repository.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/shared/core/localization/keys.dart';

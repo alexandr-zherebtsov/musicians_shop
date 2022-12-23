@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:musicians_shop/data/remote_repositories/file_repository.dart';
-import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote/file_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
 import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 

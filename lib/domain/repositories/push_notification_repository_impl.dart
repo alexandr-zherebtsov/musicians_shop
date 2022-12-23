@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logger/logger.dart';
-import 'package:musicians_shop/data/remote_repositories/handle_errors_repository.dart';
-import 'package:musicians_shop/data/remote_repositories/push_notification_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
+import 'package:musicians_shop/data/remote/push_notification_repository.dart';
 import 'package:musicians_shop/shared/utils/notifications.dart';
 
 class PushNotificationRepositoryImpl extends PushNotificationRepository {
@@ -20,6 +20,7 @@ class PushNotificationRepositoryImpl extends PushNotificationRepository {
   @override
   Future<bool> initializePN() async {
     try {
+      await AppNotifications.init();
       await _fms.requestPermission(
         alert: true,
         announcement: false,
@@ -35,17 +36,14 @@ class PushNotificationRepositoryImpl extends PushNotificationRepository {
         alert: true,
       );
       final String? token = await _fms.getToken();
-      _logger.d({'FM Token': token});
+      _logger.d({'FCM Token': token});
       FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
-        log('onBackgroundMessage');
         AppNotifications.showPush(message);
       });
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        log('onMessage');
         AppNotifications.showPush(message);
       });
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-        log('onMessageOpenedApp');
         AppNotifications.showPush(message);
       });
       return true;
