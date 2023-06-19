@@ -38,9 +38,10 @@ class SplashScreen extends GetView<SplashController> {
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(AppStyles.clipRadius),
-              child: const SizedBox(
+              child: SizedBox(
                 width: 220,
                 child: LinearProgressIndicator(
+                  color: Get.theme.primaryColor,
                   minHeight: 8,
                 ),
               ),

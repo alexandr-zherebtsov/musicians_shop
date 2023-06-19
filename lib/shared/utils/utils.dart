@@ -12,12 +12,16 @@ import 'package:musicians_shop/shared/enums/file_type.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
 
-void showAppNotification(String message) {
+void showAppNotification(final String message) {
   toast(
     message,
     duration: const Duration(milliseconds: 1400),
   );
 }
+
+String getCurrentPlatform() => kIsWeb ? AppValues.web : AppValues.application;
+
+String getCurrentOS() => Get.theme.platform.name;
 
 bool isNotMobile() {
   if (kIsWeb) {

@@ -6,9 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/data/local/preference_manager.dart';
 import 'package:musicians_shop/data/remote/adverts_repository.dart';
 import 'package:musicians_shop/data/remote/auth_repository.dart';
 import 'package:musicians_shop/data/remote/file_repository.dart';
+import 'package:musicians_shop/data/remote/push_notification_repository.dart';
 import 'package:musicians_shop/data/remote/user_repository.dart';
 import 'package:musicians_shop/domain/models/advert_model.dart';
 import 'package:musicians_shop/domain/models/user_model.dart';
@@ -24,6 +26,8 @@ class MyProfileController extends GetxController {
   final UserRepository _userRepository;
   final FileRepository _fileRepository;
   final AdvertsRepository _advertsRepository;
+  final PushNotificationRepository _pushNotificationRepository;
+  final PreferenceManager _pref;
   final FirebaseMessaging _fms;
 
   MyProfileController(
@@ -31,6 +35,8 @@ class MyProfileController extends GetxController {
     this._userRepository,
     this._fileRepository,
     this._advertsRepository,
+    this._pushNotificationRepository,
+    this._pref,
     this._fms,
   );
 
@@ -195,7 +201,7 @@ class MyProfileController extends GetxController {
     List<AdvertModel> myAdverts = <AdvertModel>[];
     List<String> images = <String>[];
 
-    for (int i = 0; i < allAdverts.length; i ++) {
+    for (int i = 0; i < allAdverts.length; i++) {
       if (allAdverts[i].likes?.contains(user!.id!) ?? false) {
         likedAdverts.add(allAdverts[i]);
         allAdverts[i].likes?.remove(user!.id!);
@@ -215,19 +221,19 @@ class MyProfileController extends GetxController {
   }
 
   Future<void> removeLikes(List<AdvertModel> likedAdverts) async {
-    for (int i = 0; i < likedAdverts.length; i ++) {
+    for (int i = 0; i < likedAdverts.length; i++) {
       await _advertsRepository.editAdvert(likedAdverts[i]);
     }
   }
 
   Future<void> deleteAdverts(List<AdvertModel> myAdverts) async {
-    for (int i = 0; i < myAdverts.length; i ++) {
+    for (int i = 0; i < myAdverts.length; i++) {
       await _advertsRepository.deleteAdvert(myAdverts[i].id!);
     }
   }
 
   Future<void> deleteImages(List<String> images) async {
-    for (int i = 0; i < images.length; i ++) {
+    for (int i = 0; i < images.length; i++) {
       await _fileRepository.deleteFile(images[i]);
     }
   }
@@ -245,13 +251,20 @@ class MyProfileController extends GetxController {
   }
 
   void logOut() async {
+    await _pushNotificationRepository.removeFcmToken(
+      await _fms.getToken(),
+    );
     await Future.wait([
       _appSignOut(),
       _fmSignOut(),
+      _clearPref(),
     ]);
     Get.offAllNamed(AppRoutes.start);
   }
 
   Future<void> _appSignOut() async => await _authRepository.logOut();
+
   Future<void> _fmSignOut() async => await _fms.deleteToken();
+
+  Future<void> _clearPref() async => await _pref.clear();
 }

@@ -5,22 +5,34 @@ import 'package:musicians_shop/shared/styles/colors.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 
 class AppThemes {
-  static ThemeData getTheme() => Get.isPlatformDarkMode ? dark : light;
+  static ThemeData getTheme() => Get.isPlatformDarkMode ? light : light;
 
   static final ThemeData light = ThemeData(
     useMaterial3: true,
     primaryColor: Colors.pink,
     primarySwatch: Colors.pink,
     brightness: Brightness.light,
+    dialogBackgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: AppColors.lightGray,
     bottomAppBarColor: Colors.white,
     cardColor: Colors.white,
     cardTheme: CardTheme(
+      color: Colors.white,
       surfaceTintColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppStyles.clipRadius),
       ),
+    ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      menuStyle: MenuStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
+      ),
+    ),
+    dialogTheme: const DialogTheme(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
@@ -42,6 +54,11 @@ class AppThemes {
     ),
     iconTheme: const IconThemeData(
       color: Colors.black,
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+        iconColor: MaterialStateProperty.all<Color>(Colors.black),
+      ),
     ),
     indicatorColor: Colors.pink,
     tabBarTheme: const TabBarTheme(
@@ -67,7 +84,7 @@ class AppThemes {
       ),
       headline2: TextStyle(
         color: Colors.black,
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: FontWeight.w400,
       ),
       headline3: TextStyle(
@@ -108,15 +125,27 @@ class AppThemes {
     primaryColor: Colors.pink,
     primarySwatch: Colors.pink,
     brightness: Brightness.dark,
+    dialogBackgroundColor: Colors.black,
     scaffoldBackgroundColor: AppColors.mediumBlack,
     backgroundColor: Colors.black,
     bottomAppBarColor: AppColors.mediumBlack,
     cardColor: AppColors.lightBlack,
     cardTheme: CardTheme(
+      color: AppColors.lightBlack,
       surfaceTintColor: AppColors.lightBlack,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppStyles.clipRadius),
       ),
+    ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      menuStyle: MenuStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        surfaceTintColor: MaterialStateProperty.all<Color>(Colors.black),
+      ),
+    ),
+    dialogTheme: const DialogTheme(
+      backgroundColor: AppColors.mediumBlack,
+      surfaceTintColor: AppColors.mediumBlack,
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
@@ -138,6 +167,11 @@ class AppThemes {
     ),
     iconTheme: const IconThemeData(
       color: Colors.white,
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+        iconColor: MaterialStateProperty.all<Color>(Colors.white),
+      ),
     ),
     indicatorColor: Colors.pink,
     tabBarTheme: const TabBarTheme(
@@ -163,7 +197,7 @@ class AppThemes {
       ),
       headline2: TextStyle(
         color: Colors.white,
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: FontWeight.w400,
       ),
       headline3: TextStyle(

@@ -13,19 +13,19 @@ class MainController extends GetxController {
   MainController(this._pushNotificationRepository);
 
   @override
-  onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     await _pushNotificationRepository.initializePN();
   }
 
   MainScreenEnums _screenType = MainScreenEnums.home;
   MainScreenEnums get screenType => _screenType;
-  set screenType(MainScreenEnums screenType) {
+  set screenType(final MainScreenEnums screenType) {
     _screenType = screenType;
     update();
   }
 
-  void onNavTap(MainScreenEnums type) {
+  void onNavTap(final MainScreenEnums type) {
     if (type == MainScreenEnums.create) {
       goToCreate();
     } else {
@@ -33,7 +33,7 @@ class MainController extends GetxController {
     }
   }
 
-  void goToCreate() async {
+  Future<void> goToCreate() async {
     try {
       final res = await Get.toNamed(AppRoutes.create);
       if (res != null) {
@@ -56,6 +56,7 @@ class MainController extends GetxController {
   }
 
   void goToAbout() => Get.toNamed(AppRoutes.about);
+
   void unFocus() => Get.focusScope?.unfocus();
 
   Future<bool> willPopScope() async {

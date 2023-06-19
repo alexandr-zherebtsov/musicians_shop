@@ -51,13 +51,18 @@ class _AdvertsScreenState extends State<AdvertsScreen> with TickerProviderStateM
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 45,
+                  height: 46,
                   width: double.infinity,
                   child: Center(
-                    child: AppTabBar(
-                      screen: widget.screen,
-                      tabs: tabs,
-                      tabController: tabController,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 1,
+                      ),
+                      child: AppTabBar(
+                        screen: widget.screen,
+                        tabs: tabs,
+                        tabController: tabController,
+                      ),
                     ),
                   ),
                 ),

@@ -107,6 +107,8 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                         hint: StringsKeys.type,
                                       ),
                                       icon: const DropDownIcon(),
+                                      borderRadius: BorderRadius.circular(AppStyles.fieldRadius),
+                                      dropdownColor: Get.theme.dialogBackgroundColor,
                                       items: controller.instrumentTypes.map<DropdownMenuItem<InstrumentTypeModel>>((InstrumentTypeModel value) {
                                         return DropdownMenuItem<InstrumentTypeModel>(
                                           value: value,
@@ -130,6 +132,8 @@ class CreateScreen extends GetResponsiveView<CreateController> {
                                         hint: StringsKeys.brand,
                                       ),
                                       icon: const DropDownIcon(),
+                                      borderRadius: BorderRadius.circular(AppStyles.fieldRadius),
+                                      dropdownColor: Get.theme.dialogBackgroundColor,
                                       items: controller.brands.map<DropdownMenuItem<BrandModel>>((BrandModel value) {
                                         return DropdownMenuItem<BrandModel>(
                                           value: value,

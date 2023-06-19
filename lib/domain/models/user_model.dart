@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:musicians_shop/domain/models/brand_model.dart';
+import 'package:musicians_shop/domain/models/fcm_tocken_model.dart';
 import 'package:musicians_shop/domain/models/instrument_type_model.dart';
 
 class UserModel {
@@ -15,6 +16,7 @@ class UserModel {
   Timestamp? updatedAt;
   List<InstrumentTypeModel>? favoriteInstruments;
   List<BrandModel>? favoriteBrands;
+  List<FcmTokenModel>? fcmTokens;
 
   UserModel({
     this.id,
@@ -29,6 +31,7 @@ class UserModel {
     this.updatedAt,
     this.favoriteInstruments,
     this.favoriteBrands,
+    this.fcmTokens,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -54,6 +57,12 @@ class UserModel {
         favoriteBrands!.add(BrandModel.fromJson(v));
       });
     }
+    if (json['fcmTokens'] != null) {
+      fcmTokens = <FcmTokenModel>[];
+      json['fcmTokens'].forEach((v) {
+        fcmTokens!.add(FcmTokenModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +82,9 @@ class UserModel {
     }
     if (favoriteBrands != null) {
       data['favoriteBrands'] = favoriteBrands!.map((v) => v.toJson()).toList();
+    }
+    if (fcmTokens != null) {
+      data['fcmTokens'] = fcmTokens!.map((v) => v.toJson()).toList();
     }
     return data;
   }

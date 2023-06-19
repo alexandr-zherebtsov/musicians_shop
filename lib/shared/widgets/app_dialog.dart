@@ -38,6 +38,7 @@ class AppDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Get.theme.scaffoldBackgroundColor,
+      buttonPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppStyles.fieldRadius),
       ),
@@ -49,9 +50,10 @@ class AppDialog extends StatelessWidget {
         subtitle,
         style: Get.theme.textTheme.bodyText1,
       ),
-      buttonPadding: EdgeInsets.zero,
-      actionsPadding: const EdgeInsets.only(left: 18),
-      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actionsPadding: const EdgeInsets.only(
+        bottom: 10,
+      ),
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
         AppTextButton(
           title: first,

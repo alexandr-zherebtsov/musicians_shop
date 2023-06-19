@@ -19,7 +19,7 @@ class HandleErrorsRepositoryImpl extends HandleErrorsRepository {
   }) async {
     log(
       error.toString(),
-      name: 'error: $name',
+      name: 'ERROR: $name',
       stackTrace: stackTrace,
     );
     if (!kIsWeb) {

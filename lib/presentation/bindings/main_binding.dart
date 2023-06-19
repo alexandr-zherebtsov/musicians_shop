@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:musicians_shop/data/local/preference_manager.dart';
 import 'package:musicians_shop/data/remote/adverts_repository.dart';
 import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
 import 'package:musicians_shop/domain/repositories/adverts_repository_impl.dart';
@@ -33,6 +34,8 @@ class MainBinding extends Bindings {
       () => PushNotificationRepositoryImpl(
         Get.find<Logger>(),
         FirebaseMessaging.instance,
+        Get.find<UserRepository>(),
+        Get.find<PreferenceManager>(),
         Get.find<HandleErrorsRepository>(),
       ),
       fenix: true,
@@ -68,6 +71,8 @@ class MainBinding extends Bindings {
         Get.find<UserRepository>(),
         Get.find<FileRepository>(),
         Get.find<AdvertsRepository>(),
+        Get.find<PushNotificationRepository>(),
+        Get.find<PreferenceManager>(),
         FirebaseMessaging.instance,
       ),
     );

@@ -12,14 +12,18 @@ dependencies:
 
   # Core
   get: ^4.6.5
+  collection: ^1.17.0
+
+  # Local Storage
+  shared_preferences: ^2.0.15
 
   # Firebase
-  firebase_core: ^2.0.0
-  firebase_auth: ^4.2.1
+  firebase_core: ^2.4.0
+  firebase_auth: ^4.2.2
   cloud_firestore: ^4.2.0
   # flutterfire_cli: ^0.2.7
   firebase_storage: ^11.0.8
-  firebase_messaging: ^14.1.4
+  firebase_messaging: ^14.2.0
   firebase_analytics: ^10.0.7
   firebase_crashlytics: ^3.0.7
 
@@ -36,6 +40,7 @@ dependencies:
   url_strategy: ^0.2.0
   url_launcher: ^6.1.7
   path_provider: ^2.0.11
+  universal_html: ^2.2.2
   package_info_plus: ^3.0.2
   android_path_provider: ^0.3.0
   flutter_local_notifications: ^13.0.0

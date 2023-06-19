@@ -2,8 +2,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:musicians_shop/shared/constants/app_values.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:universal_html/js.dart' as js;
 
 class AppNotifications {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -29,15 +32,15 @@ class AppNotifications {
   );
 
   static const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    AppValues.androidNotificationChannelId, // id
-    AppValues.androidNotificationChannelName, // title
+    AppValues.androidNotificationChannelId,
+    AppValues.androidNotificationChannelName,
     importance: Importance.max,
     playSound: true,
   );
 
   static Future<void> init() async {
     if (!kIsWeb) {
-      flutterLocalNotificationsPlugin.initialize(
+      await flutterLocalNotificationsPlugin.initialize(
         initializationSettings,
         onDidReceiveNotificationResponse: _onDidReceiveNotificationResponse,
         onDidReceiveBackgroundNotificationResponse:
@@ -64,7 +67,18 @@ class AppNotifications {
 
   static showPush(final RemoteMessage? message) {
     if (message?.notification != null) {
-      if (defaultTargetPlatform == TargetPlatform.android) {
+      if (kIsWeb) {
+        showSimpleNotification(
+          Text(
+            message?.notification?.body ?? '',
+            style: const TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          background: Colors.white,
+        );
+        js.context.callMethod('playNotificationSound');
+      } else if (defaultTargetPlatform == TargetPlatform.android) {
         flutterLocalNotificationsPlugin.show(
           message!.notification.hashCode,
           message.notification?.title ?? '',
@@ -83,17 +97,8 @@ class AppNotifications {
             ),
           ),
         );
-      } else if (kIsWeb) {
-        showSimpleNotification(
-          Text(
-            message?.notification?.body ?? '',
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          background: Colors.white,
-        );
       }
+      Get.find<Logger>().d(message?.notification?.body);
     }
   }
 }

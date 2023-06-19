@@ -5,6 +5,12 @@ class AppValues {
   /// Lang Code uk
   static const String langCodeUK = 'uk';
 
+  /// Platform web
+  static const String web = 'web';
+
+  /// Platform application
+  static const String application = 'application';
+
   /// Basic Lang Code
   static const String langCodeBasic = langCodeUK;
 
