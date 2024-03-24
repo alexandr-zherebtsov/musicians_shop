@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/about/about_controller.dart';
-import 'package:musicians_shop/shared/constants/app_values.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_bar_widget.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
-import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
+import 'package:musicians_shop/shared/values/app_values.dart';
 
 class AboutScreen extends GetResponsiveView<AboutController> {
-  AboutScreen({Key? key}) : super(key: key);
+  AboutScreen({super.key});
 
   @override
   Widget builder() {
@@ -22,17 +22,17 @@ class AboutScreen extends GetResponsiveView<AboutController> {
             width: screen.width,
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
+                vertical: 8,
+                horizontal: 16,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0),
+                    padding: const EdgeInsets.only(bottom: 30),
                     child: Text(
                       StringsKeys.musiciansShop.tr,
-                      style: Get.theme.textTheme.headline1,
+                      style: Get.theme.textTheme.displaySmall,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -45,10 +45,10 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 60.0, bottom: 6.0),
+                    padding: const EdgeInsets.only(top: 60, bottom: 6),
                     child: Text(
                       StringsKeys.createdBy.tr,
-                      style: Get.theme.textTheme.bodyText1,
+                      style: Get.theme.textTheme.bodyLarge,
                     ),
                   ),
                   InkWell(
@@ -58,13 +58,13 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                     highlightColor: Colors.transparent,
                     child: Text(
                       StringsKeys.appAuthor.tr,
-                      style: Get.theme.textTheme.headline2,
+                      style: Get.theme.textTheme.headlineLarge,
                       textAlign: TextAlign.center,
                     ),
                     onTap: () => controller.launchTo(AppValues.gitHubUrl),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 30.0),
+                    padding: const EdgeInsets.only(top: 8, bottom: 30),
                     child: InkWell(
                       focusColor: Colors.transparent,
                       hoverColor: Colors.transparent,
@@ -75,11 +75,11 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                         children: <Widget>[
                           Text(
                             StringsKeys.usingFlutter.tr,
-                            style: Get.theme.textTheme.bodyText1,
+                            style: Get.theme.textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           const Padding(
-                            padding: EdgeInsets.only(left: 8.0),
+                            padding: EdgeInsets.only(left: 8),
                             child: FlutterLogo(size: 24),
                           ),
                         ],
@@ -88,12 +88,14 @@ class AboutScreen extends GetResponsiveView<AboutController> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: Obx(() => Text(
-                      controller.version.value,
-                      style: Get.theme.textTheme.bodyText1,
-                      textAlign: TextAlign.center,
-                    )),
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Obx(
+                      () => Text(
+                        controller.version.value,
+                        style: Get.theme.textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                 ],
               ),

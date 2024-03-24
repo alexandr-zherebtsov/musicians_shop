@@ -2,17 +2,17 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/adverts_repository.dart';
-import 'package:musicians_shop/data/remote/file_repository.dart';
-import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
+import 'package:musicians_shop/data/remote/adverts/adverts_repository.dart';
+import 'package:musicians_shop/data/remote/file/file_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_dialog.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
-import 'package:musicians_shop/shared/widgets/app_dialog.dart';
 
 class AdvertController extends GetxController {
-  final FileRepository _fileRepository;
-  final AdvertsRepository _advertsRepository;
+  final IFileRepository _fileRepository;
+  final IAdvertsRepository _advertsRepository;
 
   AdvertController(
     this._fileRepository,
@@ -20,21 +20,27 @@ class AdvertController extends GetxController {
   );
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
+
   set screenLoader(bool screenLoader) {
     _screenLoader = screenLoader;
     update();
   }
 
   bool _screenError = false;
+
   bool get screenError => _screenError;
+
   set screenError(bool screenError) {
     _screenError = screenError;
     update();
   }
 
   int _selectedImage = 0;
+
   int get selectedImage => _selectedImage;
+
   set selectedImage(int selectedImage) {
     _selectedImage = selectedImage;
     update();
@@ -57,7 +63,7 @@ class AdvertController extends GetxController {
 
   void onTapLike() async {
     List<String> oldLikes = <String>[];
-    oldLikes.addAll(advert.likes?? []);
+    oldLikes.addAll(advert.likes ?? []);
     if (advert.likes == null) {
       advert.likes = [uid];
     } else if (advert.likes!.contains(uid)) {
@@ -94,7 +100,7 @@ class AdvertController extends GetxController {
         arguments: advert.uid,
       );
     } else {
-      showAppNotification(StringsKeys.somethingWentWrong.tr);
+      MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -116,11 +122,11 @@ class AdvertController extends GetxController {
       ]);
       if (advertDeleted && imagesDeleted) {
         screenLoader = false;
-        showAppNotification(StringsKeys.done.tr);
+        MainUtils.showAppNotification(StringsKeys.done.tr);
         willPopScope();
       } else {
         screenLoader = false;
-        showAppNotification(StringsKeys.somethingWentWrong.tr);
+        MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
         if (advertDeleted) {
           willPopScope();
         }
@@ -134,7 +140,7 @@ class AdvertController extends GetxController {
   }
 
   Future<void> deleteImages() async {
-    if ((advert.images?? []).isNotEmpty) {
+    if ((advert.images ?? []).isNotEmpty) {
       for (int i = 0; i < advert.images!.length; i++) {
         final bool = await _fileRepository.deleteFile(advert.images![i]);
         if (!bool) {
@@ -144,8 +150,5 @@ class AdvertController extends GetxController {
     }
   }
 
-  Future<bool> willPopScope() async {
-    Get.back(result: refreshResult);
-    return true;
-  }
+  void willPopScope() async => Get.back(result: refreshResult);
 }

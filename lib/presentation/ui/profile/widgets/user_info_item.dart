@@ -6,10 +6,10 @@ class UserInfoItem extends StatelessWidget {
   final String? data;
 
   const UserInfoItem({
-    Key? key,
     required this.title,
     required this.data,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +28,13 @@ class UserInfoItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Get.theme.textTheme.bodyText2,
+              style: Get.theme.textTheme.bodyMedium,
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 6
-              ),
+              padding: const EdgeInsets.only(top: 6),
               child: SelectableText(
                 data ?? '',
-                style: Get.theme.textTheme.headline5,
+                style: Get.theme.textTheme.titleMedium,
               ),
             ),
           ],

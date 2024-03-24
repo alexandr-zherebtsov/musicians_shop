@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/splash/splash_controller.dart';
-import 'package:musicians_shop/shared/constants/app_values.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
+import 'package:musicians_shop/shared/values/app_values.dart';
 
 class SplashScreen extends GetView<SplashController> {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class SplashScreen extends GetView<SplashController> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 30.0,
-                bottom: 60.0,
+                top: 30,
+                bottom: 60,
               ),
               child: Text(
                 StringsKeys.musiciansShop.tr,
-                style: Get.theme.textTheme.headline1,
+                style: Get.theme.textTheme.displaySmall,
                 textAlign: TextAlign.center,
               ),
             ),

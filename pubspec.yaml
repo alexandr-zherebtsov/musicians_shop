@@ -4,52 +4,52 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
   # Core
-  get: ^4.6.5
-  collection: ^1.17.0
+  get: ^4.6.6
 
   # Local Storage
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.2.2
 
   # Firebase
-  firebase_core: ^2.4.0
-  firebase_auth: ^4.2.2
-  cloud_firestore: ^4.2.0
-  # flutterfire_cli: ^0.2.7
-  firebase_storage: ^11.0.8
-  firebase_messaging: ^14.2.0
-  firebase_analytics: ^10.0.7
-  firebase_crashlytics: ^3.0.7
+  firebase_core: ^2.27.1
+  firebase_auth: ^4.17.9
+  cloud_firestore: ^4.15.9
+  firebase_storage: ^11.6.10
+  firebase_messaging: ^14.7.20
+  firebase_analytics: ^10.8.10
+  firebase_crashlytics: ^3.4.19
 
   # UI
   overlay_support: ^2.1.0
   carousel_slider: ^4.2.1
-  cupertino_icons: ^1.0.5
-  syncfusion_flutter_charts: ^20.3.61
+  cupertino_icons: ^1.0.6
+  syncfusion_flutter_charts: ^25.1.35
 
   # Utils
-  mime: ^1.0.3
-  logger: ^1.1.0
-  file_picker: ^5.2.4
+  mime: ^1.0.5
+  logger: ^2.2.0
+  collection: ^1.18.0
+  image_picker: ^1.0.7
+  file_picker: ^8.0.0+1
   url_strategy: ^0.2.0
-  url_launcher: ^6.1.7
-  path_provider: ^2.0.11
-  universal_html: ^2.2.2
-  package_info_plus: ^3.0.2
+  url_launcher: ^6.2.5
+  path_provider: ^2.1.2
+  universal_html: ^2.2.4
+  package_info_plus: ^6.0.0
   android_path_provider: ^0.3.0
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^17.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
   flutter_launcher_icons_maker: ^0.10.2
 
 flutter_icons:

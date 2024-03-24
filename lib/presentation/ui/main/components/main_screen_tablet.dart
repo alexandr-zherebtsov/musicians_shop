@@ -8,10 +8,10 @@ class MainScreenTablet extends StatelessWidget {
   final Widget body;
 
   const MainScreenTablet({
-    Key? key,
     required this.controller,
     required this.body,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

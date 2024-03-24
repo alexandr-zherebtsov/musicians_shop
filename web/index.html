@@ -88,9 +88,12 @@
       loadMainDartJs();
     }
 
-    window.onbeforeunload = function() {
-      return "reload";
-    }
+    // window.onbeforeunload = function() {
+    //   return "reload";
+    // }
+  </script>
+  <script type="text/javascript">
+    window.flutterWebRenderer = "html";
   </script>
 </body>
 </html>

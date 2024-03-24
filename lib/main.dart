@@ -5,15 +5,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
 import 'package:get/get.dart';
-import 'package:musicians_shop/shared/styles/themes.dart';
-import 'package:overlay_support/overlay_support.dart';
-import 'package:url_strategy/url_strategy.dart';
 import 'package:musicians_shop/presentation/bindings/global_binding.dart';
 import 'package:musicians_shop/presentation/router/router.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
-import 'package:musicians_shop/shared/core/localization/translations.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
+import 'package:musicians_shop/shared/localization/translations.dart';
+import 'package:musicians_shop/shared/styles/themes.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:url_strategy/url_strategy.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,7 +23,7 @@ void main() async {
   if (kIsWeb) {
     setPathUrlStrategy();
     SystemNavigator.routeInformationUpdated(
-      location: AppRoutes.splash,
+      uri: Uri.parse(AppRoutes.splash),
     );
   } else {
     await _initializeCrashlytics();
@@ -48,7 +49,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +61,8 @@ class App extends StatelessWidget {
         title: StringsKeys.musiciansShop.tr,
         initialBinding: GlobalBinding(),
         translations: Translation(),
-        locale: Locale(getLangCode()),
-        theme: AppThemes.getTheme(),
+        locale: Locale(MainUtils.getLangCode),
+        theme: AppThemes.appTheme,
         debugShowCheckedModeBanner: false,
       ),
     );

@@ -3,20 +3,20 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart';
 import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/nav_item.dart';
-import 'package:musicians_shop/shared/constants/app_values.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
+import 'package:musicians_shop/shared/values/app_values.dart';
 
 class NavSidebar extends StatelessWidget {
   final MainController controller;
   final EdgeInsets margin;
 
   const NavSidebar({
-    Key? key,
     required this.controller,
     this.margin = const EdgeInsets.only(right: 30),
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class NavSidebar extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: Text(
                             StringsKeys.musiciansShop.tr,
-                            style: Get.theme.textTheme.headline3,
+                            style: Get.theme.textTheme.headlineMedium,
                           ),
                         ),
                         Tooltip(

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/adverts_repository.dart';
-import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
+import 'package:musicians_shop/data/remote/adverts/adverts_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 
 class AdvertsController extends GetxController {
-  final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
+  final IAdvertsRepository _advertsRepository;
+
+  AdvertsController(this._advertsRepository);
 
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -13,16 +15,20 @@ class AdvertsController extends GetxController {
   List<AdvertModel> likedAdverts = <AdvertModel>[];
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
-  set screenLoader(bool screenLoader) {
-    _screenLoader = screenLoader;
+
+  set screenLoader(final bool value) {
+    _screenLoader = value;
     update();
   }
 
   bool _screenError = false;
+
   bool get screenError => _screenError;
-  set screenError(bool screenError) {
-    _screenError = screenError;
+
+  set screenError(final bool value) {
+    _screenError = value;
     update();
   }
 
@@ -60,7 +66,7 @@ class AdvertsController extends GetxController {
     required bool my,
   }) async {
     List<String> oldLikes = <String>[];
-    oldLikes.addAll(advert.likes?? []);
+    oldLikes.addAll(advert.likes ?? []);
     if (advert.likes == null) {
       advert.likes = [uid];
       if (my) {

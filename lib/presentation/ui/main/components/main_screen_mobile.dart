@@ -3,19 +3,19 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart';
 import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/nav_bottom_bar.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_bar_widget.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
-import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
 
 class MainScreenMobile extends StatelessWidget {
   final MainController controller;
   final Widget body;
 
   const MainScreenMobile({
-    Key? key,
     required this.controller,
     required this.body,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class MainScreenMobile extends StatelessWidget {
   }
 
   static bool _divider(MainScreenEnums screenType) {
-    return screenType != MainScreenEnums.adverts && screenType != MainScreenEnums.statistic;
+    return screenType != MainScreenEnums.adverts &&
+        screenType != MainScreenEnums.statistic;
   }
 }
-

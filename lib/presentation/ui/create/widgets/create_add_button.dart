@@ -4,18 +4,18 @@ import 'package:musicians_shop/shared/styles/icons.dart';
 
 class CreateAddButton extends StatelessWidget {
   final ResponsiveScreen screen;
-  final void Function() onPressed;
+  final VoidCallback onPressed;
 
   const CreateAddButton({
-    Key? key,
     required this.screen,
     required this.onPressed,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: SizedBox(
         width: screen.isPhone ? 70 : 100,
         height: screen.isPhone ? 70 : 100,
@@ -26,10 +26,10 @@ class CreateAddButton extends StatelessWidget {
             child: MaterialButton(
               height: 70,
               minWidth: 70,
-              elevation: 0.5,
-              focusElevation: 0.8,
-              highlightElevation: 0.8,
-              disabledElevation: 0.5,
+              elevation: .5,
+              focusElevation: .8,
+              highlightElevation: .8,
+              disabledElevation: .5,
               padding: EdgeInsets.zero,
               color: Get.theme.primaryColor,
               onPressed: onPressed,

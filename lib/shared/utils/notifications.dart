@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:musicians_shop/shared/constants/app_values.dart';
+import 'package:musicians_shop/shared/values/app_values.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:universal_html/js.dart' as js;
 

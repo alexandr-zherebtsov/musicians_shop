@@ -1,45 +1,45 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/likes_widget.dart';
+import 'package:musicians_shop/presentation/widgets/app_network_image.dart';
+import 'package:musicians_shop/presentation/widgets/label_widget.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
-import 'package:musicians_shop/shared/widgets/app_network_image.dart';
-import 'package:musicians_shop/shared/widgets/label_widget.dart';
 
 class AdvertCard extends StatelessWidget {
   final ResponsiveScreen screen;
   final AdvertModel advert;
   final String uid;
-  final void Function() onTapCard;
-  final void Function() onTapLike;
+  final VoidCallback onTapCard;
+  final VoidCallback onTapLike;
 
   const AdvertCard({
-    Key? key,
     required this.screen,
     required this.advert,
     required this.uid,
     required this.onTapCard,
     required this.onTapLike,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 1.4,
-      clipBehavior: Clip.hardEdge,
-      margin: screen.isPhone ? const EdgeInsets.symmetric(
-        vertical: 6.0,
-        horizontal: 12.0,
-      ) : const EdgeInsets.symmetric(
-        vertical: 14.0,
-        horizontal: 28.0,
-      ),
+      margin: screen.isPhone
+          ? const EdgeInsets.symmetric(
+              vertical: 6,
+              horizontal: 12,
+            )
+          : const EdgeInsets.symmetric(
+              vertical: 14,
+              horizontal: 28,
+            ),
       child: InkWell(
         onTap: onTapCard,
         child: Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.all(6),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,16 +69,18 @@ class AdvertCard extends StatelessWidget {
                         children: [
                           Text(
                             advert.headline ?? '',
-                            style: Get.theme.textTheme.headline4,
+                            style: Get.theme.textTheme.titleLarge,
                             softWrap: false,
-                            overflow: kIsWeb ? TextOverflow.ellipsis : TextOverflow.fade,
+                            overflow: kIsWeb
+                                ? TextOverflow.ellipsis
+                                : TextOverflow.fade,
                           ),
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 advert.description ?? '',
-                                style: Get.theme.textTheme.bodyText1,
+                                style: Get.theme.textTheme.bodyLarge,
                                 softWrap: true,
                                 maxLines: 4,
                                 overflow: TextOverflow.ellipsis,
@@ -92,7 +94,7 @@ class AdvertCard extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -102,7 +104,9 @@ class AdvertCard extends StatelessWidget {
                       onTap: onTapLike,
                     ),
                     LabelWidget(
-                      label: '${priceParser(advert.price.toString())} \$',
+                      label: '${MainUtils.priceParser(
+                        advert.price.toString(),
+                      )} \$',
                     ),
                   ],
                 ),

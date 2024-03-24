@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:musicians_shop/shared/widgets/label_widget.dart';
+import 'package:musicians_shop/presentation/widgets/label_widget.dart';
 
 class AdvertLabels extends StatelessWidget {
   final String? brand;
@@ -7,13 +7,13 @@ class AdvertLabels extends StatelessWidget {
   final EdgeInsets padding;
 
   const AdvertLabels({
-    Key? key,
     required this.brand,
     required this.type,
     this.padding = const EdgeInsets.only(
       left: 12,
     ),
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,12 @@ class AdvertLabels extends StatelessWidget {
         child: Wrap(
           children: [
             Padding(
-              padding: brand == null ? EdgeInsets.zero : const EdgeInsets.only(
-                top: 8,
-                right: 12,
-              ),
+              padding: brand == null
+                  ? EdgeInsets.zero
+                  : const EdgeInsets.only(
+                      top: 8,
+                      right: 12,
+                    ),
               child: LabelWidget(
                 label: brand,
                 padding: const EdgeInsets.symmetric(
@@ -37,10 +39,12 @@ class AdvertLabels extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: type == null ? EdgeInsets.zero : const EdgeInsets.only(
-                top: 8,
-                right: 12,
-              ),
+              padding: type == null
+                  ? EdgeInsets.zero
+                  : const EdgeInsets.only(
+                      top: 8,
+                      right: 12,
+                    ),
               child: LabelWidget(
                 label: type,
                 padding: const EdgeInsets.symmetric(

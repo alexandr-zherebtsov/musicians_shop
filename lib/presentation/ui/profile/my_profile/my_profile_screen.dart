@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:musicians_shop/presentation/ui/profile/my_profile/my_profile_controller.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/profile_header.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/user_info_item.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/user_photo_dialog.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_button.dart';
+import 'package:musicians_shop/presentation/widgets/app_error_widget.dart';
+import 'package:musicians_shop/presentation/widgets/app_progress.dart';
+import 'package:musicians_shop/presentation/widgets/app_text_button.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
-import 'package:musicians_shop/shared/widgets/app_button.dart';
-import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
-import 'package:musicians_shop/shared/widgets/app_progress.dart';
-import 'package:musicians_shop/shared/widgets/app_text_button.dart';
 
 class MyProfileScreen extends GetView<MyProfileController> {
   final ResponsiveScreen screen;
 
   const MyProfileScreen({
-    Key? key,
     required this.screen,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
             height: double.infinity,
             child: Stack(
               children: [
-                RefreshIndicator(
+                RefreshIndicator.adaptive(
                   onRefresh: controller.onInit,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -51,8 +52,16 @@ class MyProfileScreen extends GetView<MyProfileController> {
                           city: controller.user?.city,
                           onTapIcon: () => showAvatarDialog(
                             isBottomSheet: screen.isPhone,
-                            change: controller.changeAvatar,
-                            delete: (controller.user?.photo?? '').isEmpty ? null : controller.deleteAvatar,
+                            changeWeb: controller.changeAvatarWeb,
+                            galleryMobile: () => controller.changeAvatarMobile(
+                              ImageSource.gallery,
+                            ),
+                            cameraMobile: () => controller.changeAvatarMobile(
+                              ImageSource.camera,
+                            ),
+                            delete: (controller.user?.photo ?? '').isEmpty
+                                ? null
+                                : controller.deleteAvatar,
                           ),
                           onTapEdit: controller.onTapEdit,
                         ),
@@ -62,7 +71,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                         ),
                         UserInfoItem(
                           title: StringsKeys.phoneNumber.tr,
-                          data: formatPhone(controller.user?.phone),
+                          data: MainUtils.formatPhone(controller.user?.phone),
                         ),
                         UserInfoItem(
                           title: StringsKeys.aboutYourself.tr,
@@ -70,11 +79,13 @@ class MyProfileScreen extends GetView<MyProfileController> {
                         ),
                         UserInfoItem(
                           title: StringsKeys.favoriteInstruments.tr,
-                          data: getInstrumentTypesString(controller.user?.favoriteInstruments ?? []),
+                          data: MainUtils.getInstrumentTypesString(
+                              controller.user?.favoriteInstruments ?? []),
                         ),
                         UserInfoItem(
                           title: StringsKeys.favoriteBrands.tr,
-                          data: getBrandsString(controller.user?.favoriteBrands ?? []),
+                          data: MainUtils.getBrandsString(
+                              controller.user?.favoriteBrands ?? []),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(

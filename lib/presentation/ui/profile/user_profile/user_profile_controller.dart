@@ -1,25 +1,31 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/user_repository.dart';
-import 'package:musicians_shop/domain/models/user_model.dart';
+import 'package:musicians_shop/data/models/user_model.dart';
+import 'package:musicians_shop/data/remote/user/user_repository.dart';
 
 class UserProfileController extends GetxController {
-  final UserRepository _userRepository = Get.find<UserRepository>();
+  final IUserRepository _userRepository;
+
+  UserProfileController(this._userRepository);
 
   UserModel? user;
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
-  set screenLoader(bool screenLoader) {
-    _screenLoader = screenLoader;
+
+  set screenLoader(final bool value) {
+    _screenLoader = value;
     update();
   }
 
   bool _screenError = false;
+
   bool get screenError => _screenError;
-  set screenError(bool screenError) {
-    _screenError = screenError;
+
+  set screenError(final bool value) {
+    _screenError = value;
     update();
   }
 

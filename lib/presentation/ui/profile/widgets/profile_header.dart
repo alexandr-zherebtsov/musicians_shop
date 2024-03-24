@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_network_image.dart';
+import 'package:musicians_shop/presentation/widgets/small_icon_button.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
-import 'package:musicians_shop/shared/widgets/app_network_image.dart';
-import 'package:musicians_shop/shared/widgets/small_icon_button.dart';
 
 class ProfileHeader extends StatelessWidget {
   final ResponsiveScreen screen;
@@ -12,11 +12,10 @@ class ProfileHeader extends StatelessWidget {
   final String? firstName;
   final String? lastName;
   final String? city;
-  final void Function()? onTapIcon;
-  final void Function()? onTapEdit;
+  final VoidCallback? onTapIcon;
+  final VoidCallback? onTapEdit;
 
   const ProfileHeader({
-    Key? key,
     required this.screen,
     required this.userIcon,
     required this.firstName,
@@ -24,19 +23,22 @@ class ProfileHeader extends StatelessWidget {
     required this.city,
     this.onTapIcon,
     this.onTapEdit,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: screen.isDesktop ? const EdgeInsets.all(
-        22,
-      ) : const EdgeInsets.only(
-        top: 22,
-        left: 22,
-        right: 4,
-        bottom: 22,
-      ),
+      padding: screen.isDesktop
+          ? const EdgeInsets.all(
+              22,
+            )
+          : const EdgeInsets.only(
+              top: 22,
+              left: 22,
+              right: 4,
+              bottom: 22,
+            ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,22 +91,24 @@ class ProfileHeader extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: screen.isDesktop ? const EdgeInsets.only(
-                top: 20,
-                left: 12,
-                right: 2,
-              ) : const EdgeInsets.only(
-                top: 10,
-                left: 12,
-                right: 2,
-              ),
+              padding: screen.isDesktop
+                  ? const EdgeInsets.only(
+                      top: 20,
+                      left: 12,
+                      right: 2,
+                    )
+                  : const EdgeInsets.only(
+                      top: 10,
+                      left: 12,
+                      right: 2,
+                    ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    getClearName(firstName, lastName),
-                    style: Get.textTheme.headline3,
+                    MainUtils.getClearName(firstName, lastName),
+                    style: Get.textTheme.headlineMedium,
                     softWrap: true,
                   ),
                   Padding(
@@ -129,7 +133,7 @@ class ProfileHeader extends StatelessWidget {
                           Flexible(
                             child: SelectableText(
                               city ?? '',
-                              style: Get.textTheme.bodyText1,
+                              style: Get.textTheme.bodyLarge,
                             ),
                           ),
                         ],

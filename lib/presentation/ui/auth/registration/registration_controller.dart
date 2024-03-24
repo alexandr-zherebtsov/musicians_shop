@@ -1,23 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/auth_repository.dart';
+import 'package:musicians_shop/data/remote/auth/auth_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
-import 'package:musicians_shop/shared/constants/reg_exp.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
+import 'package:musicians_shop/shared/values/reg_exp.dart';
 
 class RegistrationController extends GetxController {
-  final AuthRepository _authRepository = Get.find<AuthRepository>();
+  final IAuthRepository _authRepository = Get.find<IAuthRepository>();
 
   final TextEditingController emailTC = TextEditingController();
   final TextEditingController passwordTC = TextEditingController();
   final TextEditingController repeatPasswordTC = TextEditingController();
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
-  set screenLoader(bool screenLoader) {
-    _screenLoader = screenLoader;
+
+  set screenLoader(final bool value) {
+    _screenLoader = value;
     update();
   }
 
@@ -32,18 +34,22 @@ class RegistrationController extends GetxController {
       if (res != null) {
         goToUserData();
       } else {
-        showAppNotification(StringsKeys.somethingWentWrong.tr);
+        MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
     } else {
-      showAppNotification(StringsKeys.somethingWentWrong.tr);
+      MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
   bool validator() {
-    return AppRegExp.emailRegExp.hasMatch(clearAndTrim(emailTC.text))
-        && passwordTC.text.length > 3 && passwordTC.text == repeatPasswordTC.text;
+    return AppRegExp.emailRegExp.hasMatch(
+          MainUtils.clearAndTrim(emailTC.text),
+        ) &&
+        passwordTC.text.length > 3 &&
+        passwordTC.text == repeatPasswordTC.text;
   }
 
   void unFocus() => Get.focusScope?.unfocus();
+
   void goToUserData() => Get.offAllNamed(AppRoutes.userData);
 }

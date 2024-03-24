@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/divider_widget.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
-import 'package:musicians_shop/shared/widgets/divider_widget.dart';
+import 'package:musicians_shop/shared/utils/utils.dart';
 
 void showAvatarDialog({
-  required bool isBottomSheet,
-  required void Function() change,
-  required void Function()? delete,
+  required final bool isBottomSheet,
+  required final VoidCallback changeWeb,
+  required final VoidCallback galleryMobile,
+  required final VoidCallback cameraMobile,
+  required final VoidCallback? delete,
 }) {
-  isBottomSheet ? showAvatarBottomSheet(
-    change: change,
-    delete: delete,
-  ) : showAvatarAlertDialog(
-    change: change,
-    delete: delete,
-  );
+  isBottomSheet
+      ? showAvatarBottomSheet(
+          changeWeb: changeWeb,
+          galleryMobile: galleryMobile,
+          cameraMobile: cameraMobile,
+          delete: delete,
+        )
+      : showAvatarAlertDialog(
+          changeWeb: changeWeb,
+          galleryMobile: galleryMobile,
+          cameraMobile: cameraMobile,
+          delete: delete,
+        );
 }
 
 void showAvatarAlertDialog({
-  required void Function() change,
-  required void Function()? delete,
+  required final VoidCallback changeWeb,
+  required final VoidCallback galleryMobile,
+  required final VoidCallback cameraMobile,
+  required final VoidCallback? delete,
 }) {
   Get.dialog(
     AlertDialog(
@@ -31,7 +42,9 @@ void showAvatarAlertDialog({
         borderRadius: BorderRadius.circular(AppStyles.fieldRadius),
       ),
       content: UserPhotoDialog(
-        change: change,
+        changeWeb: changeWeb,
+        galleryMobile: galleryMobile,
+        cameraMobile: cameraMobile,
         delete: delete,
         dialog: true,
       ),
@@ -40,14 +53,18 @@ void showAvatarAlertDialog({
 }
 
 void showAvatarBottomSheet({
-  required void Function() change,
-  required void Function()? delete,
+  required final VoidCallback changeWeb,
+  required final VoidCallback galleryMobile,
+  required final VoidCallback cameraMobile,
+  required final VoidCallback? delete,
 }) {
   Get.bottomSheet(
     SingleChildScrollView(
       child: SafeArea(
         child: UserPhotoDialog(
-          change: change,
+          changeWeb: changeWeb,
+          galleryMobile: galleryMobile,
+          cameraMobile: cameraMobile,
           delete: delete,
           dialog: false,
         ),
@@ -60,57 +77,103 @@ void showAvatarBottomSheet({
       ),
     ),
     barrierColor: Colors.transparent,
-    backgroundColor: Get.theme.backgroundColor,
+    backgroundColor: Get.theme.colorScheme.background,
   );
 }
 
 class UserPhotoDialog extends StatelessWidget {
-  final void Function() change;
-  final void Function()? delete;
+  final VoidCallback changeWeb;
+  final VoidCallback galleryMobile;
+  final VoidCallback cameraMobile;
+  final VoidCallback? delete;
   final bool dialog;
 
   const UserPhotoDialog({
-    Key? key,
-    required this.change,
+    required this.changeWeb,
+    required this.galleryMobile,
+    required this.cameraMobile,
     required this.delete,
     required this.dialog,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: 20,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 14.0, bottom: 8.0),
+            padding: const EdgeInsets.only(
+              left: 14,
+              bottom: 8,
+            ),
             child: Text(
               StringsKeys.changeAvatar.tr,
-              style: Get.theme.textTheme.headline4,
+              style: Get.theme.textTheme.titleLarge,
             ),
           ),
-          dialog ? const SizedBox(
-            height: 10,
-          ) : const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: DividerWidget(),
-          ),
-          Material(
-            color: Colors.transparent,
-            child: ListTile(
-              onTap: change,
-              leading: Icon(
-                AppIcons.addPhoto,
-                size: 20,
-              ),
-              title: Text(
-                StringsKeys.newAvatar.tr,
-                style: Get.theme.textTheme.bodyText1,
+          dialog
+              ? const SizedBox(
+                  height: 10,
+                )
+              : const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  child: DividerWidget(),
+                ),
+          if (MainUtils.isWebAndroid || MainUtils.isMobileApp) ...[
+            Material(
+              color: Colors.transparent,
+              child: ListTile(
+                onTap: galleryMobile,
+                leading: Icon(
+                  AppIcons.gallery,
+                  size: 20,
+                  color: Get.theme.iconTheme.color,
+                ),
+                title: Text(
+                  StringsKeys.chooseFromGallery.tr,
+                  style: Get.theme.textTheme.bodyLarge,
+                ),
               ),
             ),
-          ),
+            Material(
+              color: Colors.transparent,
+              child: ListTile(
+                onTap: cameraMobile,
+                leading: Icon(
+                  AppIcons.addPhoto,
+                  size: 20,
+                  color: Get.theme.iconTheme.color,
+                ),
+                title: Text(
+                  StringsKeys.takePhoto.tr,
+                  style: Get.theme.textTheme.bodyLarge,
+                ),
+              ),
+            ),
+          ] else
+            Material(
+              color: Colors.transparent,
+              child: ListTile(
+                onTap: changeWeb,
+                leading: Icon(
+                  AppIcons.addPhoto,
+                  size: 20,
+                  color: Get.theme.iconTheme.color,
+                ),
+                title: Text(
+                  StringsKeys.newAvatar.tr,
+                  style: Get.theme.textTheme.bodyLarge,
+                ),
+              ),
+            ),
           Offstage(
             offstage: delete == null,
             child: Material(
@@ -120,10 +183,11 @@ class UserPhotoDialog extends StatelessWidget {
                 leading: Icon(
                   AppIcons.delete,
                   size: 22,
+                  color: Get.theme.iconTheme.color,
                 ),
                 title: Text(
                   StringsKeys.deleteAvatar.tr,
-                  style: Get.theme.textTheme.bodyText1,
+                  style: Get.theme.textTheme.bodyLarge,
                 ),
               ),
             ),

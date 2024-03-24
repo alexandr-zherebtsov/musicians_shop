@@ -3,20 +3,20 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/brands_repository.dart';
-import 'package:musicians_shop/data/remote/instrument_types_repository.dart';
-import 'package:musicians_shop/data/remote/user_repository.dart';
-import 'package:musicians_shop/domain/models/brand_model.dart';
-import 'package:musicians_shop/domain/models/instrument_type_model.dart';
-import 'package:musicians_shop/domain/models/user_model.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/data/models/brand_model.dart';
+import 'package:musicians_shop/data/models/instrument_type_model.dart';
+import 'package:musicians_shop/data/models/user_model.dart';
+import 'package:musicians_shop/data/remote/brands/brands_repository.dart';
+import 'package:musicians_shop/data/remote/instrument_types/instrument_types_repository.dart';
+import 'package:musicians_shop/data/remote/user/user_repository.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class EditProfileController extends GetxController {
-  final String _uid;
-  final UserRepository _userRepository;
-  final InstrumentTypesRepository _instrumentTypesRepository;
-  final BrandsRepository _brandsRepository;
+  final String? _uid;
+  final IUserRepository _userRepository;
+  final IInstrumentTypesRepository _instrumentTypesRepository;
+  final IBrandsRepository _brandsRepository;
 
   EditProfileController(
     this._uid,
@@ -40,16 +40,20 @@ class EditProfileController extends GetxController {
   List<BrandModel> favoriteBrands = <BrandModel>[];
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
-  set screenLoader(bool screenLoader) {
-    _screenLoader = screenLoader;
+
+  set screenLoader(final bool value) {
+    _screenLoader = value;
     update();
   }
 
   bool _screenError = false;
+
   bool get screenError => _screenError;
-  set screenError(bool screenError) {
-    _screenError = screenError;
+
+  set screenError(final bool value) {
+    _screenError = value;
     update();
   }
 
@@ -67,7 +71,7 @@ class EditProfileController extends GetxController {
   }
 
   Future<void> getUser() async {
-    user = await _userRepository.getUser(_uid);
+    user = await _userRepository.getUser(_uid!);
     if (user == null) {
       screenError = true;
     }
@@ -88,7 +92,8 @@ class EditProfileController extends GetxController {
       phoneNumberTC.text = (user?.phone ?? '').replaceAll('+', '');
       cityTC.text = user?.city ?? '';
       aboutYourselfTC.text = user?.aboutYourself ?? '';
-      favoriteInstruments = user?.favoriteInstruments ?? <InstrumentTypeModel>[];
+      favoriteInstruments =
+          user?.favoriteInstruments ?? <InstrumentTypeModel>[];
       favoriteBrands = user?.favoriteBrands ?? <BrandModel>[];
       for (InstrumentTypeModel v in favoriteInstruments) {
         instrumentTypes.removeWhere((e) => e.id == v.id);
@@ -142,7 +147,8 @@ class EditProfileController extends GetxController {
       instrumentTypes.sort((a, b) {
         return a.type!.tr.toLowerCase().compareTo(b.type!.tr.toLowerCase());
       });
-      final InstrumentTypeModel other = instrumentTypes.firstWhere((v) => v.id == '0');
+      final InstrumentTypeModel other =
+          instrumentTypes.firstWhere((v) => v.id == '0');
       instrumentTypes.removeWhere((v) => v.id == '0');
       instrumentTypes.add(other);
     } catch (e) {
@@ -167,13 +173,13 @@ class EditProfileController extends GetxController {
     if (validator()) {
       final bool res = await _userRepository.editUserData(setUserData());
       if (res) {
-        showAppNotification(StringsKeys.done.tr);
+        MainUtils.showAppNotification(StringsKeys.done.tr);
         Get.back(result: true);
       } else {
-        showAppNotification(StringsKeys.somethingWentWrong.tr);
+        MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
     } else {
-      showAppNotification(StringsKeys.somethingWentWrong.tr);
+      MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -190,8 +196,10 @@ class EditProfileController extends GetxController {
   }
 
   bool validator() {
-    return firstNameTC.text.isNotEmpty && lastNameTC.text.isNotEmpty &&
-        phoneNumberTC.text.length > 9 && cityTC.text.isNotEmpty;
+    return firstNameTC.text.isNotEmpty &&
+        lastNameTC.text.isNotEmpty &&
+        phoneNumberTC.text.length > 9 &&
+        cityTC.text.isNotEmpty;
   }
 
   void unFocus() => Get.focusScope?.unfocus();

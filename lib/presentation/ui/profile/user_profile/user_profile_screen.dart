@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/profile/user_profile/user_profile_controller.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/profile_header.dart';
 import 'package:musicians_shop/presentation/ui/profile/widgets/user_info_item.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_bar_widget.dart';
+import 'package:musicians_shop/presentation/widgets/app_error_widget.dart';
+import 'package:musicians_shop/presentation/widgets/app_progress.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
-import 'package:musicians_shop/shared/widgets/app_bar_widget.dart';
-import 'package:musicians_shop/shared/widgets/app_error_widget.dart';
-import 'package:musicians_shop/shared/widgets/app_progress.dart';
 
 class UserProfileScreen extends GetResponsiveView<UserProfileController> {
-  UserProfileScreen({Key? key}) : super(key: key);
+  UserProfileScreen({super.key});
 
   @override
   Widget builder() {
@@ -27,7 +27,7 @@ class UserProfileScreen extends GetResponsiveView<UserProfileController> {
           } else if (controller.screenError) {
             return const AppErrorWidget();
           } else {
-            return RefreshIndicator(
+            return RefreshIndicator.adaptive(
               onRefresh: controller.onInit,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -50,7 +50,9 @@ class UserProfileScreen extends GetResponsiveView<UserProfileController> {
                         ),
                         UserInfoItem(
                           title: StringsKeys.phoneNumber.tr,
-                          data: formatPhone(controller.user?.phone),
+                          data: MainUtils.formatPhone(
+                            controller.user?.phone,
+                          ),
                         ),
                         UserInfoItem(
                           title: StringsKeys.aboutYourself.tr,
@@ -58,11 +60,15 @@ class UserProfileScreen extends GetResponsiveView<UserProfileController> {
                         ),
                         UserInfoItem(
                           title: StringsKeys.favoriteInstruments.tr,
-                          data: getInstrumentTypesString(controller.user?.favoriteInstruments ?? []),
+                          data: MainUtils.getInstrumentTypesString(
+                            controller.user?.favoriteInstruments ?? [],
+                          ),
                         ),
                         UserInfoItem(
                           title: StringsKeys.favoriteBrands.tr,
-                          data: getBrandsString(controller.user?.favoriteBrands ?? []),
+                          data: MainUtils.getBrandsString(
+                            controller.user?.favoriteBrands ?? [],
+                          ),
                         ),
                       ],
                     ),

@@ -3,36 +3,46 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:musicians_shop/data/remote/adverts_repository.dart';
-import 'package:musicians_shop/data/remote/handle_errors_repository.dart';
-import 'package:musicians_shop/domain/repositories/adverts_repository_impl.dart';
-import 'package:musicians_shop/data/remote/file_repository.dart';
-import 'package:musicians_shop/domain/repositories/file_repository_impl.dart';
+import 'package:musicians_shop/data/remote/adverts/adverts_data_provider.dart';
+import 'package:musicians_shop/data/remote/adverts/adverts_repository.dart';
+import 'package:musicians_shop/data/remote/file/file_data_provider.dart';
+import 'package:musicians_shop/data/remote/file/file_repository.dart';
+import 'package:musicians_shop/data/remote/handle_errors/handle_errors_repository.dart';
 import 'package:musicians_shop/presentation/ui/advert/advert_controller.dart';
+import 'package:musicians_shop/presentation/ui/adverts/adverts_controller.dart';
 
 class AdvertBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<FileRepository>(
-      () => FileRepositoryImpl(
-        FirebaseStorage.instance,
-        Get.find<HandleErrorsRepository>(),
+    Get.lazyPut<IFileRepository>(
+      () => FileRepository(
+        dataProvider: FileDataProvider(
+          storage: FirebaseStorage.instance,
+          errorHandler: Get.find<IHandleErrorsRepository>(),
+        ),
       ),
       fenix: true,
     );
-    Get.lazyPut<AdvertsRepository>(
-      () => AdvertsRepositoryImpl(
-        Get.find<Logger>(),
-        FirebaseFirestore.instance,
-        FirebaseAnalytics.instance,
-        Get.find<HandleErrorsRepository>(),
+    Get.lazyPut<IAdvertsRepository>(
+      () => AdvertsRepository(
+        dataProvider: AdvertsDataProvider(
+          logger: Get.find<Logger>(),
+          firestore: FirebaseFirestore.instance,
+          analytics: FirebaseAnalytics.instance,
+          errorHandler: Get.find<IHandleErrorsRepository>(),
+        ),
       ),
       fenix: true,
     );
     Get.lazyPut<AdvertController>(
       () => AdvertController(
-        Get.find<FileRepository>(),
-        Get.find<AdvertsRepository>(),
+        Get.find<IFileRepository>(),
+        Get.find<IAdvertsRepository>(),
+      ),
+    );
+    Get.lazyPut<AdvertsController>(
+      () => AdvertsController(
+        Get.find<IAdvertsRepository>(),
       ),
     );
   }

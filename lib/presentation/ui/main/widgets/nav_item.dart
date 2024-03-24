@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart';
 import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 
 class NavItemMobile extends StatelessWidget {
@@ -10,31 +10,36 @@ class NavItemMobile extends StatelessWidget {
   final MainScreenEnums screenType;
 
   const NavItemMobile({
-    Key? key,
     required this.controller,
     required this.screenType,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        _getIcon(
-          controller: controller,
-          screenType: screenType,
-        ),
-        color: _getIconColor(
-          controller: controller,
-          screenType: screenType,
-        ),
-        size: _getIconSize(
-          controller: controller,
-          screenType: screenType,
+    return SizedBox.square(
+      dimension: 50,
+      child: Center(
+        child: IconButton(
+          icon: Icon(
+            _getIcon(
+              controller: controller,
+              screenType: screenType,
+            ),
+            color: _getIconColor(
+              controller: controller,
+              screenType: screenType,
+            ),
+            size: _getIconSize(
+              controller: controller,
+              screenType: screenType,
+            ),
+          ),
+          iconSize: 32,
+          tooltip: _getTitle(screenType),
+          onPressed: () => controller.onNavTap(screenType),
         ),
       ),
-      iconSize: 32,
-      tooltip: _getTitle(screenType),
-      onPressed: () => controller.onNavTap(screenType),
     );
   }
 
@@ -57,10 +62,10 @@ class NavItemDesktop extends StatelessWidget {
   final MainScreenEnums screenType;
 
   const NavItemDesktop({
-    Key? key,
     required this.controller,
     required this.screenType,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,7 @@ class NavItemDesktop extends StatelessWidget {
               Text(
                 _getTitle(screenType),
                 softWrap: false,
-                style: Get.theme.textTheme.button,
+                style: Get.theme.textTheme.titleSmall,
               ),
             ],
           ),
@@ -113,7 +118,9 @@ Color? _getIconColor({
   required MainController controller,
   required MainScreenEnums screenType,
 }) {
-  return screenType == controller.screenType ? Get.theme.primaryColor : Get.theme.iconTheme.color;
+  return screenType == controller.screenType
+      ? Get.theme.primaryColor
+      : Get.theme.iconTheme.color;
 }
 
 IconData _getIcon({
@@ -122,15 +129,23 @@ IconData _getIcon({
 }) {
   switch (screenType) {
     case MainScreenEnums.home:
-      return screenType == controller.screenType ? AppIcons.homeFilled : AppIcons.home;
+      return screenType == controller.screenType
+          ? AppIcons.homeFilled
+          : AppIcons.home;
     case MainScreenEnums.adverts:
-      return screenType == controller.screenType ? AppIcons.notesFilled : AppIcons.notes;
+      return screenType == controller.screenType
+          ? AppIcons.notesFilled
+          : AppIcons.notes;
     case MainScreenEnums.create:
       return AppIcons.add;
     case MainScreenEnums.statistic:
-      return screenType == controller.screenType ? AppIcons.graphFilled : AppIcons.graph;
+      return screenType == controller.screenType
+          ? AppIcons.graphFilled
+          : AppIcons.graph;
     case MainScreenEnums.profile:
-      return screenType == controller.screenType ? AppIcons.personFilled : AppIcons.person;
+      return screenType == controller.screenType
+          ? AppIcons.personFilled
+          : AppIcons.person;
     default:
       return AppIcons.circle;
   }

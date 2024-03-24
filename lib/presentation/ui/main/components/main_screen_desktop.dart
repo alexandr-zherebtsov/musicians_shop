@@ -9,15 +9,15 @@ class MainScreenDesktop extends StatelessWidget {
   final Widget body;
 
   const MainScreenDesktop({
-    Key? key,
     required this.controller,
     required this.body,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Get.theme.backgroundColor,
+      color: Get.theme.colorScheme.background,
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(
@@ -25,9 +25,9 @@ class MainScreenDesktop extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 30.0,
-              left: 30.0,
-              right: 80.0,
+              top: 30,
+              left: 30,
+              right: 80,
             ),
             child: SizedBox(
               width: double.infinity,

@@ -4,26 +4,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/adverts_repository.dart';
-import 'package:musicians_shop/data/remote/brands_repository.dart';
-import 'package:musicians_shop/data/remote/file_repository.dart';
-import 'package:musicians_shop/data/remote/instrument_types_repository.dart';
-import 'package:musicians_shop/data/remote/user_repository.dart';
-import 'package:musicians_shop/domain/models/advert_model.dart';
-import 'package:musicians_shop/domain/models/brand_model.dart';
-import 'package:musicians_shop/domain/models/instrument_type_model.dart';
-import 'package:musicians_shop/domain/models/user_model.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
-import 'package:musicians_shop/shared/enums/file_type.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
+import 'package:musicians_shop/data/models/brand_model.dart';
+import 'package:musicians_shop/data/models/file_to_upload.dart';
+import 'package:musicians_shop/data/models/instrument_type_model.dart';
+import 'package:musicians_shop/data/models/user_model.dart';
+import 'package:musicians_shop/data/remote/adverts/adverts_repository.dart';
+import 'package:musicians_shop/data/remote/brands/brands_repository.dart';
+import 'package:musicians_shop/data/remote/file/file_repository.dart';
+import 'package:musicians_shop/data/remote/instrument_types/instrument_types_repository.dart';
+import 'package:musicians_shop/data/remote/user/user_repository.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class CreateController extends GetxController {
   final String _uid;
-  final FileRepository _fileRepository;
-  final UserRepository _userRepository;
-  final BrandsRepository _brandsRepository;
-  final AdvertsRepository _advertsRepository;
-  final InstrumentTypesRepository _instrumentTypesRepository;
+  final IFileRepository _fileRepository;
+  final IUserRepository _userRepository;
+  final IBrandsRepository _brandsRepository;
+  final IAdvertsRepository _advertsRepository;
+  final IInstrumentTypesRepository _instrumentTypesRepository;
 
   CreateController(
     this._uid,
@@ -53,23 +53,29 @@ class CreateController extends GetxController {
   List<String> finalImages = <String>[];
 
   BrandModel? _brand;
+
   BrandModel? get brand => _brand;
-  set brand(BrandModel? brand) {
-    _brand = brand;
+
+  set brand(final BrandModel? value) {
+    _brand = value;
     update();
   }
 
   InstrumentTypeModel? _instrumentType;
+
   InstrumentTypeModel? get instrumentType => _instrumentType;
-  set instrumentType(InstrumentTypeModel? instrumentType) {
-    _instrumentType = instrumentType;
+
+  set instrumentType(final InstrumentTypeModel? value) {
+    _instrumentType = value;
     update();
   }
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
-  set screenLoader(bool screenLoader) {
-    _screenLoader = screenLoader;
+
+  set screenLoader(final bool value) {
+    _screenLoader = value;
     update();
   }
 
@@ -106,14 +112,16 @@ class CreateController extends GetxController {
     priceTC.text = editableAdvert?.price?.toString() ?? '';
     descriptionTC.text = editableAdvert?.description ?? '';
     acquisitionImages.addAll(editableAdvert?.images ?? []);
-    _instrumentType = instrumentTypes.firstWhere((e) => e.id == editableAdvert?.type?.id);
+    _instrumentType =
+        instrumentTypes.firstWhere((e) => e.id == editableAdvert?.type?.id);
     _brand = brands.firstWhere((e) => e.id == editableAdvert?.brand?.id);
   }
 
   void addImage() async {
     unFocus();
     final FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
-      initialDirectory: isNotMobile() ? null : await findGalleryPath(),
+      initialDirectory:
+          MainUtils.isNotMobileApp ? null : await MainUtils.findGalleryPath(),
     );
     if (pickedFile != null) {
       selectedImages.add(pickedFile.files[0]);
@@ -144,11 +152,11 @@ class CreateController extends GetxController {
         editableAdvert == null ? await createAdvert() : await editAdvert();
       } catch (e) {
         log(e.toString());
-        showAppNotification(StringsKeys.somethingWentWrong.tr);
+        MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
       }
       screenLoader = false;
     } else {
-      showAppNotification(StringsKeys.somethingWentWrong.tr);
+      MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -156,8 +164,10 @@ class CreateController extends GetxController {
     List<String> images = acquisitionImages;
     for (int i = 0; i < selectedImages.length; i++) {
       final String? imageUrl = await _fileRepository.uploadFile(
-        file: selectedImages[i],
-        type: FileTypeEnums.advertPhoto,
+        FileToUpload(
+          platformFile: selectedImages[i],
+          type: FileTypeEnums.advertPhoto,
+        ),
       );
       if (imageUrl != null) {
         images.add(imageUrl);
@@ -174,7 +184,7 @@ class CreateController extends GetxController {
 
   Future<void> createAdvert() async {
     newAdvert = AdvertModel(
-      id: generateId('AD'),
+      id: MainUtils.generateId('AD'),
       uid: _uid,
       headline: headlineTC.text.trim(),
       price: price,
@@ -189,10 +199,10 @@ class CreateController extends GetxController {
     );
     final bool res = await _advertsRepository.createAdvert(newAdvert!);
     if (res) {
-      showAppNotification(StringsKeys.done.tr);
+      MainUtils.showAppNotification(StringsKeys.done.tr);
       Get.back(result: newAdvert);
     } else {
-      showAppNotification(StringsKeys.somethingWentWrong.tr);
+      MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
@@ -203,16 +213,19 @@ class CreateController extends GetxController {
     editableAdvert!.images = finalImages;
     final bool res = await _advertsRepository.editAdvert(editableAdvert!);
     if (res) {
-      showAppNotification(StringsKeys.done.tr);
+      MainUtils.showAppNotification(StringsKeys.done.tr);
       Get.back(result: editableAdvert);
     } else {
-      showAppNotification(StringsKeys.somethingWentWrong.tr);
+      MainUtils.showAppNotification(StringsKeys.somethingWentWrong.tr);
     }
   }
 
   bool validator() {
-    return brand != null && instrumentType != null && headlineTC.text.isNotEmpty
-        && priceTC.text.isNotEmpty && descriptionTC.text.isNotEmpty &&
+    return brand != null &&
+        instrumentType != null &&
+        headlineTC.text.isNotEmpty &&
+        priceTC.text.isNotEmpty &&
+        descriptionTC.text.isNotEmpty &&
         (acquisitionImages.isNotEmpty || selectedImages.isNotEmpty);
   }
 

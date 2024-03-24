@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/dropdown_widgets.dart';
+import 'package:musicians_shop/presentation/widgets/small_icon_button.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
-import 'package:musicians_shop/shared/widgets/dropdown_widgets.dart';
-import 'package:musicians_shop/shared/widgets/small_icon_button.dart';
 
 class SelectedFieldWidget extends StatelessWidget {
   final String? title;
-  final void Function() delete;
+  final VoidCallback delete;
 
   const SelectedFieldWidget({
-    Key? key,
     required this.title,
     required this.delete,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,6 @@ class SelectedFieldWidget extends StatelessWidget {
               ),
               child: Text(
                 title ?? '',
-                style: Get.theme.textTheme.subtitle1,
               ),
             ),
             SmallIconButton(

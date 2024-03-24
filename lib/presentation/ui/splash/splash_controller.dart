@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/user_repository.dart';
-import 'package:musicians_shop/domain/models/user_model.dart';
+import 'package:musicians_shop/data/models/user_model.dart';
+import 'package:musicians_shop/data/remote/user/user_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class SplashController extends GetxController {
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
+
   SplashController(this._userRepository);
 
   String? _uid;
@@ -15,7 +16,7 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     _uid = FirebaseAuth.instance.currentUser?.uid;
-    await delayedFunc(milliseconds: 1600);
+    await MainUtils.delayedFunc(milliseconds: 800);
     if (await checkFirebaseUser()) {
       if (await checkUserData()) {
         goToMain();
@@ -45,6 +46,8 @@ class SplashController extends GetxController {
   }
 
   void goToUserData() => Get.offAllNamed(AppRoutes.userData);
+
   void goToStart() => Get.offAllNamed(AppRoutes.start);
+
   void goToMain() => Get.offAllNamed(AppRoutes.main);
 }

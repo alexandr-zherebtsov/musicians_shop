@@ -3,16 +3,21 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/adverts_repository.dart';
-import 'package:musicians_shop/data/remote/user_repository.dart';
-import 'package:musicians_shop/domain/models/advert_model.dart';
-import 'package:musicians_shop/domain/models/user_model.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
+import 'package:musicians_shop/data/models/user_model.dart';
+import 'package:musicians_shop/data/remote/adverts/adverts_repository.dart';
+import 'package:musicians_shop/data/remote/user/user_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
 
 class HomeController extends GetxController {
-  final UserRepository _userRepository = Get.find<UserRepository>();
-  final AdvertsRepository _advertsRepository = Get.find<AdvertsRepository>();
+  final IUserRepository _userRepository;
+  final IAdvertsRepository _advertsRepository;
+
+  HomeController(
+    this._userRepository,
+    this._advertsRepository,
+  );
 
   UserModel? user;
   final String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -20,16 +25,20 @@ class HomeController extends GetxController {
   List<AdvertModel> searchedAdverts = <AdvertModel>[];
 
   bool _screenLoader = false;
+
   bool get screenLoader => _screenLoader;
-  set screenLoader(bool screenLoader) {
-    _screenLoader = screenLoader;
+
+  set screenLoader(final bool value) {
+    _screenLoader = value;
     update();
   }
 
   bool _screenError = false;
+
   bool get screenError => _screenError;
-  set screenError(bool screenError) {
-    _screenError = screenError;
+
+  set screenError(final bool value) {
+    _screenError = value;
     update();
   }
 
@@ -88,12 +97,17 @@ class HomeController extends GetxController {
   }
 
   void searchAdverts() {
-    final String searchText = clearAndTrim(searchString.toLowerCase());
+    final String searchText = MainUtils.clearAndTrim(
+      searchString.toLowerCase(),
+    );
     for (int i = 0; i < adverts.length; i++) {
-      if (clearAndTrim(adverts[i].headline).toLowerCase().contains(searchText)
-          || clearAndTrim(adverts[i].description).toLowerCase().contains(searchText)
-          || adverts[i].price.toString().startsWith(searchText)
-      ) {
+      if (MainUtils.clearAndTrim(adverts[i].headline)
+              .toLowerCase()
+              .contains(searchText) ||
+          MainUtils.clearAndTrim(adverts[i].description)
+              .toLowerCase()
+              .contains(searchText) ||
+          adverts[i].price.toString().startsWith(searchText)) {
         searchedAdverts.add(adverts[i]);
       }
     }
@@ -121,7 +135,7 @@ class HomeController extends GetxController {
 
   void likeAdvert(AdvertModel advert) async {
     List<String> oldLikes = <String>[];
-    oldLikes.addAll(advert.likes?? []);
+    oldLikes.addAll(advert.likes ?? []);
     if (advert.likes == null) {
       advert.likes = [uid];
     } else if (advert.likes!.contains(uid)) {
@@ -140,30 +154,32 @@ class HomeController extends GetxController {
   void sortAdverts() {
     for (int v = 0; v < adverts.length; v++) {
       double count = 0;
-      if ((user?.favoriteInstruments?? []).isNotEmpty && adverts[v].type?.id != null) {
+      if ((user?.favoriteInstruments ?? []).isNotEmpty &&
+          adverts[v].type?.id != null) {
         for (int i = 0; i < user!.favoriteInstruments!.length; i++) {
           if (user!.favoriteInstruments![i].id == adverts[v].type!.id!) {
             count += 10;
           }
         }
       }
-      if ((user?.favoriteBrands?? []).isNotEmpty && adverts[v].brand?.id != null) {
+      if ((user?.favoriteBrands ?? []).isNotEmpty &&
+          adverts[v].brand?.id != null) {
         for (int i = 0; i < user!.favoriteBrands!.length; i++) {
           if (user!.favoriteBrands![i].id == adverts[v].brand!.id!) {
             count += 10;
           }
         }
       }
-      if (user?.city == adverts[v].city && (user?.city?? '').isNotEmpty) {
+      if (user?.city == adverts[v].city && (user?.city ?? '').isNotEmpty) {
         count += 5;
       }
-      if ((adverts[v].likes?? []).isNotEmpty) {
+      if ((adverts[v].likes ?? []).isNotEmpty) {
         count += adverts[v].likes!.length * 0.01;
       }
-      if ((adverts[v].images?? []).isNotEmpty) {
+      if ((adverts[v].images ?? []).isNotEmpty) {
         count += adverts[v].images!.length * 0.01;
       }
-      if ((adverts[v].description?? '').isNotEmpty) {
+      if ((adverts[v].description ?? '').isNotEmpty) {
         if (adverts[v].description!.length >= 1000) {
           count += 1.5;
         } else {

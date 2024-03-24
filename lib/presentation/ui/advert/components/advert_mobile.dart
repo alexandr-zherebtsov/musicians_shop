@@ -4,17 +4,17 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/advert/advert_controller.dart';
 import 'package:musicians_shop/presentation/ui/advert/widgets/advert_labels.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/likes_widget.dart';
+import 'package:musicians_shop/presentation/widgets/app_network_image.dart';
+import 'package:musicians_shop/presentation/widgets/label_widget.dart';
 import 'package:musicians_shop/shared/utils/utils.dart';
-import 'package:musicians_shop/shared/widgets/app_network_image.dart';
-import 'package:musicians_shop/shared/widgets/label_widget.dart';
 
 class AdvertMobile extends StatelessWidget {
   final AdvertController controller;
 
   const AdvertMobile({
-    Key? key,
     required this.controller,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +26,28 @@ class AdvertMobile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              (controller.advert.images?? []).isEmpty ? const Offstage() : CarouselSlider(
-                items: controller.advert.images!.map((e) {
-                  return SizedBox(
-                    width: Get.width,
-                    child: AppNetworkImage(
-                      url: e,
+              (controller.advert.images ?? []).isEmpty
+                  ? const Offstage()
+                  : CarouselSlider(
+                      items: controller.advert.images!.map((e) {
+                        return SizedBox(
+                          width: Get.width,
+                          child: AppNetworkImage(
+                            url: e,
+                          ),
+                        );
+                      }).toList(),
+                      options: CarouselOptions(
+                        height: 400,
+                        viewportFraction: 1,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        autoPlay: false,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
                     ),
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                  height: 400,
-                  viewportFraction: 1,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  autoPlay: false,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 16,
@@ -53,8 +55,8 @@ class AdvertMobile extends StatelessWidget {
                   right: 16,
                 ),
                 child: Text(
-                  controller.advert.headline?? '',
-                  style: Get.textTheme.headline3,
+                  controller.advert.headline ?? '',
+                  style: Get.textTheme.headlineMedium,
                   softWrap: true,
                 ),
               ),
@@ -70,8 +72,8 @@ class AdvertMobile extends StatelessWidget {
                   bottom: 12,
                 ),
                 child: Text(
-                  controller.advert.description?? '',
-                  style: Get.textTheme.bodyText1,
+                  controller.advert.description ?? '',
+                  style: Get.textTheme.bodyLarge,
                   softWrap: true,
                 ),
               ),
@@ -85,11 +87,15 @@ class AdvertMobile extends StatelessWidget {
                   children: [
                     LikesWidget(
                       likes: controller.advert.likes?.length ?? 0,
-                      liked: controller.advert.likes?.contains(controller.uid) ?? false,
+                      liked:
+                          controller.advert.likes?.contains(controller.uid) ??
+                              false,
                       onTap: controller.onTapLike,
                     ),
                     LabelWidget(
-                      label: '${priceParser(controller.advert.price.toString())} \$',
+                      label: '${MainUtils.priceParser(
+                        controller.advert.price.toString(),
+                      )} \$',
                     ),
                   ],
                 ),

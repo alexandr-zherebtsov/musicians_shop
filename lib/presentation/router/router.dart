@@ -5,7 +5,7 @@ import 'package:musicians_shop/presentation/bindings/create_binding.dart';
 import 'package:musicians_shop/presentation/bindings/edit_profile_binding.dart';
 import 'package:musicians_shop/presentation/bindings/main_binding.dart';
 import 'package:musicians_shop/presentation/bindings/registration_binding.dart';
-import 'package:musicians_shop/presentation/bindings/sign_up_binding.dart';
+import 'package:musicians_shop/presentation/bindings/sign_in_binding.dart';
 import 'package:musicians_shop/presentation/bindings/splash_binding.dart';
 import 'package:musicians_shop/presentation/bindings/start_binding.dart';
 import 'package:musicians_shop/presentation/bindings/user_data_binding.dart';
@@ -14,7 +14,7 @@ import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/presentation/ui/about/about_screen.dart';
 import 'package:musicians_shop/presentation/ui/advert/advert_screen.dart';
 import 'package:musicians_shop/presentation/ui/auth/registration/registration_screen.dart';
-import 'package:musicians_shop/presentation/ui/auth/sign_up/sign_up_screen.dart';
+import 'package:musicians_shop/presentation/ui/auth/sign_in/sign_in_screen.dart';
 import 'package:musicians_shop/presentation/ui/auth/start/start_screen.dart';
 import 'package:musicians_shop/presentation/ui/auth/user_data/user_data_screen.dart';
 import 'package:musicians_shop/presentation/ui/create/create_screen.dart';
@@ -45,9 +45,9 @@ class AppRouter {
       transition: _transition(),
     ),
     GetPage(
-      name: AppRoutes.signUp,
-      page: () => SignUpScreen(),
-      binding: SignUpBinding(),
+      name: AppRoutes.signIn,
+      page: () => SignInScreen(),
+      binding: SignInBinding(),
       transition: _transition(),
     ),
     GetPage(
@@ -94,5 +94,8 @@ class AppRouter {
     ),
   ];
 
-  static Transition? _transition() => isNotMobile() ? Transition.fadeIn : null;
+  static Transition? _transition() =>
+      MainUtils.isNotMobileApp && !MainUtils.isWebMobile
+          ? Transition.fadeIn
+          : null;
 }

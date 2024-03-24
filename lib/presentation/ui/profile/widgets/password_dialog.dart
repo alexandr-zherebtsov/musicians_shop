@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_progress.dart';
+import 'package:musicians_shop/presentation/widgets/app_text_button.dart';
+import 'package:musicians_shop/presentation/widgets/app_text_field.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
-import 'package:musicians_shop/shared/widgets/app_progress.dart';
-import 'package:musicians_shop/shared/widgets/app_text_button.dart';
-import 'package:musicians_shop/shared/widgets/app_text_field.dart';
 
 class PasswordAlertDialog extends StatelessWidget {
   final TextEditingController passwordTC;
   final RxBool loader;
-  final void Function() confirmFunc;
+  final VoidCallback confirmFunc;
 
   const PasswordAlertDialog({
-    Key? key,
     required this.passwordTC,
     required this.loader,
     required this.confirmFunc,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class PasswordAlertDialog extends StatelessWidget {
       ),
       title: Text(
         '${StringsKeys.deleteAccount.tr}?',
-        style: Get.theme.textTheme.headline3,
+        style: Get.theme.textTheme.headlineMedium,
       ),
       contentPadding: const EdgeInsets.only(
         top: 24,
@@ -45,29 +45,33 @@ class PasswordAlertDialog extends StatelessWidget {
             ),
             child: Text(
               StringsKeys.confirmYourPassword.tr,
-              style: Get.theme.textTheme.bodyText1,
+              style: Get.theme.textTheme.bodyLarge,
             ),
           ),
           SizedBox(
             height: 80,
             child: Center(
-              child: Obx(() => loader.value ? const AppProgress() : AppTextField(
-                controller: passwordTC,
-                hint: StringsKeys.password.tr,
-                maxLines: 1,
-                obscureText: true,
-                suffixIcon: AppIcons.lock,
-                keyboardType: TextInputType.visiblePassword,
-                padding: EdgeInsets.zero,
-                onSubmitted: (_) => confirmFunc(),
-              )),
+              child: Obx(
+                () => loader.value
+                    ? const AppProgress()
+                    : AppTextField(
+                        controller: passwordTC,
+                        hint: StringsKeys.password.tr,
+                        maxLines: 1,
+                        obscureText: true,
+                        suffixIcon: AppIcons.lock,
+                        keyboardType: TextInputType.visiblePassword,
+                        padding: EdgeInsets.zero,
+                        onSubmitted: (_) => confirmFunc(),
+                      ),
+              ),
             ),
           ),
         ],
       ),
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actionsPadding: const EdgeInsets.only(
-        bottom: 10,
+        bottom: 18,
       ),
       actions: [
         AppTextButton(

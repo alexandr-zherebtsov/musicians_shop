@@ -1,14 +1,13 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
-import 'package:musicians_shop/data/remote/push_notification_repository.dart';
-import 'package:musicians_shop/domain/models/advert_model.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
+import 'package:musicians_shop/data/remote/push_notification/push_notification_repository.dart';
 import 'package:musicians_shop/presentation/router/routes.dart';
 import 'package:musicians_shop/presentation/ui/adverts/adverts_controller.dart';
 import 'package:musicians_shop/presentation/ui/home/home_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/enums/main_screen_enums.dart';
 
 class MainController extends GetxController {
-  final PushNotificationRepository _pushNotificationRepository;
+  final IPushNotificationRepository _pushNotificationRepository;
 
   MainController(this._pushNotificationRepository);
 
@@ -19,9 +18,11 @@ class MainController extends GetxController {
   }
 
   MainScreenEnums _screenType = MainScreenEnums.home;
+
   MainScreenEnums get screenType => _screenType;
-  set screenType(final MainScreenEnums screenType) {
-    _screenType = screenType;
+
+  set screenType(final MainScreenEnums value) {
+    _screenType = value;
     update();
   }
 
@@ -59,9 +60,8 @@ class MainController extends GetxController {
 
   void unFocus() => Get.focusScope?.unfocus();
 
-  Future<bool> willPopScope() async {
+  void willPopScope() {
     final bool res = screenType == MainScreenEnums.home;
     res ? Get.back() : screenType = MainScreenEnums.home;
-    return kIsWeb ? false : res;
   }
 }

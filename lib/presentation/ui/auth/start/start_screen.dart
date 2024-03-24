@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/auth/start/start_controller.dart';
-import 'package:musicians_shop/shared/constants/app_values.dart';
-import 'package:musicians_shop/shared/core/localization/keys.dart';
+import 'package:musicians_shop/presentation/widgets/app_button.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
 import 'package:musicians_shop/shared/styles/icons.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
-import 'package:musicians_shop/shared/widgets/app_button.dart';
+import 'package:musicians_shop/shared/values/app_values.dart';
 
 class StartScreen extends GetView<StartController> {
-  const StartScreen({Key? key}) : super(key: key);
+  const StartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class StartScreen extends GetView<StartController> {
                       ),
                       child: Text(
                         StringsKeys.musiciansShop.tr,
-                        style: Get.theme.textTheme.headline1,
+                        style: Get.theme.textTheme.displaySmall,
                         textAlign: TextAlign.center,
                       ),
                     ),

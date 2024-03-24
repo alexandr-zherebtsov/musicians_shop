@@ -5,14 +5,14 @@ import 'package:musicians_shop/shared/styles/icons.dart';
 class LikesWidget extends StatelessWidget {
   final int likes;
   final bool liked;
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   const LikesWidget({
-    Key? key,
     required this.likes,
     required this.liked,
     required this.onTap,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class LikesWidget extends StatelessWidget {
                 ),
                 child: Text(
                   likes.toString(),
-                  style: Get.theme.textTheme.bodyText2,
+                  style: Get.theme.textTheme.bodyMedium,
                 ),
               ),
             ),

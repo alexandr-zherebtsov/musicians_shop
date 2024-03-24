@@ -2,7 +2,7 @@ class AppRoutes {
   static const String splash = '/';
   static const String start = '/start';
   static const String registration = '/registration';
-  static const String signUp = '/sign-up';
+  static const String signIn = '/sign-in';
   static const String userData = '/user-data';
   static const String main = '/main';
   static const String create = '/create';

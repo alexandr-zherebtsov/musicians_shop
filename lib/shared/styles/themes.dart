@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:musicians_shop/shared/styles/colors.dart';
 import 'package:musicians_shop/shared/styles/styles.dart';
 
-class AppThemes {
-  static ThemeData getTheme() => Get.isPlatformDarkMode ? light : light;
+final class AppThemes {
+  static ThemeData get appTheme => Get.isPlatformDarkMode ? dark : light;
 
   static final ThemeData light = ThemeData(
     useMaterial3: true,
@@ -14,10 +14,27 @@ class AppThemes {
     brightness: Brightness.light,
     dialogBackgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
-    backgroundColor: AppColors.lightGray,
-    bottomAppBarColor: Colors.white,
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.light,
+      seedColor: Colors.pink,
+      primary: Colors.pink,
+      background: AppColors.lightGray,
+    ),
+    bottomAppBarTheme: const BottomAppBarTheme(
+      height: 56,
+      elevation: 0,
+      color: Colors.white,
+      surfaceTintColor: Colors.white,
+      padding: EdgeInsets.zero,
+    ),
+    dividerTheme: const DividerThemeData(
+      color: AppColors.mediumGray,
+    ),
     cardColor: Colors.white,
     cardTheme: CardTheme(
+      elevation: 4,
+      shadowColor: Colors.black45,
+      clipBehavior: Clip.hardEdge,
       color: Colors.white,
       surfaceTintColor: Colors.white,
       shape: RoundedRectangleBorder(
@@ -33,6 +50,11 @@ class AppThemes {
     dialogTheme: const DialogTheme(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      modalBackgroundColor: Colors.white,
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
@@ -61,6 +83,9 @@ class AppThemes {
       ),
     ),
     indicatorColor: Colors.pink,
+    inputDecorationTheme: const InputDecorationTheme(
+      suffixIconColor: Colors.black,
+    ),
     tabBarTheme: const TabBarTheme(
       labelColor: Colors.black,
       unselectedLabelColor: Colors.black,
@@ -77,48 +102,47 @@ class AppThemes {
       ),
     ),
     textTheme: const TextTheme(
-      headline1: TextStyle(
+      displaySmall: TextStyle(
         color: Colors.black,
         fontSize: 34,
         fontWeight: FontWeight.w400,
       ),
-      headline2: TextStyle(
+      headlineLarge: TextStyle(
         color: Colors.black,
         fontSize: 26,
         fontWeight: FontWeight.w400,
       ),
-      headline3: TextStyle(
+      headlineMedium: TextStyle(
         color: Colors.black,
-        fontSize: 24,
+        fontSize: 25,
         fontWeight: FontWeight.w400,
       ),
-      headline4: TextStyle(
+      titleLarge: TextStyle(
         color: Colors.black,
         fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
-      headline5: TextStyle(
+      titleMedium: TextStyle(
         color: Colors.black,
         fontSize: 18,
         fontWeight: FontWeight.w400,
       ),
-      button: TextStyle(
+      titleSmall: TextStyle(
         color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
-      bodyText1: TextStyle(
+      bodyLarge: TextStyle(
         color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: Colors.black,
         fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
     ),
-    dividerColor: AppColors.mediumGray,
   );
   static final ThemeData dark = ThemeData(
     useMaterial3: true,
@@ -127,10 +151,27 @@ class AppThemes {
     brightness: Brightness.dark,
     dialogBackgroundColor: Colors.black,
     scaffoldBackgroundColor: AppColors.mediumBlack,
-    backgroundColor: Colors.black,
-    bottomAppBarColor: AppColors.mediumBlack,
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: Colors.pink,
+      primary: Colors.pink,
+      background: Colors.black,
+    ),
+    bottomAppBarTheme: const BottomAppBarTheme(
+      height: 56,
+      elevation: 0,
+      color: AppColors.mediumBlack,
+      surfaceTintColor: AppColors.mediumBlack,
+      padding: EdgeInsets.zero,
+    ),
+    dividerTheme: const DividerThemeData(
+      color: AppColors.lightBlack,
+    ),
     cardColor: AppColors.lightBlack,
     cardTheme: CardTheme(
+      elevation: 4,
+      shadowColor: Colors.black,
+      clipBehavior: Clip.hardEdge,
       color: AppColors.lightBlack,
       surfaceTintColor: AppColors.lightBlack,
       shape: RoundedRectangleBorder(
@@ -146,6 +187,11 @@ class AppThemes {
     dialogTheme: const DialogTheme(
       backgroundColor: AppColors.mediumBlack,
       surfaceTintColor: AppColors.mediumBlack,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppColors.mediumBlack,
+      surfaceTintColor: AppColors.mediumBlack,
+      modalBackgroundColor: AppColors.mediumBlack,
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
@@ -174,6 +220,9 @@ class AppThemes {
       ),
     ),
     indicatorColor: Colors.pink,
+    inputDecorationTheme: const InputDecorationTheme(
+      suffixIconColor: Colors.white,
+    ),
     tabBarTheme: const TabBarTheme(
       labelColor: Colors.white,
       unselectedLabelColor: Colors.white,
@@ -190,47 +239,46 @@ class AppThemes {
       ),
     ),
     textTheme: const TextTheme(
-      headline1: TextStyle(
+      displaySmall: TextStyle(
         color: Colors.white,
         fontSize: 34,
         fontWeight: FontWeight.w400,
       ),
-      headline2: TextStyle(
+      headlineLarge: TextStyle(
         color: Colors.white,
         fontSize: 26,
         fontWeight: FontWeight.w400,
       ),
-      headline3: TextStyle(
+      headlineMedium: TextStyle(
         color: Colors.white,
-        fontSize: 24,
+        fontSize: 25,
         fontWeight: FontWeight.w400,
       ),
-      headline4: TextStyle(
+      titleLarge: TextStyle(
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
-      headline5: TextStyle(
+      titleMedium: TextStyle(
         color: Colors.white,
         fontSize: 18,
         fontWeight: FontWeight.w400,
       ),
-      button: TextStyle(
+      titleSmall: TextStyle(
         color: Colors.white,
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
-      bodyText1: TextStyle(
+      bodyLarge: TextStyle(
         color: Colors.white,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: Colors.white,
         fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
     ),
-    dividerColor: AppColors.lightBlack,
   );
 }
