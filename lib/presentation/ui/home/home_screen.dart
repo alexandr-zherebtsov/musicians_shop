@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicians_shop/data/models/advert_model.dart';
 import 'package:musicians_shop/presentation/ui/home/home_controller.dart';
 import 'package:musicians_shop/presentation/ui/main/widgets/advert_card.dart';
 import 'package:musicians_shop/presentation/widgets/app_error_widget.dart';
@@ -82,21 +84,9 @@ class HomeScreen extends StatelessWidget {
                                   },
                                 );
                         } else {
-                          return ListView.builder(
-                            itemCount: controller.adverts.length,
-                            itemBuilder: (_, int i) {
-                              return AdvertCard(
-                                screen: screen,
-                                advert: controller.adverts[i],
-                                uid: controller.uid,
-                                onTapCard: () => controller.goToAdvert(
-                                  controller.adverts[i],
-                                ),
-                                onTapLike: () => controller.likeAdvert(
-                                  controller.adverts[i],
-                                ),
-                              );
-                            },
+                          return _AdvertsView(
+                            screen: screen,
+                            controller: controller,
                           );
                         }
                       },
@@ -107,6 +97,63 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         }
+      },
+    );
+  }
+}
+
+class _AdvertsView extends StatelessWidget {
+  final ResponsiveScreen screen;
+  final HomeController controller;
+
+  const _AdvertsView({
+    required this.screen,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: controller.streamAdverts,
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+      ) {
+        if (snapshot.hasData) {
+          if ((snapshot.data?.docs ?? []).isEmpty) {
+            return const AppErrorWidget(
+              title: StringsKeys.thereAreNoAdverts,
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data?.docs.length ?? 0,
+            itemBuilder: (_, int i) {
+              final AdvertModel? advert = AdvertModel.fromObject(
+                snapshot.data?.docs[i].data(),
+              );
+              if (advert != null) {
+                return AdvertCard(
+                  screen: screen,
+                  advert: advert,
+                  uid: controller.uid,
+                  onTapCard: () => controller.goToAdvert(
+                    advert,
+                  ),
+                  onTapLike: () => controller.likeAdvert(
+                    advert,
+                    isStream: true,
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          );
+        } else if (snapshot.hasError) {
+          return const AppErrorWidget(
+            title: StringsKeys.thereAreNoAdverts,
+          );
+        }
+        return const AppProgress();
       },
     );
   }

@@ -34,6 +34,13 @@ class AdvertModel {
     this.userCount,
   });
 
+  static AdvertModel? fromObject(final Object? data) {
+    if (data is Map<String, dynamic>) {
+      return AdvertModel.fromJson(data);
+    }
+    return null;
+  }
+
   AdvertModel.fromJson(final Map<String, dynamic> json) {
     id = json['id'];
     uid = json['uid'];

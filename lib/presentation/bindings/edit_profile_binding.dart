@@ -45,8 +45,8 @@ class EditProfileBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<EditProfileController>(
-      () => EditProfileController(
+    Get.put<EditProfileController>(
+      EditProfileController(
         FirebaseAuth.instance.currentUser?.uid,
         Get.find<IUserRepository>(),
         Get.find<IInstrumentTypesRepository>(),

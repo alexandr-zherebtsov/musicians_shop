@@ -66,6 +66,7 @@ const Map<String, String> uk = <String, String>{
   StringsKeys.likes: 'Вподобання',
   StringsKeys.recommendations: 'Рекомендації',
   StringsKeys.back: 'Повернутися',
+  StringsKeys.newAdvertCreated: 'Створено нове оголошення!',
   // instruments
   InstrumentsKeys.other: 'Інше',
   InstrumentsKeys.electricGuitar: 'Електрогітара',
