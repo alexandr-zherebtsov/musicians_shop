@@ -71,8 +71,8 @@ class CreateBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<CreateController>(
-      () => CreateController(
+    Get.put<CreateController>(
+      CreateController(
         FirebaseAuth.instance.currentUser!.uid,
         Get.find<IFileRepository>(),
         Get.find<IUserRepository>(),

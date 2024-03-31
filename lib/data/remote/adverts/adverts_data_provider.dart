@@ -7,6 +7,8 @@ import 'package:musicians_shop/data/remote/handle_errors/handle_errors_repositor
 import 'package:musicians_shop/shared/values/app_values.dart';
 
 abstract interface class IAdvertsDataProvider extends BaseDataProvider {
+  Stream<QuerySnapshot<Object?>> get streamAdverts;
+
   Future<List<AdvertModel>> getAdverts();
 
   Future<bool> createAdvert(final AdvertModel advert);
@@ -35,6 +37,14 @@ final class AdvertsDataProvider implements IAdvertsDataProvider {
   final FirebaseFirestore _firestore;
   final FirebaseAnalytics _analytics;
   final IHandleErrorsRepository _errorHandler;
+
+  @override
+  Stream<QuerySnapshot<Object?>> get streamAdverts {
+    final CollectionReference ref = _firestore.collection(
+      AppValues.collectionAdverts,
+    );
+    return ref.orderBy('updatedAt').snapshots();
+  }
 
   @override
   Future<List<AdvertModel>> getAdverts() async {

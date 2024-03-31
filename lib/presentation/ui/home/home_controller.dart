@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,6 +58,9 @@ class HomeController extends GetxController {
   Future<void> getAdverts() async {
     adverts = await _advertsRepository.getAdverts();
   }
+
+  Stream<QuerySnapshot<Object?>> get streamAdverts =>
+      _advertsRepository.streamAdverts;
 
   Future<void> getUser() async {
     user = await _userRepository.getUser(uid);
@@ -133,7 +137,7 @@ class HomeController extends GetxController {
     }
   }
 
-  void likeAdvert(AdvertModel advert) async {
+  void likeAdvert(AdvertModel advert, {final bool isStream = false}) async {
     List<String> oldLikes = <String>[];
     oldLikes.addAll(advert.likes ?? []);
     if (advert.likes == null) {
@@ -143,9 +147,11 @@ class HomeController extends GetxController {
     } else {
       advert.likes!.add(uid);
     }
-    update();
+    if (!isStream) {
+      update();
+    }
     final bool res = await _advertsRepository.editAdvert(advert);
-    if (!res) {
+    if (!isStream && !res) {
       advert.likes = oldLikes;
       update();
     }

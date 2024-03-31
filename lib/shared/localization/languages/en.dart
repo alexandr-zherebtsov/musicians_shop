@@ -66,6 +66,7 @@ const Map<String, String> en = <String, String>{
   StringsKeys.likes: 'Likes',
   StringsKeys.recommendations: 'Recommendations',
   StringsKeys.back: 'Back',
+  StringsKeys.newAdvertCreated: 'A new advert has been created!',
   // instruments
   InstrumentsKeys.other: 'Other',
   InstrumentsKeys.electricGuitar: 'Electric guitar',

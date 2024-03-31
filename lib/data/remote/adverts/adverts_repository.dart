@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:musicians_shop/data/base/base_repository.dart';
 import 'package:musicians_shop/data/models/advert_model.dart';
 import 'package:musicians_shop/data/remote/adverts/adverts_data_provider.dart';
 
 abstract interface class IAdvertsRepository extends BaseRepository {
+  Stream<QuerySnapshot<Object?>> get streamAdverts;
+
   Future<List<AdvertModel>> getAdverts();
 
   Future<bool> createAdvert(final AdvertModel advert);
@@ -22,6 +25,10 @@ final class AdvertsRepository implements IAdvertsRepository {
   }) : _dataProvider = dataProvider;
 
   final IAdvertsDataProvider _dataProvider;
+
+  @override
+  Stream<QuerySnapshot<Object?>> get streamAdverts =>
+      _dataProvider.streamAdverts;
 
   @override
   Future<List<AdvertModel>> getAdverts() => _dataProvider.getAdverts();

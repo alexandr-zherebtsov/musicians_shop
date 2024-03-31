@@ -63,4 +63,5 @@ class StringsKeys {
   static const String likes = 'likes';
   static const String recommendations = 'recommendations';
   static const String back = 'back';
+  static const String newAdvertCreated = 'newAdvertCreated';
 }

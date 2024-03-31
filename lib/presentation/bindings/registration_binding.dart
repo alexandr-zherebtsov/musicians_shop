@@ -19,8 +19,8 @@ class RegistrationBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<RegistrationController>(
-      () => RegistrationController(),
+    Get.put<RegistrationController>(
+      RegistrationController(),
     );
   }
 }

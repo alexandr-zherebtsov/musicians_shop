@@ -117,7 +117,6 @@ class MyProfileController extends GetxController {
     Get.back();
     try {
       final ImagePicker picker = ImagePicker();
-      MainUtils.showAppNotification(source.toString());
       final XFile? xFile = await picker.pickImage(
         source: source,
         preferredCameraDevice: CameraDevice.front,

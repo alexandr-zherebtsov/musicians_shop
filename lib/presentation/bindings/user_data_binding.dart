@@ -21,8 +21,8 @@ class UserDataBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<UserDataController>(
-      () => UserDataController(
+    Get.put<UserDataController>(
+      UserDataController(
         Get.find<IUserRepository>(),
       ),
     );

@@ -34,14 +34,14 @@ class AdvertBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<AdvertController>(
-      () => AdvertController(
+    Get.put<AdvertController>(
+      AdvertController(
         Get.find<IFileRepository>(),
         Get.find<IAdvertsRepository>(),
       ),
     );
-    Get.lazyPut<AdvertsController>(
-      () => AdvertsController(
+    Get.put<AdvertsController>(
+      AdvertsController(
         Get.find<IAdvertsRepository>(),
       ),
     );

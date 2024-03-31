@@ -21,8 +21,8 @@ class UserProfileBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<UserProfileController>(
-      () => UserProfileController(
+    Get.put<UserProfileController>(
+      UserProfileController(
         Get.find<IUserRepository>(),
       ),
     );

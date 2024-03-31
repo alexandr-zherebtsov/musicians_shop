@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicians_shop/presentation/ui/adverts/adverts_screen.dart';
@@ -10,14 +13,55 @@ import 'package:musicians_shop/presentation/ui/main/main_controller.dart';
 import 'package:musicians_shop/presentation/ui/profile/my_profile/my_profile_screen.dart';
 import 'package:musicians_shop/presentation/ui/statistic/statistic_screen.dart';
 import 'package:musicians_shop/presentation/widgets/app_error_widget.dart';
+import 'package:musicians_shop/shared/localization/keys.dart';
+import 'package:musicians_shop/shared/utils/utils.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  late final MainController _controller;
+  late final StreamSubscription<QuerySnapshot<Object?>> _streamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = Get.find<MainController>();
+    _streamSubscription = _controller.streamAdverts.listen((data) {
+      if (data.docs.isNotEmpty) {
+        final int length = data.docs.length;
+        if (_controller.streamDataLength == null &&
+            _controller.streamDataLengthOld == null) {
+          _controller.streamDataBoth(length);
+        } else {
+          _controller.streamDataLength = length;
+        }
+        if ((_controller.streamDataLength ?? 0) >
+            (_controller.streamDataLengthOld ?? 0)) {
+          MainUtils.showAppNotification(StringsKeys.newAdvertCreated.tr);
+          _controller.playAudio();
+        } else if ((_controller.streamDataLength ?? 0) <
+            (_controller.streamDataLengthOld ?? 0)) {
+          _controller.streamDataBoth(length);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamSubscription.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MainController>(
-      init: Get.find<MainController>(),
+      init: _controller,
       builder: (MainController controller) {
         return GestureDetector(
           onTap: controller.unFocus,

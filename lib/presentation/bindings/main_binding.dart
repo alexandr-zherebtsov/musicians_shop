@@ -90,24 +90,25 @@ class MainBinding extends Bindings {
         Get.find<IPreferenceManager>(),
       ),
     );
-    Get.lazyPut<MainController>(
-      () => MainController(
+    Get.put<MainController>(
+      MainController(
+        Get.find<IAdvertsRepository>(),
         Get.find<IPushNotificationRepository>(),
       ),
     );
-    Get.lazyPut<AdvertsController>(
-      () => AdvertsController(
+    Get.put<AdvertsController>(
+      AdvertsController(
         Get.find<IAdvertsRepository>(),
       ),
     );
-    Get.lazyPut<StatisticController>(
-      () => StatisticController(
+    Get.put<StatisticController>(
+      StatisticController(
         Get.find<IUserRepository>(),
         Get.find<IAdvertsRepository>(),
       ),
     );
-    Get.lazyPut<HomeController>(
-      () => HomeController(
+    Get.put<HomeController>(
+      HomeController(
         Get.find<IUserRepository>(),
         Get.find<IAdvertsRepository>(),
       ),

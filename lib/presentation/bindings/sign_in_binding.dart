@@ -19,8 +19,8 @@ class SignInBinding extends Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<SignInController>(
-      () => SignInController(),
+    Get.put<SignInController>(
+      SignInController(),
     );
   }
 }

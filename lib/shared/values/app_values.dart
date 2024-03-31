@@ -44,4 +44,11 @@ final class AppValues {
 
   /// Android notification icon
   static const String androidNotificationIcon = 'ic_notification';
+
+  /// App launcher icon
+  static const String launcherIcon = 'assets/images/app_icon.png';
+
+  /// Notification sound
+  static const String notificationSound =
+      'assets/audios/notification_sound.wav';
 }
